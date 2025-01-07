@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Highlight;
 use App\Models\NoHandphone;
 use App\Models\PivotProductTag;
 use App\Models\Product;
@@ -49,6 +50,7 @@ class ProductController extends Controller
         $newdata->address = $request->address;
         $newdata->no_tlp = $request->no_tlp;
         $newdata->youtube = $request->link;
+        $newdata->statis = 'active';
 
         if ($request->hasFile('thumbnail')) {
             $imageFile = $request->file('thumbnail');
@@ -217,6 +219,17 @@ class ProductController extends Controller
         // Loop through each gallery image and delete it
         foreach ($productGalleries as $gallery) {
             $galleryPath = public_path('storage/images/product/gallery/' . $gallery->image); // Adjust the path as needed
+            if (file_exists($galleryPath)) {
+                unlink($galleryPath);
+            }
+            // Delete the gallery record from the database
+            $gallery->delete();
+        }
+
+        $highlight = Highlight::where('product_id', $product->id)->get();
+
+        foreach ($highlight as $item) {
+            $galleryPath = public_path('storage/images/product/highlight/' . $item->image); // Adjust the path as needed
             if (file_exists($galleryPath)) {
                 unlink($galleryPath);
             }

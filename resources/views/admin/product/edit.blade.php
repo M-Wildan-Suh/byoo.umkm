@@ -106,6 +106,19 @@
                                         <label for="address">Address</label>
                                         <textarea class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="address" id="address" rows="5">{{$product->address}}</textarea>
                                     </div>
+                                    <div class=" space-y-2">
+                                        <label for="address">Address</label>
+                                        <div class=" w-full grid grid-cols-2 gap-4">
+                                            <div class=" flex items-center gap-3">
+                                                <input type="radio" id="active" name="status" value="active" checked id="">
+                                                <label for="active">Active</label>
+                                            </div>
+                                            <div class=" flex items-center gap-3">
+                                                <input type="radio" id="unactive" name="status" value="unactive" {{$product->status === 'unactive' ? 'checked' : ''}} id="">
+                                                <label for="unactive">Unactive</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <x-admin.component.taginput title="Tag" :value="$product->productTags" name="tag[]" :tag="$tag"></x-admin.component.taginput>
                                     <div class=" space-y-2">
                                         <label for="template">template</label>

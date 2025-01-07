@@ -23,6 +23,8 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 
 Route::get('/create-product', [PageController::class, 'createproduct'])->name('create.product');
 
+Route::post('/store-product', [PageController::class, 'storeproduct'])->name('store.product');
+
 Route::get('/admin/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

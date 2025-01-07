@@ -2,19 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Highlight;
 use App\Models\NoHandphone;
 use App\Models\PivotProductTag;
 use App\Models\Product;
+use App\Models\ProductGallery;
 use App\Models\ProductTag;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class PageController extends Controller
 {
     public function home(Request $request) {
         // dd($request->filter);
         $no_tlp = NoHandphone::first()->no_tlp;
+        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
         if ($request->filter === 'all' && $request->search) {
             $data = Product::where('status', 'active')->where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
         } elseif ($request->filter && $request->search) {
@@ -54,7 +59,12 @@ class PageController extends Controller
     }
     public function detail($slug) {
         $no_tlp = NoHandphone::first()->no_tlp;
+        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
         $data = Product::where('name', ucwords(str_replace('-', ' ', $slug)))->first();
+
+        if (!$data) {
+            return redirect()->route('home');
+        }
 
         // Parsing URL YouTube
         $url = $data->youtube;
@@ -85,6 +95,122 @@ class PageController extends Controller
 
     }
     public function createproduct() {
-        return view('create-product');
+        $tag = ProductTag::all();
+        return view('create-product', compact('tag'));
+    }
+    public function storeproduct(Request $request) {
+        // foreach ($request->file('image_gallery') as $item) {
+        //     dd($item);
+        // }
+        // dd($request);
+        $newdata= new Product();
+
+        $newdata->name = $request->name;
+        $newdata->subtitle = $request->subtitle;
+        $newdata->price = $request->price;
+        $newdata->template = $request->template;
+        $newdata->description = $request->description;
+        $newdata->address = $request->address;
+        $newdata->no_tlp = $request->no_tlp;
+        $newdata->youtube = $request->link; 
+
+        if ($request->hasFile('thumbnail')) {
+            $imageFile = $request->file('thumbnail');
+            $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
+            $imagePath = public_path('storage/images/product/');
+
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($imageFile->getPathname());
+            $imageFullPath = $imagePath . $imageName . '.webp';
+            $image->save($imageFullPath);
+
+            $newdata->image = $imageName . '.webp';
+        }
+
+        $newdata->save();
+
+        if ($request->tag) {
+            foreach ($request->tag as $item) {
+                $tag = ProductTag::where('tag', $item)->first();
+                
+                if ($tag) {
+                    $newpivot = new PivotProductTag;
+    
+                    $newpivot->tag_id = $tag->id;
+                    $newpivot->product_id = $newdata->id;
+    
+                    $newpivot->save();
+                } else {
+                    $newtag = new ProductTag;
+
+                    $newtag->tag = ucfirst($item);
+
+                    $newtag->save();
+
+                    $newpivot = new PivotProductTag;
+    
+                    $newpivot->tag_id = $newtag->id;
+                    $newpivot->product_id = $newdata->id;
+    
+                    $newpivot->save();
+                }
+                
+            }
+        }
+
+        if ($request->inputs) {
+            foreach ($request->inputs as $index => $item) {
+                $newhighlight = new Highlight;
+
+                $newhighlight->product_id = $newdata->id;
+                $newhighlight->title = $item['title'];
+                $newhighlight->description = $request['description'];
+
+                if ($request->hasFile('inputs.'.$index.'.image')) {
+                    $image = $request->file('inputs.'.$index.'.image');
+                    // Get the original filename without the extension
+                    $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                    
+                    // Add the current date to the filename
+                    $currentDate = now()->format('YmdHis');
+                    
+                    // Create a new image name
+                    $imageName = $originalName . '_' . $currentDate;
+                    
+                    // Define the image storage path
+                    $imagePath = public_path('storage/images/product/highlight/');
+                    
+                    $manager = new ImageManager(new Driver());
+                    $imageOptimized = $manager->read($image->getPathname());
+                    $imageFullPath = $imagePath . $imageName . '.webp';
+                    $imageOptimized->save($imageFullPath);
+
+                    $newhighlight->image = $imageName . '.webp';
+                }
+                $newhighlight->save();
+            }
+        }
+
+        if ($request->file('image_gallery')) {
+            foreach ($request->file('image_gallery') as $item) {
+                $newgallery = new ProductGallery;
+                $newgallery->product_id = $newdata->id;
+                if ($item) {
+                    $imageFile = $item;
+                    $imageName = time() . '.' . $imageFile->getClientOriginalExtension();
+                    $imagePath = public_path('storage/images/product/gallery/');
+        
+                    $manager = new ImageManager(new Driver());
+                    $image = $manager->read($imageFile->getPathname());
+                    $imageFullPath = $imagePath . $imageName . '.webp';
+                    $image->save($imageFullPath);
+        
+                    $newgallery->image = $imageName . '.webp';
+                }
+                $newgallery->save();
+            }
+        }
+
+        return redirect()->route('home');
     }
 }

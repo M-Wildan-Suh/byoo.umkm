@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>BizLink</title>
+        <title>Byoo.link</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,7 +23,7 @@
         <link href="{{ asset('build/assets/app.css') }}" rel="stylesheet" />
     </head>
     <body class="antialiased">
-        <div class=" bg-neutral-100 min-h-screen">
+        <div class=" bg-[#D9EAFD] min-h-screen">
             {{$slot}}
         </div>
     </body>

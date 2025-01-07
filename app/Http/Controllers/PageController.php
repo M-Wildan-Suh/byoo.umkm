@@ -16,7 +16,7 @@ class PageController extends Controller
         // dd($request->filter);
         $no_tlp = NoHandphone::first()->no_tlp;
         if ($request->filter === 'all' && $request->search) {
-            $data = Product::where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
+            $data = Product::where('status', 'active')->where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
         } elseif ($request->filter && $request->search) {
             $pivot = PivotProductTag::where('tag_id', $request->filter)->inRandomOrder()->get();
             $pivot->transform(function ($data) {
@@ -27,9 +27,9 @@ class PageController extends Controller
                 return stripos($product->name, $request->search) !== false;
             });
         } elseif ($request->search) {
-            $data = Product::where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
+            $data = Product::where('status', 'active')->where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
         } elseif ($request->filter === 'all') {
-            $data = Product::inRandomOrder()->get();
+            $data = Product::where('status', 'active')->inRandomOrder()->get();
         } elseif ($request->filter) {
             $pivot = PivotProductTag::where('tag_id', $request->filter)->inRandomOrder()->get();
             $pivot->transform(function ($data) {
@@ -38,14 +38,14 @@ class PageController extends Controller
             });
             $data = $pivot;
         } else {
-            $data = Product::inRandomOrder()->get();
+            $data = Product::where('status', 'active')->inRandomOrder()->get();
         }
         $data = $data->map(function ($item) {
             $item->slug = Str::slug($item->name, '-');
             return $item;
         });
         $tag = ProductTag::all();
-        $recomend = Product::all();
+        $recomend = Product::where('status', 'active')->get();
         $recomend = $recomend->map(function ($item) {
             $item->slug = Str::slug($item->name, '-');
             return $item;
@@ -83,5 +83,8 @@ class PageController extends Controller
 
         return view('detail', compact('data', 'no_tlp'));
 
+    }
+    public function createproduct() {
+        return view('create-product');
     }
 }

@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('youtube');
             $table->string('template')->default('one');
             $table->integer('price')->nullable();
+            $table->string('address')->nullable();
+            $table->string('no_tlp')->nullable();
+            $table->string('status')->default('unactive');
             $table->longText('description');
             $table->timestamps();
         });

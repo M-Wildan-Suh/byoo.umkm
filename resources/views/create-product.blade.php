@@ -70,10 +70,37 @@
                                                     </div>
                                                 </div>
                                                 <div class=" w-full md:col-span-2 space-y-6">
-                                                    <div class=" space-y-2">
-                                                        <label for="name">Product Name</label>
-                                                        <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
+                                                    <div x-data="productChecker()">
+                                                        <div class="space-y-2">
+                                                            <label for="name">Product Name</label>
+                                                            <input 
+                                                                class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
+                                                                type="text" 
+                                                                name="name" 
+                                                                id="name"
+                                                                x-model="inputName"
+                                                                @input="checkProductName"
+                                                            >
+                                                            <p x-show="isDuplicate" class="text-red-500 text-sm">Product name already exists!</p>
+                                                        </div>
                                                     </div>
+                                                    
+                                                    <script>
+                                                        function productChecker() {
+                                                            return {
+                                                                // Data produk dari backend (menggunakan Blade untuk memasukkan data)
+                                                                products: @json($product->pluck('name')).map(name => name.toLowerCase()), // Konversi nama produk menjadi huruf kecil
+                                                                inputName: '', // Nilai input
+                                                                isDuplicate: false, // Status duplikasi
+                                                                
+                                                                // Fungsi pengecekan
+                                                                checkProductName() {
+                                                                    // Perbandingan tanpa memperhatikan kapitalisasi
+                                                                    this.isDuplicate = this.products.includes(this.inputName.trim().toLowerCase());
+                                                                }
+                                                            };
+                                                        }
+                                                    </script>                                                    
                                                     <div class=" space-y-2">
                                                         <label for="price">Price</label>
                                                         <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="number" min="0" name="price" id="price">
@@ -103,7 +130,7 @@
                                             <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]"></x-admin.component.taginput>
                                             <div class=" space-y-2">
                                                 <label for="template">template</label>
-                                                <div x-data="{ selected: '{{$product->template ?? ''}}' }" class=" w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                                                <div x-data="{ selected: '' }" class=" w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                                                     <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                                         <input type="radio" name="template" id="two" value="two" class="hidden" 
                                                             @checked(isset($product->template) && $product->template === 'two') 

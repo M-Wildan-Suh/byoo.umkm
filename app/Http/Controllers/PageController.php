@@ -57,6 +57,47 @@ class PageController extends Controller
         });
         return view('welcome', compact('data', 'no_tlp', 'recomend', 'tag'));
     }
+    public function product(Request $request) {
+        // dd($request->filter);
+        $no_tlp = NoHandphone::first()->no_tlp;
+        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
+        if ($request->filter === 'all' && $request->search) {
+            $data = Product::where('status', 'active')->where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
+        } elseif ($request->filter && $request->search) {
+            $pivot = PivotProductTag::where('tag_id', $request->filter)->inRandomOrder()->get();
+            $pivot->transform(function ($data) {
+                $data = $data->product;
+                return $data;
+            });
+            $data = $pivot->filter(function ($product) use ($request) {
+                return stripos($product->name, $request->search) !== false;
+            });
+        } elseif ($request->search) {
+            $data = Product::where('status', 'active')->where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
+        } elseif ($request->filter === 'all') {
+            $data = Product::where('status', 'active')->inRandomOrder()->get();
+        } elseif ($request->filter) {
+            $pivot = PivotProductTag::where('tag_id', $request->filter)->inRandomOrder()->get();
+            $pivot->transform(function ($data) {
+                $data = $data->product;
+                return $data;
+            });
+            $data = $pivot;
+        } else {
+            $data = Product::where('status', 'active')->inRandomOrder()->get();
+        }
+        $data = $data->map(function ($item) {
+            $item->slug = Str::slug($item->name, '-');
+            return $item;
+        });
+        $tag = ProductTag::all();
+        $recomend = Product::where('status', 'active')->get();
+        $recomend = $recomend->map(function ($item) {
+            $item->slug = Str::slug($item->name, '-');
+            return $item;
+        });
+        return view('product', compact('data', 'no_tlp', 'recomend', 'tag'));
+    }
     public function detail($slug) {
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
@@ -96,7 +137,8 @@ class PageController extends Controller
     }
     public function createproduct() {
         $tag = ProductTag::all();
-        return view('create-product', compact('tag'));
+        $product = Product::all();
+        return view('create-product', compact('tag', 'product'));
     }
     public function storeproduct(Request $request) {
         // foreach ($request->file('image_gallery') as $item) {

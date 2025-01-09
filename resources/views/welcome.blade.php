@@ -73,7 +73,7 @@
                     <p class=" text-3xl font-black">Mengapa Harus Kami</p>
                     <p>~~~~~~</p>
                 </div>
-                <div class=" w-full grid grid-cols-3 gap-4 py-8">
+                <div class=" w-full grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-4 py-8">
                     <div class=" w-full bg-[#F8FAFC] rounded-md shadow-md shadow-[#4b5d70]/20 relative">
                         <div class=" w-16 h-16 p-3 bg-[#4b5d70] text-white rounded-md absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2">
                             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h256v256H0z"></path><path d="M221.6 149.4a96.2 96.2 0 0 0 2.4-22.2c-.4-52.9-44.2-95.7-97-95.2a96 96 0 0 0-31 186.5 23.9 23.9 0 0 0 32-22.6V192a23.9 23.9 0 0 1 24-24h46.2a24 24 0 0 0 23.4-18.6Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" class="stroke-000000"></path><circle cx="128" cy="76" r="16" fill="currentColor" class="fill-000000"></circle><circle cx="83" cy="102" r="16" fill="currentColor" class="fill-000000"></circle><circle cx="83" cy="154" r="16" fill="currentColor" class="fill-000000"></circle><circle cx="173" cy="102" r="16" fill="currentColor" class="fill-000000"></circle></svg>

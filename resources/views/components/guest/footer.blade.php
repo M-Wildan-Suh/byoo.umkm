@@ -84,6 +84,19 @@
                     </div>
                 </div>
             </div>
+            <hr>
+        </div>
+        <div class=" w-full">
+            <div class=" text-center text-white pt-6">
+                <p class="text-sm">
+                    © 2025 Byoo.link | Developed by
+                    <span class="hover:underline">
+                        <a href="https://jasawebsite.biz">
+                            Jasa WebsiteBiz
+                        </a>
+                    </span>
+                </p>
+            </div>
         </div>
     </div>
     <div class=" w-full min-h-10 h-10">

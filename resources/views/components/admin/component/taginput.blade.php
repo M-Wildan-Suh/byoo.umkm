@@ -30,7 +30,7 @@
         .selection .select2-selection:focus-within {
             border: 2px solid;
             border-radius: 0.375rem !important;
-            border-color: #6366f1 !important;
+            border-color: #ff7100 !important;
         }
         .selection li {
             margin-top: 0px !important;
@@ -47,7 +47,7 @@
         .select2-dropdown {
             overflow: hidden;
             border-radius: 0.375rem !important;
-            border: 2px solid #6366f1
+            border: 2px solid #ff7100
         }
     </style>
 </div>

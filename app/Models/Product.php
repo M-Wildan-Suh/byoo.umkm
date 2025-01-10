@@ -20,4 +20,8 @@ class Product extends Model
     {
         return $this->hasMany(Highlight::class);
     }
+    public function access()
+    {
+        return $this->hasMany(Access::class);
+    }
 }

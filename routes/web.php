@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AccessController;
 use App\Http\Controllers\HighlightController;
 use App\Http\Controllers\NoHandphoneController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGalleryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +34,12 @@ Route::get('/admin/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::group(['middleware' => 'cekRole'], function () {
+        Route::resource('/admin/user', UserController::class);
+    
+        Route::resource('/admin/access', AccessController::class);
+    });
+
     Route::resource('/admin/no-handphone', NoHandphoneController::class);
 
     Route::resource('/admin/product', ProductController::class);

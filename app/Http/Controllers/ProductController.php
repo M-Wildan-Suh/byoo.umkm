@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Access;
 use App\Models\Highlight;
 use App\Models\NoHandphone;
 use App\Models\PivotProductTag;
@@ -9,6 +10,7 @@ use App\Models\Product;
 use App\Models\ProductGallery;
 use App\Models\ProductTag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
@@ -19,9 +21,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $no_tlp = NoHandphone::first()->no_tlp;
-        $data = Product::all();
-        $tag = ProductTag::all();
+        // dd(Auth::user()->role);
+        if (Auth::user()->role === 'admin') {
+            $no_tlp = NoHandphone::first()->no_tlp;
+            $data = Product::all();
+            $tag = ProductTag::all();
+        } else {
+            $productIds = Access::where('user_id', Auth::id())->pluck('product_id');
+            $no_tlp = NoHandphone::first()->no_tlp;
+            $data = Product::whereIn('id', $productIds)->get();
+            $tag = ProductTag::all();
+        }
         return view('admin.product.index', compact('data', 'no_tlp'));
     }
 
@@ -104,6 +114,11 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $access = Access::where('user_id', Auth::id())->where('product_id', $product->id)->first();
+
+        if (!$access) {
+            return redirect()->back();
+        }
         $product->productTags->transform(function ($data) {
             $data->tag = $data->productTag->tag;
             return $data;

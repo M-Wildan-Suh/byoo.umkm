@@ -49,33 +49,33 @@
                                 <div class=" w-full md:col-span-2 space-y-6">
                                     <div class=" space-y-2">
                                         <label for="name">Product Name</label>
-                                        <input class=" w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="text" name="name" id="name">
+                                        <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="price">Price</label>
-                                        <input class=" w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="number" min="0" name="price" id="price">
+                                        <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="number" min="0" name="price" id="price">
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="link">Link Youtube</label>
-                                        <input class=" w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="text" name="link" id="link">
+                                        <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="link" id="link">
                                     </div>
                                 </div>
                             </div>
                             <div class=" space-y-2">
                                 <label for="subtitle">Sub Title</label>
-                                <textarea class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64"></textarea>
+                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64"></textarea>
                             </div>
                             <div class=" space-y-2">
                                 <label for="no_tlp">No. Telephone</label>
-                                <input class=" w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
+                                <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
                             </div>
                             <div class=" space-y-2">
                                 <label for="desc">Description</label>
-                                <textarea class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="description" id="desc" rows="5"></textarea>
+                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5"></textarea>
                             </div>
                             <div class=" space-y-2">
                                 <label for="address">Address</label>
-                                <textarea class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="address" id="address" rows="5"></textarea>
+                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="5"></textarea>
                             </div>
                             <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]"></x-admin.component.taginput>
                             <div class=" space-y-2">
@@ -165,56 +165,8 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div x-data="imageGallery" class="flex flex-col gap-2">
-                                <label for="image_gallery">Gallery</label>
-                                <input type="file" class="hidden" id="image_gallery" name="image_gallery[]" multiple @input="previewImages" accept="image/*">
-                                
-                                <!-- Pratinjau Gambar -->
-                                <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                                    <!-- Loop Gambar -->
-                                    <template x-for="(image, index) in images" :key="index">
-                                        <div class="w-full aspect-[3/2] rounded-md relative overflow-hidden">
-                                            <img :src="image" class="w-full h-full object-cover" alt="Gallery Image Preview">
-                                            <!-- Tombol Hapus Gambar -->
-                                            <button @click="removeImage(index)" class="absolute inset-0 text-transparent hover:bg-black/60 hover:text-white/50 transition duration-300 p-[20%]">
-                                                <svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="M19.5 8.99h-15a.5.5 0 0 0-.5.5v12.5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9.49a.5.5 0 0 0-.5-.5Zm-9.25 11.5a.75.75 0 0 1-1.5 0v-8.625a.75.75 0 0 1 1.5 0Zm5 0a.75.75 0 0 1-1.5 0v-8.625a.75.75 0 0 1 1.5 0ZM20.922 4.851a11.806 11.806 0 0 0-4.12-1.07 4.945 4.945 0 0 0-9.607 0A12.157 12.157 0 0 0 3.18 4.805 1.943 1.943 0 0 0 2 6.476 1 1 0 0 0 3 7.49h18a1 1 0 0 0 1-.985 1.874 1.874 0 0 0-1.078-1.654ZM11.976 2.01A2.886 2.886 0 0 1 14.6 3.579a44.676 44.676 0 0 0-5.2 0 2.834 2.834 0 0 1 2.576-1.569Z" fill="currentColor" class="fill-000000"></path></svg>
-                                            </button>
-                                        </div>
-                                    </template>
-                            
-                                    <!-- Tambahkan Gambar (Placeholder jika kurang dari 8 gambar) -->
-                                    <template x-if="images.length < 8">
-                                        <label for="image_gallery" class="w-full aspect-[3/2] border bg-neutral-100 border-neutral-600 rounded-md relative border-dashed overflow-hidden">
-                                            <label for="image_gallery" class="w-full text-neutral-600 h-full absolute top-0 left-0 flex justify-center items-center p-[20%] hover:bg-neutral-600 hover:text-white/50 duration-300 cursor-pointer">
-                                                <svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="m9 13 3-4 3 4.5V12h4V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-4H5l3-4 1 2z" fill="currentColor" class="fill-000000"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z" fill="currentColor" class="fill-000000"></path></svg>
-                                            </label>
-                                        </label>
-                                    </template>
-                                </div>
-                            </div>
-                            
-                            <script>
-                                function imageGallery() {
-                                    return {
-                                        images: [],
-                                        
-                                        previewImages(event) {
-                                            const files = Array.from(event.target.files).slice(0, 8 - this.images.length);
-                                            files.forEach(file => {
-                                                const url = URL.createObjectURL(file);
-                                                this.images.push(url);
-                                            });
-                                        },
-                                        
-                                        removeImage(index) {
-                                            this.images.splice(index, 1);
-                                        }
-                                    };
-                                }
-                            </script> --}}
-                            
                             <div class="">
-                                <button class=" font-bold w-full py-2 bg-indigo-500 hover:bg-indigo-700 duration-300 text-white rounded-md text-center">Save</button>
+                                <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Save</button>
                             </div>
                         </div>
                     </form>

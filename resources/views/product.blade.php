@@ -65,10 +65,10 @@
                         <p class=" text-3xl font-black">Product</p>
                         <p>~~~~~~</p>
                     </div>
-                    <form action="{{ route('home') }}" class="flex justify-end" method="GET">
+                    <form action="{{ route('allproduct') }}" class="flex justify-end" method="GET">
                         <div class="w-full flex items-center justify-end gap-4">
                             <!-- Search Input -->
-                            <input type="text" name="search" placeholder="Search..." class="w-full sm:w-auto py-1 rounded-md" value="{{ request('search') }}" @input="document.querySelector('form').submit()">
+                            <input type="text" name="search" placeholder="Search..." class="w-full sm:w-auto py-1 rounded-md focus:border-[#ff7100] focus:ring-[#ff7100]" value="{{ request('search') }}" @input="document.querySelector('form').submit()">
                     
                             <!-- Dropdown Filter -->
                             <div x-data="{ open: false }" class="relative">

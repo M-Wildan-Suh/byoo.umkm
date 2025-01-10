@@ -11,19 +11,19 @@
                 <div class="flex flex-row gap-4">
                     <button 
                         @click="activeTab = 'product'" 
-                        :class="activeTab === 'product' ? 'text-indigo-500 border-indigo-500' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
+                        :class="activeTab === 'product' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
                         class="px-3 pb-2 border-b-2">
                         Product
                     </button>
                     <button 
                         @click="activeTab = 'highlight'" 
-                        :class="activeTab === 'highlight' ? 'text-indigo-500 border-indigo-500' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
+                        :class="activeTab === 'highlight' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
                         class="px-3 pb-2 border-b-2">
                         Highlight
                     </button>
                     <button 
                         @click="activeTab = 'gallery'" 
-                        :class="activeTab === 'gallery' ? 'text-indigo-500 border-indigo-500' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
+                        :class="activeTab === 'gallery' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
                         class="px-3 pb-2 border-b-2">
                         Gallery
                     </button>
@@ -78,33 +78,33 @@
                                         <div class=" w-full md:col-span-2 space-y-6">
                                             <div class=" space-y-2">
                                                 <label for="name">Product Name</label>
-                                                <input value="{{$product->name}}" class=" w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="text" name="name" id="name">
+                                                <input value="{{$product->name}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
                                             </div>
                                             <div class=" space-y-2">
                                                 <label for="price">Price</label>
-                                                <input value="{{$product->price}}" class=" w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="number" min="0" name="price" id="price">
+                                                <input value="{{$product->price}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="number" min="0" name="price" id="price">
                                             </div>
                                             <div class=" space-y-2">
                                                 <label for="link">Link Youtube</label>
-                                                <input value="{{$product->youtube}}" class=" w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="text" name="link" id="link">
+                                                <input value="{{$product->youtube}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="link" id="link">
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="subtitle">Sub Title</label>
-                                        <textarea class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64">{{$product->subtitle}}</textarea>
+                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64">{{$product->subtitle}}</textarea>
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="no_tlp">No. Telephone</label>
-                                        <input value="{{$product->no_tlp}}" class=" w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
+                                        <input value="{{$product->no_tlp}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="desc">Description</label>
-                                        <textarea class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="description" id="desc" rows="5">{{$product->description}}</textarea>
+                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5">{{$product->description}}</textarea>
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="address">Address</label>
-                                        <textarea class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" name="address" id="address" rows="5">{{$product->address}}</textarea>
+                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="5">{{$product->address}}</textarea>
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="address">Address</label>
@@ -209,7 +209,7 @@
                                     </div>
                                     
                                     <div class="">
-                                        <button class=" font-bold w-full py-2 bg-indigo-500 hover:bg-indigo-700 duration-300 text-white rounded-md text-center">Save</button>
+                                        <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -279,7 +279,7 @@
                                                 </div>
                                             </form>
                                             <div class=" min-w-[50px] grid grid-cols-1 grid-rows-2 gap-1">
-                                                <button onclick="submitHighlightForm({{$item->id}})" class=" min-w-[50px] bg-indigo-500 hover:bg-indigo-700 duration-300 text-white rounded-md text-center text-sm">Edit</button>
+                                                <button onclick="submitHighlightForm({{$item->id}})" class=" min-w-[50px] bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center text-sm">Edit</button>
                                                 <form action="{{route('highlight.destroy', ['highlight'=>$item->id])}}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -350,14 +350,14 @@
                                                     <input type="text" name="title" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" placeholder="Title" maxlength="27" >
                                                     <textarea name="description" id="description" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Description" maxlength="64" cols="40"></textarea>
                                                 </div>
-                                                <button class=" min-w-[50px] bg-indigo-500 hover:bg-indigo-700 duration-300 text-white rounded-md text-center text-sm">Save</button>
+                                                <button class=" min-w-[50px] bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center text-sm">Save</button>
                                             </div>
                                         </form>
                                     @endif
                                 </div>
                                 <div class="">
                                     <a href="{{route('product.index')}}">
-                                        <button class=" font-bold w-full py-2 bg-indigo-500 hover:bg-indigo-700 duration-300 text-white rounded-md text-center">Save</button>
+                                        <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Save</button>
                                     </a>
                                 </div>
                             </div>
@@ -456,7 +456,7 @@
                             </script>
                             <div class="">
                                 <a href="{{route('product.index')}}">
-                                    <button class=" font-bold w-full py-2 bg-indigo-500 hover:bg-indigo-700 duration-300 text-white rounded-md text-center">Save</button>
+                                    <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Save</button>
                                 </a>
                             </div>
                         </div>

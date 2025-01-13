@@ -31,8 +31,7 @@ class GenerateSitemap extends Command
     {
         $sitemap = Sitemap::create()
             ->add(Url::create('/')->setLastModificationDate(now()))
-            ->add(Url::create('/about')->setLastModificationDate(now()))
-            ->add(Url::create('/contact')->setLastModificationDate(now()));
+            ->add(Url::create('/product')->setLastModificationDate(now()));
 
             foreach (Product::all() as $model) {
                 $slug = Str::slug($model->name, '-');

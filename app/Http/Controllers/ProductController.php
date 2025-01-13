@@ -60,7 +60,7 @@ class ProductController extends Controller
         $newdata->address = $request->address;
         $newdata->no_tlp = $request->no_tlp;
         $newdata->youtube = $request->link;
-        $newdata->statis = 'active';
+        $newdata->status = 'active';
 
         if ($request->hasFile('thumbnail')) {
             $imageFile = $request->file('thumbnail');

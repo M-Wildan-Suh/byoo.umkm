@@ -33,7 +33,7 @@ class SitemapController extends Controller
 
         $sitemap->writeToFile($sitemapPath);
 
-        return response()->download($sitemapPath);
+        // return response()->download($sitemapPath);
     }
 }
 

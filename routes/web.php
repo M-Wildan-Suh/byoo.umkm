@@ -7,6 +7,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGalleryController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,8 @@ Route::get('/product', [PageController::class, 'product'])->name('allproduct');
 Route::get('/create-product', [PageController::class, 'createproduct'])->name('create.product');
 
 Route::post('/store-product', [PageController::class, 'storeproduct'])->name('store.product');
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 Route::get('/admin/dashboard', function () {
     return view('dashboard');

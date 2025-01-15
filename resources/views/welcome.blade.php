@@ -50,8 +50,7 @@
                             <div class="flex justify-center sm:justify-start">
                                 <a href="{{ route('allproduct') }}">
                                     <button
-                                        class=" px-4 flex justify-center py-2 border rounded-md text-white bg-[#ff7100] border-[#ff7100] hover:text-white hover:bg-[#b95300] hover:border-[#b95300] font-black duration-300 relative">Lihat
-                                        Product</button>
+                                        class=" px-4 flex justify-center py-2 border rounded-md text-white bg-[#ff7100] border-[#ff7100] hover:text-white hover:bg-[#b95300] hover:border-[#b95300] font-black duration-300 relative">Komunitas</button>
                                 </a>
                             </div>
                         </div>
@@ -136,7 +135,7 @@
         <div class="w-full max-w-[1080px] mx-auto">
             <div class=" w-full space-y-8 pb-24">
                 <div class=" w-full flex flex-col items-center justify-center text-[#4b5d70]">
-                    <p class=" text-3xl font-black">Product</p>
+                    <p class=" text-3xl font-black">Komunitas</p>
                     <p>~~~~~~</p>
                 </div>
                 <div class="grid grid-cols-2 gap-3 lg:gap-8">

@@ -106,20 +106,33 @@
                                         <label for="address">Address</label>
                                         <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="5">{{$product->address}}</textarea>
                                     </div>
+                                    <x-admin.component.taginput title="Tag" :value="$product->productTags" name="tag[]" :tag="$tag"></x-admin.component.taginput>
                                     <div class=" space-y-2">
-                                        <label for="address">Address</label>
+                                        <label for="address">Status</label>
                                         <div class=" w-full grid grid-cols-2 gap-4">
                                             <div class=" flex items-center gap-3">
-                                                <input type="radio" id="active" name="status" value="active" checked id="">
+                                                <input type="radio" id="active" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="status" value="active" checked id="">
                                                 <label for="active">Active</label>
                                             </div>
                                             <div class=" flex items-center gap-3">
-                                                <input type="radio" id="unactive" name="status" value="unactive" {{$product->status === 'unactive' ? 'checked' : ''}} id="">
+                                                <input type="radio" id="unactive" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="status" value="unactive" {{$product->status === 'unactive' ? 'checked' : ''}} id="">
                                                 <label for="unactive">Unactive</label>
                                             </div>
                                         </div>
                                     </div>
-                                    <x-admin.component.taginput title="Tag" :value="$product->productTags" name="tag[]" :tag="$tag"></x-admin.component.taginput>
+                                    <div class=" space-y-2">
+                                        <label for="home_button">Home Button</label>
+                                        <div class=" w-full grid grid-cols-2 gap-4">
+                                            <div class=" w-full flex items-center gap-2">
+                                                <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
+                                                <label for="on">On</label>
+                                            </div>
+                                            <div class=" w-full flex items-center gap-2">
+                                                <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$product->home_button === 'off' ? 'checked' : ''}}>
+                                                <label for="off">Off</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class=" space-y-2">
                                         <label for="template">template</label>
                                         <div x-data="{ selected: '{{$product->template ?? ''}}' }" class=" w-full grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">

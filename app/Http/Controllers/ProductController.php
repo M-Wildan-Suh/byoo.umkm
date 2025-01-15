@@ -60,6 +60,7 @@ class ProductController extends Controller
         $newdata->address = $request->address;
         $newdata->no_tlp = $request->no_tlp;
         $newdata->youtube = $request->link;
+        $newdata->home_button = $request->home_button;
         $newdata->status = 'active';
 
         if ($request->hasFile('thumbnail')) {
@@ -116,7 +117,9 @@ class ProductController extends Controller
     {
         $access = Access::where('user_id', Auth::id())->where('product_id', $product->id)->first();
 
-        if (!$access) {
+        if (Auth::user()->role === 'admin') {
+            # code...
+        } elseif (!$access) {
             return redirect()->back();
         }
         $product->productTags->transform(function ($data) {
@@ -157,6 +160,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->address = $request->address;
         $product->no_tlp = $request->no_tlp;
+        $product->home_button = $request->home_button;
         $product->youtube = $request->link;
 
         if ($request->hasFile('thumbnail')) {

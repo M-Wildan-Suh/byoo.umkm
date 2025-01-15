@@ -4,7 +4,7 @@
         <div class=" w-full max-w-[1080px] mx-auto">
             <div class=" w-full space-y-6">
                 <div class=" w-full flex flex-col items-center justify-center text-[#4b5d70]">
-                    <p class=" text-3xl font-black">Recomended</p>
+                    <p class=" text-3xl font-black">Rekomendasi</p>
                     <p>~~~~~~</p>
                 </div>
                 <div class=" w-full swiper">
@@ -25,7 +25,7 @@
                             const swiper = new Swiper('.swiper', {
                                 // Optional parameters
                                 direction: 'horizontal',
-                                slidesPerView: 3,
+                                slidesPerView: 2,
                                 spaceBetween: 8,
                                 loop: true,
                                 autoplay: {
@@ -35,15 +35,15 @@
                                 speed: 500,
                                 breakpoints: {
                                     640: {
-                                        slidesPerView: 4,
+                                        slidesPerView: 2,
                                         spaceBetween: 8,
                                     },
                                     748: {
-                                        slidesPerView: 5,
+                                        slidesPerView: 4,
                                         spaceBetween: 8,
                                     },
                                     1024: {
-                                        slidesPerView: 6,
+                                        slidesPerView: 4,
                                         spaceBetween: 8,
                                     },
                                 },
@@ -62,7 +62,7 @@
             <div class=" w-full space-y-8 pb-24">
                 <div class=" w-full">
                     <div class=" w-full flex flex-col items-center justify-center text-[#4b5d70]">
-                        <p class=" text-3xl font-black">Product</p>
+                        <p class=" text-3xl font-black">Komunitas</p>
                         <p>~~~~~~</p>
                     </div>
                     <form action="{{ route('allproduct') }}" class="flex justify-end" method="GET">

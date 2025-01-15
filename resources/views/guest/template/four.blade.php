@@ -92,16 +92,18 @@
                 @include('components.guest.gallery')
             </div>
             <div class=" w-full sticky bottom-0 py-2 px-4 sm:px-8 z-30 rounded-b-md">
-                <div class="grid grid-cols-2 gap-2 w-full max-w-[640px] mx-auto">
-                    <a href="{{route('home')}}">
-                        <button
-                            class=" text-base w-full py-2 border rounded-md text-white bg-[#00596b] border-[#00596b] hover:text-white hover:bg-[#16424b] hover:border-[#16424b] hover:font-black duration-300 relative shadow-md shadow-black/20">
-                            <div class=" absolute w-5 aspect-square top-1.5 sm:top-2.5 left-2">
-                                <svg viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"><path d="m21.146 8.576-7.55-6.135a2.543 2.543 0 0 0-3.192 0L2.855 8.575a1.119 1.119 0 0 0-.416.873v11.543c0 .62.505 1.13 1.125 1.13h5.062c.62 0 1.125-.51 1.125-1.13v-7.306h4.499v7.306c0 .62.505 1.13 1.125 1.13h5.062c.62 0 1.125-.51 1.125-1.13V9.448a1.122 1.122 0 0 0-.416-.872zm-.71 12.421h-5.062V13.68c0-.62-.505-1.119-1.125-1.119H9.75c-.62 0-1.125.499-1.125 1.119v7.317H3.564V9.448l7.55-6.134a1.411 1.411 0 0 1 1.773 0l7.55 6.134v11.549z" fill="currentColor" class="fill-000000"></path></svg>
-                            </div>
-                            Home
-                        </button>
-                    </a>
+                <div class="grid {{ $data->home_button === 'on' ? 'grid-cols-2' : 'grid-cols-1' }} gap-2 w-full max-w-[640px] mx-auto">
+                    @if ($data->home_button === 'on')
+                        <a href="{{route('home')}}">
+                            <button
+                                class=" text-base w-full py-2 border rounded-md text-white bg-[#00596b] border-[#00596b] hover:text-white hover:bg-[#16424b] hover:border-[#16424b] hover:font-black duration-300 relative shadow-md shadow-black/20">
+                                <div class=" absolute w-5 aspect-square top-1.5 sm:top-2.5 left-2">
+                                    <svg viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"><path d="m21.146 8.576-7.55-6.135a2.543 2.543 0 0 0-3.192 0L2.855 8.575a1.119 1.119 0 0 0-.416.873v11.543c0 .62.505 1.13 1.125 1.13h5.062c.62 0 1.125-.51 1.125-1.13v-7.306h4.499v7.306c0 .62.505 1.13 1.125 1.13h5.062c.62 0 1.125-.51 1.125-1.13V9.448a1.122 1.122 0 0 0-.416-.872zm-.71 12.421h-5.062V13.68c0-.62-.505-1.119-1.125-1.119H9.75c-.62 0-1.125.499-1.125 1.119v7.317H3.564V9.448l7.55-6.134a1.411 1.411 0 0 1 1.773 0l7.55 6.134v11.549z" fill="currentColor" class="fill-000000"></path></svg>
+                                </div>
+                                Home
+                            </button>
+                        </a>
+                    @endif
                     <a href="https://wa.me/{{ $no_tlp ?? '' }}">
                         <button
                             class=" text-base w-full py-2 border rounded-md bg-[#00b0ad] text-white border-[#00b0ad] hover:text-white hover:bg-[#1f7675] hover:border-[#1f7675] hover:font-black duration-300 relative shadow-md shadow-black/20">

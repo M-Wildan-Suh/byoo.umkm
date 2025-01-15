@@ -79,7 +79,20 @@
                             </div>
                             <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]"></x-admin.component.taginput>
                             <div class=" space-y-2">
-                                <label for="template">template</label>
+                                <label for="home_button">Home Button</label>
+                                <div class=" w-full grid grid-cols-2 gap-4">
+                                    <div class=" w-full flex items-center gap-2">
+                                        <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
+                                        <label for="on">On</label>
+                                    </div>
+                                    <div class=" w-full flex items-center gap-2">
+                                        <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off">
+                                        <label for="off">Off</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" space-y-2">
+                                <label for="template">Template</label>
                                 <div x-data="{ selected: '{{$product->template ?? ''}}' }" class=" w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                                     <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                         <input type="radio" name="template" id="two" value="two" class="hidden" 

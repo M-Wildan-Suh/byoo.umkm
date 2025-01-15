@@ -2,7 +2,7 @@
     <div class=" space-y-6">
         <div class=" pt-6 bg-violet-500 relative">
             <div class=" absolute top-0 left-0 w-full h-full">
-                <img src="{{ asset('assets/images/bgtwo.png') }}" class=" w-full h-full object-cover" alt="">
+                <img src="{{ asset('assets/images/bgthree.png') }}" class=" w-full h-full object-cover" alt="">
             </div>
             <div class=" flex flex-col justify-center items-center py-4 md:py-8 px-4 gap-4 relative">
                 <div class=" w-28 aspect-square bg-white rounded-3xl overflow-hidden">

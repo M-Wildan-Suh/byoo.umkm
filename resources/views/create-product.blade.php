@@ -22,7 +22,7 @@
                             @click="activeTab = 'gallery'" 
                             :class="activeTab === 'gallery' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
                             class="px-3 pb-2 border-b-2">
-                            Gallery
+                            Galeri
                         </button>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                                                 <div class=" w-full md:col-span-2 space-y-6">
                                                     <div x-data="productChecker()">
                                                         <div class="space-y-2">
-                                                            <label for="name">Product Name</label>
+                                                            <label for="name">Nama Usaha Anda</label>
                                                             <input 
                                                                 class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
                                                                 type="text" 
@@ -81,7 +81,7 @@
                                                                 x-model="inputName"
                                                                 @input="checkProductName"
                                                             >
-                                                            <p x-show="isDuplicate" class="text-red-500 text-sm">Product name already exists!</p>
+                                                            <p x-show="isDuplicate" class="text-red-500 text-sm">Nama usaha sudah digunakan</p>
                                                         </div>
                                                     </div>
                                                     
@@ -101,34 +101,34 @@
                                                             };
                                                         }
                                                     </script>                                                    
-                                                    <div class=" space-y-2">
+                                                    {{-- <div class=" space-y-2">
                                                         <label for="price">Price</label>
                                                         <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="number" min="0" name="price" id="price">
                                                     </div>
                                                     <div class=" space-y-2">
                                                         <label for="link">Link Youtube</label>
                                                         <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="link" id="link">
+                                                    </div> --}}
+                                                    <div class=" space-y-2">
+                                                        <label for="subtitle">Sub Judul</label>
+                                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64"></textarea>
+                                                    </div>
+                                                    <div class=" space-y-2">
+                                                        <label for="no_tlp">No. Telephone</label>
+                                                        <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class=" space-y-2">
-                                                <label for="subtitle">Sub Title</label>
-                                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64"></textarea>
-                                            </div>
-                                            <div class=" space-y-2">
-                                                <label for="no_tlp">No. Telephone</label>
-                                                <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
-                                            </div>
-                                            <div class=" space-y-2">
-                                                <label for="desc">Description</label>
+                                                <label for="desc">Deskripsi</label>
                                                 <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5"></textarea>
                                             </div>
                                             <div class=" space-y-2">
-                                                <label for="address">Address</label>
+                                                <label for="address">Alamat</label>
                                                 <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="5"></textarea>
                                             </div>
-                                            <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]"></x-admin.component.taginput>
-                                            <div class=" space-y-2">
+                                            {{-- <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]"></x-admin.component.taginput> --}}
+                                            {{-- <div class=" space-y-2">
                                                 <label for="home_button">Home Button</label>
                                                 <div class=" w-full grid grid-cols-2 gap-4">
                                                     <div class=" w-full flex items-center gap-2">
@@ -140,8 +140,8 @@
                                                         <label for="off">Off</label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class=" space-y-2">
+                                            </div> --}}
+                                            {{-- <div class=" space-y-2">
                                                 <label for="template">template</label>
                                                 <div x-data="{ selected: '' }" class=" w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                                                     <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
@@ -227,7 +227,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                             
                                             <div class="">
                                                 <button type="button" @click="activeTab = 'highlight'"  class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Next</button>
@@ -277,11 +277,11 @@
                                                                 x-model="input.title" 
                                                                 :name="'inputs[' + index + '][title]'" 
                                                                 class="min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" 
-                                                                placeholder="Title" maxlength="27" required>
+                                                                placeholder="Judul" maxlength="27" required>
                                                             <textarea x-model="input.description" 
                                                                 :name="'inputs[' + index + '][description]'" 
                                                                 class="min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" 
-                                                                placeholder="Description" maxlength="64" cols="40" required></textarea>
+                                                                placeholder="Deskripsi" maxlength="64" cols="40" required></textarea>
                                                         </div>
                                                         <div>
                                                             <button type="button" 
@@ -298,7 +298,7 @@
                                                     <button type="button" 
                                                         class="bg-[#ff7100] hover:bg-[#b95300] text-white w-full h-full py-1.5 rounded-md"
                                                         @click="addNewInput">
-                                                        Add New Input
+                                                        Tambah Highlight
                                                     </button>
                                                 </div>
                                             </div>
@@ -342,7 +342,7 @@
                                 <div class="bg-[#F8FAFC] overflow-hidden shadow-sm sm:rounded-lg">
                                     <div class=" p-4 md:p-6 text-gray-900 space-y-4">
                                         <div x-data="imageGallery" class="flex flex-col gap-2">
-                                            <label for="image_gallery">Gallery ( Max 9 )</label>
+                                            <label for="image_gallery">Galeri ( Max 9 )</label>
                                             <input type="file" class="hidden" id="image_gallery" name="image_gallery[]" multiple @input="previewImages" accept="image/*">
                                             
                                             <!-- Pratinjau Gambar -->
@@ -389,7 +389,7 @@
                                             }
                                         </script>
                                         <div class="">
-                                            <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Save</button>
+                                            <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Simpan</button>
                                         </div>
                                     </div>
                                 </div>

@@ -6,7 +6,7 @@
             </div>
             <div class=" flex flex-col justify-center items-center py-4 md:py-8 px-4 gap-4 relative">
                 <div class=" w-28 aspect-square bg-white rounded-3xl overflow-hidden">
-                    <img src="{{ asset('storage/images/product/' . $data->image) }}" class=" w-full h-full object-cover " alt="">
+                    <img src="{{ $data->image }}" class=" w-full h-full object-cover " alt="">
                 </div>
                 <div class=" w-full text-center text-white space-y-2">
                     <p class=" text-2xl font-black text-center">{{$data->name}}</p>
@@ -31,32 +31,9 @@
                 <svg id="visual" viewBox="0 0 1080 40" class=" w-full h-full" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><path d="M0 7L13.8 7.2C27.7 7.3 55.3 7.7 83 8.7C110.7 9.7 138.3 11.3 166 11.3C193.7 11.3 221.3 9.7 249 8.7C276.7 7.7 304.3 7.3 332 8C359.7 8.7 387.3 10.3 415 11.2C442.7 12 470.3 12 498.2 12.2C526 12.3 554 12.7 581.8 11.2C609.7 9.7 637.3 6.3 665 4.2C692.7 2 720.3 1 748 2.7C775.7 4.3 803.3 8.7 831 10.7C858.7 12.7 886.3 12.3 914 12.3C941.7 12.3 969.3 12.7 997 13C1024.7 13.3 1052.3 13.7 1066.2 13.8L1080 14L1080 0L1066.2 0C1052.3 0 1024.7 0 997 0C969.3 0 941.7 0 914 0C886.3 0 858.7 0 831 0C803.3 0 775.7 0 748 0C720.3 0 692.7 0 665 0C637.3 0 609.7 0 581.8 0C554 0 526 0 498.2 0C470.3 0 442.7 0 415 0C387.3 0 359.7 0 332 0C304.3 0 276.7 0 249 0C221.3 0 193.7 0 166 0C138.3 0 110.7 0 83 0C55.3 0 27.7 0 13.8 0L0 0Z" fill="#fff" opacity="0"></path><path d="M0 28L13.8 26.2C27.7 24.3 55.3 20.7 83 18.8C110.7 17 138.3 17 166 19.7C193.7 22.3 221.3 27.7 249 29C276.7 30.3 304.3 27.7 332 25.8C359.7 24 387.3 23 415 23.3C442.7 23.7 470.3 25.3 498.2 25.8C526 26.3 554 25.7 581.8 25.7C609.7 25.7 637.3 26.3 665 27.2C692.7 28 720.3 29 748 27.8C775.7 26.7 803.3 23.3 831 23.8C858.7 24.3 886.3 28.7 914 30.2C941.7 31.7 969.3 30.3 997 30.5C1024.7 30.7 1052.3 32.3 1066.2 33.2L1080 34L1080 12L1066.2 11.8C1052.3 11.7 1024.7 11.3 997 11C969.3 10.7 941.7 10.3 914 10.3C886.3 10.3 858.7 10.7 831 9C803.3 7.3 775.7 3.7 748 2C720.3 0.3 692.7 0.7 665 2.5C637.3 4.3 609.7 7.7 581.8 9.2C554 10.7 526 10.3 498.2 10.2C470.3 10 442.7 10 415 9.2C387.3 8.3 359.7 6.7 332 6C304.3 5.3 276.7 5.7 249 6.7C221.3 7.7 193.7 9.3 166 9.3C138.3 9.3 110.7 7.7 83 6.7C55.3 5.7 27.7 5.3 13.8 5.2L0 5Z" fill="#fff" opacity="0.33"></path><path d="M0 31L13.8 30.2C27.7 29.3 55.3 27.7 83 29.3C110.7 31 138.3 36 166 37.8C193.7 39.7 221.3 38.3 249 35.8C276.7 33.3 304.3 29.7 332 30C359.7 30.3 387.3 34.7 415 36.3C442.7 38 470.3 37 498.2 35.2C526 33.3 554 30.7 581.8 29.7C609.7 28.7 637.3 29.3 665 31.3C692.7 33.3 720.3 36.7 748 37.8C775.7 39 803.3 38 831 37C858.7 36 886.3 35 914 35.3C941.7 35.7 969.3 37.3 997 38C1024.7 38.7 1052.3 38.3 1066.2 38.2L1080 38L1080 32L1066.2 31.2C1052.3 30.3 1024.7 28.7 997 28.5C969.3 28.3 941.7 29.7 914 28.2C886.3 26.7 858.7 22.3 831 21.8C803.3 21.3 775.7 24.7 748 25.8C720.3 27 692.7 26 665 25.2C637.3 24.3 609.7 23.7 581.8 23.7C554 23.7 526 24.3 498.2 23.8C470.3 23.3 442.7 21.7 415 21.3C387.3 21 359.7 22 332 23.8C304.3 25.7 276.7 28.3 249 27C221.3 25.7 193.7 20.3 166 17.7C138.3 15 110.7 15 83 16.8C55.3 18.7 27.7 22.3 13.8 24.2L0 26Z" fill="#fff" opacity="0.66"></path><path d="M0 41L13.8 41C27.7 41 55.3 41 83 41C110.7 41 138.3 41 166 41C193.7 41 221.3 41 249 41C276.7 41 304.3 41 332 41C359.7 41 387.3 41 415 41C442.7 41 470.3 41 498.2 41C526 41 554 41 581.8 41C609.7 41 637.3 41 665 41C692.7 41 720.3 41 748 41C775.7 41 803.3 41 831 41C858.7 41 886.3 41 914 41C941.7 41 969.3 41 997 41C1024.7 41 1052.3 41 1066.2 41L1080 41L1080 36L1066.2 36.2C1052.3 36.3 1024.7 36.7 997 36C969.3 35.3 941.7 33.7 914 33.3C886.3 33 858.7 34 831 35C803.3 36 775.7 37 748 35.8C720.3 34.7 692.7 31.3 665 29.3C637.3 27.3 609.7 26.7 581.8 27.7C554 28.7 526 31.3 498.2 33.2C470.3 35 442.7 36 415 34.3C387.3 32.7 359.7 28.3 332 28C304.3 27.7 276.7 31.3 249 33.8C221.3 36.3 193.7 37.7 166 35.8C138.3 34 110.7 29 83 27.3C55.3 25.7 27.7 27.3 13.8 28.2L0 29Z" fill="#fff"></path></svg>
             </div>
         </div>
-        <div class=" w-full max-w-[640px] mx-auto px-4 sm:px-0 relative">
-            <!-- Accordion Item 1 -->
-            <div  x-data="{ open: null }" class="p-4 space-y-4 bg-violet-500 rounded-md ">
-                <button
-                    @click="open = open === 1 ? null : 1"
-                    class="w-full flex justify-between items-center rounded-md focus:outline-none text-white ">
-                    <span class="font-medium tracking-wide text-lg">Deskripsi</span>
-                    <svg
-                        :class="{ 'rotate-180': open === 1 }"
-                        class="w-5 h-5 transform transition-transform"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-                <div
-                    x-show="open === 1"
-                    x-transition
-                    class=" text-white text-sm rounded-md">
-                    <p class="">{!! nl2br(e($data->description == '' ? 'Description' : $data->description)) !!}</p>
-                </div>
-            </div>
-        </div>
+
+        <x-guest.description color="#8b5cf6" :data="$data" />
+
         <div class="w-full max-w-[640px] mx-auto px-4 md:px-0">
             <div class=" w-full">
                 <div class=" grid grid-cols-1 gap-3">
@@ -68,7 +45,7 @@
                         @endphp
                         <div style="background-color: {{ $boxShadowColor }};" class=" w-full p-2 rounded-md flex gap-2 text-white">
                             <div class=" min-w-24 h-24 aspect-square rounded-md border-2 -translate-y-1/4 overflow-hidden border-blue-400">
-                                <img src="{{ asset('storage/images/product/highlight/' . $item->image) }}" class="w-full h-full object-cover" alt="">
+                                <img src="{{ $item->image }}" class="w-full h-full object-cover" alt="">
                             </div>
                             <div class=" flex flex-col justify-between gap-2">
                                 <p class=" line-clamp-1">{{$item->title}}</p>
@@ -91,29 +68,7 @@
         <div class="w-full max-w-[640px] mx-auto px-4 md:px-0 relative">
             @include('components.guest.gallery')
         </div>
-        <div class=" w-full sticky bottom-0 bg-white/30 py-2 px-4 sm:px-8 backdrop-blur-md z-30 rounded-b-md">
-            <div class="grid {{ $data->home_button === 'on' ? 'grid-cols-2' : 'grid-cols-1' }} gap-2 w-full max-w-[640px] mx-auto">
-                @if ($data->home_button === 'on')
-                    <a href="{{route('home')}}">
-                        <button
-                            class=" text-base w-full py-2 border rounded-md text-white bg-[#fa82d8] border-[#e85fc1] hover:text-white hover:bg-[#dd5bb8] hover:border-[#dd5bb8] hover:font-black duration-300 relative">
-                            <div class=" absolute w-5 aspect-square top-1.5 sm:top-2.5 left-2">
-                                <svg viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"><path d="m21.146 8.576-7.55-6.135a2.543 2.543 0 0 0-3.192 0L2.855 8.575a1.119 1.119 0 0 0-.416.873v11.543c0 .62.505 1.13 1.125 1.13h5.062c.62 0 1.125-.51 1.125-1.13v-7.306h4.499v7.306c0 .62.505 1.13 1.125 1.13h5.062c.62 0 1.125-.51 1.125-1.13V9.448a1.122 1.122 0 0 0-.416-.872zm-.71 12.421h-5.062V13.68c0-.62-.505-1.119-1.125-1.119H9.75c-.62 0-1.125.499-1.125 1.119v7.317H3.564V9.448l7.55-6.134a1.411 1.411 0 0 1 1.773 0l7.55 6.134v11.549z" fill="currentColor" class="fill-000000"></path></svg>
-                            </div>
-                            Home
-                        </button>
-                    </a>
-                @endif
-                <a href="https://wa.me/{{ $no_tlp ?? '' }}">
-                    <button
-                        class=" text-base w-full py-2 border rounded-md bg-[#FCC737] text-white border-[#FCC737] hover:text-white hover:bg-[#d2ab41] hover:border-[#d2ab41] hover:font-black duration-300 relative">
-                        <div class=" absolute w-5 aspect-square top-1.5 sm:top-2.5 left-2">
-                            <svg viewBox="0 0 56.693 56.693" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 56.693 56.693"><path d="M46.38 10.714C41.73 6.057 35.544 3.492 28.954 3.489c-13.579 0-24.63 11.05-24.636 24.633a24.589 24.589 0 0 0 3.289 12.316L4.112 53.204l13.06-3.426a24.614 24.614 0 0 0 11.772 2.999h.01c13.577 0 24.63-11.052 24.635-24.635.002-6.582-2.558-12.772-7.209-17.428zM28.954 48.616h-.009a20.445 20.445 0 0 1-10.421-2.854l-.748-.444-7.75 2.033 2.07-7.555-.488-.775a20.427 20.427 0 0 1-3.13-10.897c.004-11.29 9.19-20.474 20.484-20.474a20.336 20.336 0 0 1 14.476 6.005 20.352 20.352 0 0 1 5.991 14.485c-.004 11.29-9.19 20.476-20.475 20.476z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="fill-000000"></path><path d="M40.185 33.281c-.615-.308-3.642-1.797-4.206-2.003-.564-.205-.975-.308-1.385.308-.41.617-1.59 2.003-1.949 2.414-.359.41-.718.462-1.334.154-.615-.308-2.599-.958-4.95-3.055-1.83-1.632-3.065-3.648-3.424-4.264-.36-.617-.038-.95.27-1.257.277-.276.615-.719.923-1.078.308-.36.41-.616.616-1.027.205-.41.102-.77-.052-1.078-.153-.308-1.384-3.338-1.897-4.57-.5-1.2-1.008-1.038-1.385-1.057-.359-.018-.77-.022-1.18-.022s-1.077.154-1.642.77c-.564.616-2.154 2.106-2.154 5.135 0 3.03 2.206 5.957 2.513 6.368.308.41 4.341 6.628 10.516 9.294a35.341 35.341 0 0 0 3.509 1.297c1.474.469 2.816.402 3.877.244 1.183-.177 3.642-1.49 4.155-2.927.513-1.438.513-2.67.359-2.927-.154-.257-.564-.41-1.18-.719z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="fill-000000"></path></svg>
-                        </div>
-                        WhatApp
-                    </button>
-                </a>
-            </div>
-        </div>
+
+        <x-guest.contact classa="text-white bg-[#fa82d8] border-[#e85fc1] hover:text-white hover:bg-[#dd5bb8] hover:border-[#dd5bb8]" classb="bg-[#FCC737] text-white border-[#FCC737] hover:text-white hover:bg-[#d2ab41] hover:border-[#d2ab41]" :data="$data" :notlp="$no_tlp"/>
     </div>
 </div>

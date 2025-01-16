@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Product') }}
+            {{ __('Tambah Akses') }}
         </h2>
     </x-slot>
 
@@ -21,7 +21,7 @@
                                 </select>
                             </div>
                             <div class=" space-y-2">
-                                <label for="product">Product</label>
+                                <label for="product">Usaha</label>
                                 <select name="product" class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" id="user">
                                     @foreach ($product as $item)
                                         <option value="{{$item->id}}">{{$item->name}}</option>
@@ -29,7 +29,7 @@
                                 </select>
                             </div>
                             <div class="">
-                                <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Save</button>
+                                <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                             </div>
                         </div>
                     </form>

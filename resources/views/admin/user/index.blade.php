@@ -13,7 +13,7 @@
                 <div class="w-full flex flex-col sm:flex-row gap-2 justify-between items-center">
                     <a href="{{ route('user.create') }}"
                         class=" w-full text-sm sm:text-base sm:w-auto px-4 py-2 bg-[#ff7100] text-white rounded-md font-semibold border border-[#ff7100] hover:border-[#b95300] hover:bg-[#b95300] duration-300">
-                        Create User
+                        Tambah User
                     </a>
 
                     <!-- Search -->
@@ -28,9 +28,9 @@
                     <table class="w-full text-sm sm:text-base rounded-md overflow-hidden">
                         <thead>
                             <tr class="h-10 bg-[#ff7100] text-white divide-x-2 divide-white">
-                                <th class=" px-1 sm:px-2 py-1">Username</th>
+                                <th class=" px-1 sm:px-2 py-1">Nama User</th>
                                 <th class=" px-1 sm:px-2 py-1">Email</th>
-                                <th class=" px-1 sm:px-2 py-1">Option</th>
+                                <th class=" px-1 sm:px-2 py-1">Opsi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,7 +38,7 @@
                                 <tr :class="index % 2 === 0 ? 'bg-neutral-100' : 'bg-neutral-200'"
                                     class="h-10 text-neutral-600 divide-x-2 divide-white">
                                     <td class=" px-2 sm:px-4 py-2 text-center font-semibold" x-text="item.name"></td>
-                                    <td class=" px-2 sm:px-4 py-2 hidden sm:table-cell" x-text="item.email"></td>
+                                    <td class=" px-2 sm:px-4 py-2 text-nowrap" x-text="item.email"></td>
                                     <td class=" px-1 sm:px-2">
                                         <div class="flex gap-2 justify-center">
                                             <!-- Edit -->
@@ -123,7 +123,7 @@
 
                 <!-- Delete Confirmation Modal -->
                 <div x-show="confirmDeleteModal"
-                    class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-40">
+                    class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-40 px-4">
                     <div class="w-full max-w-[720px] bg-white pb-6 rounded-md flex flex-col gap-4 relative overflow-hidden border-2 border-[#ff7100]">
                         <button @click="confirmDeleteModal = false"
                             class=" absolute top-6 right-6 w-6 h-6 text-white hover:text-red-500 duration-300">

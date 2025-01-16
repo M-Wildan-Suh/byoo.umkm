@@ -17,15 +17,22 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index', 'user.create', 'user.show')">
-                        {{ __('User') }}
-                    </x-nav-link>
+                    @if (Auth::user()->role === 'admin')
+                        <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index', 'user.create', 'user.show')">
+                            {{ __('User') }}
+                        </x-nav-link>
+                    @endif
                     <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index', 'product.create', 'product.show')">
-                        {{ __('Product') }}
+                        {{ __('Usaha') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('access.index')" :active="request()->routeIs('access.index', 'access.create', 'access.show')">
-                        {{ __('Access') }}
-                    </x-nav-link>
+                    @if (Auth::user()->role === 'admin')
+                        <x-nav-link :href="route('template.index')" :active="request()->routeIs('template.index', 'template.create', 'template.show')">
+                            {{ __('Template') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('access.index')" :active="request()->routeIs('access.index', 'access.create', 'access.show')">
+                            {{ __('Akses') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -81,15 +88,22 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index', 'user.create', 'user.show')">
-                {{ __('User') }}
-            </x-responsive-nav-link>
+            @if (Auth::user()->role === 'admin')
+                <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index', 'user.create', 'user.show')">
+                    {{ __('User') }}
+                </x-responsive-nav-link>
+            @endif
             <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product.index', 'product.create', 'product.show')">
-                {{ __('Product') }}
+                {{ __('Usaha') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('access.index')" :active="request()->routeIs('access.index', 'access.create', 'access.show')">
-                {{ __('Access') }}
-            </x-responsive-nav-link>
+            @if (Auth::user()->role === 'admin')
+                <x-responsive-nav-link :href="route('template.index')" :active="request()->routeIs('template.index', 'template.create', 'template.show')">
+                    {{ __('Template') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('access.index')" :active="request()->routeIs('access.index', 'access.create', 'access.show')">
+                    {{ __('Akses') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Usaha Anda') }}
+            {{ __('Template') }}
         </h2>
     </x-slot>
 
@@ -12,9 +12,9 @@
                 <!-- Top Actions -->
                 <div class="w-full flex flex-col sm:flex-row gap-2 justify-between items-center">
                     @if (Auth::user()->role === 'admin')
-                        <a href="{{ route('product.create') }}"
+                        <a href="{{ route('template.create') }}"
                             class=" w-full text-sm sm:text-base sm:w-auto px-4 py-2 bg-[#ff7100] text-white rounded-md font-semibold border border-[#ff7100] hover:border-[#b95300] hover:bg-[#b95300] duration-300">
-                            Tambah Usaha
+                            Tambah Template
                         </a>
                     @else
                         <div class=""></div>
@@ -27,28 +27,12 @@
                     </div>
                 </div>
 
-                @if (Auth::user()->role === 'admin')
-                    <!-- WhatsApp Form -->
-                    <div class=" w-full">
-                        <div class=" flex flex-col gap-2 font-medium">
-                            <form action="{{route('no-handphone.store')}}" method="post">
-                                @csrf
-                                <div class="flex flex-row w-full border border-transparent focus-within:border-[#b95300] focus-within:ring-1 focus-within:ring-[#b95300] rounded-md">
-                                    <input type="text" id="no_handphone" name="no_handphone" placeholder="Input Main Phone Number" value="{{$no_tlp}}" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none bg-neutral-100">
-                                    <button class="py-2 px-3 border border-[#ff7100] bg-[#ff7100] text-white rounded-r hover:bg-[#b95300] hover:border-[#b95300] duration-300 text-sm sm:text-base">Ganti</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                @endif
-
                 <!-- Table -->
                 <div class="w-full">
                     <table class="w-full text-sm sm:text-base rounded-md overflow-hidden">
                         <thead>
                             <tr class="h-10 bg-[#ff7100] text-white divide-x-2 divide-white">
-                                <th class=" px-1 sm:px-2 py-1">Nama Usaha</th>
-                                <th class=" px-1 sm:px-2 py-1">No Tlp</th>
+                                <th class=" px-1 sm:px-2 py-1">Nama Template</th>
                                 <th class=" px-1 sm:px-2 py-1">Status</th>
                                 <th class=" px-1 sm:px-2 py-1">Opsi</th>
                             </tr>
@@ -58,12 +42,11 @@
                                 <tr :class="index % 2 === 0 ? 'bg-neutral-100' : 'bg-neutral-200'"
                                     class="h-10 text-neutral-600 divide-x-2 divide-white">
                                     <td class=" px-2 sm:px-4 py-2 text-center font-semibold" x-text="item.name"></td>
-                                    <td class=" px-2 sm:px-4 py-2 text-nowrap" x-text="item.no_tlp"></td>
                                     <td class=" px-2 sm:px-4 py-2 text-nowrap" x-text="item.status"></td>
                                     <td class=" px-1 sm:px-2">
                                         <div class="flex gap-2 justify-center">
                                             <!-- Edit -->
-                                            <a :href="`{{ route('product.show', '') }}/${item.id}`"
+                                            <a :href="`{{ route('template.show', '') }}/${item.id}`"
                                                 class="w-5 h-5 hover:text-green-500 duration-300">
                                                 <svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                     <path
@@ -164,7 +147,7 @@
                         <div class="flex justify-end space-x-4 px-6">
                             {{-- <button @click="confirmDeleteModal = false"
                                 class="px-4 py-2 bg-neutral-600 duration-300 hover:bg-[#ff7100] text-white rounded">Cancel</button> --}}
-                            <form :action="`{{ route('product.destroy', '') }}/${modalData.id}`" method="POST"
+                            <form :action="`{{ route('template.destroy', '') }}/${modalData.id}`" method="POST"
                                 class="inline">
                                 @csrf
                                 @method('DELETE')

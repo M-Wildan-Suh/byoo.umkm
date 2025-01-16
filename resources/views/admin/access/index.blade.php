@@ -13,7 +13,7 @@
                 <div class="w-full flex flex-col sm:flex-row gap-2 justify-between items-center">
                     <a href="{{ route('access.create') }}"
                         class=" w-full text-sm sm:text-base sm:w-auto px-4 py-2 bg-[#ff7100] text-white rounded-md font-semibold border border-[#ff7100] hover:border-[#b95300] hover:bg-[#b95300] duration-300">
-                        Add Access
+                        Tambah Akses
                     </a>
 
                     <!-- Search -->
@@ -28,9 +28,9 @@
                     <table class="w-full text-sm sm:text-base rounded-md overflow-hidden">
                         <thead>
                             <tr class="h-10 bg-[#ff7100] text-white divide-x-2 divide-white">
-                                <th class=" px-1 sm:px-2 py-1">Username</th>
-                                <th class=" px-1 sm:px-2 py-1">Product Name</th>
-                                <th class=" px-1 sm:px-2 py-1">Option</th>
+                                <th class=" px-1 sm:px-2 py-1">Nama User</th>
+                                <th class=" px-1 sm:px-2 py-1">Nama Usaha</th>
+                                <th class=" px-1 sm:px-2 py-1">Opsi</th>
                             </tr>
                         </thead>
                         <tbody>

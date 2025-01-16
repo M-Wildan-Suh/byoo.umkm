@@ -1,19 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Produk') }}
+            {{ __('Edit Template') }}
         </h2>
     </x-slot>
-    <div x-data="{ activeTab: '{{ session('highlight', 'product') }}' }" class="w-full ">
+    <div x-data="{ activeTab: '{{ session('highlight', 'template') }}' }" class="w-full ">
         <div class=" w-full py-2 px-4 bg-white">
             <div class="w-full max-w-[1080px] mx-auto ">
                 <!-- Tabs -->
                 <div class="flex flex-row gap-4">
                     <button 
-                        @click="activeTab = 'product'" 
-                        :class="activeTab === 'product' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
+                        @click="activeTab = 'template'" 
+                        :class="activeTab === 'template' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
                         class="px-3 pb-2 border-b-2">
-                        Product
+                        Template
                     </button>
                     <button 
                         @click="activeTab = 'highlight'" 
@@ -33,11 +33,11 @@
     
         <!-- Tab Contents -->
         <div class="mt-4">
-            <div x-show="activeTab === 'product'" class="py-4 px-4">
+            <div x-show="activeTab === 'template'" class="py-4 px-4">
                 <div class="max-w-[1080px] mx-auto">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class=" p-4 md:p-6 text-gray-900">
-                            <form action="{{route('product.update', ['product' => $product->id])}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{route('template.update', ['template' => $template->id])}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class=" w-full space-y-6">
@@ -45,7 +45,7 @@
                                         <div class=" flex flex-col gap-2">
                                             <div class=" w-full h-full max-h-[268.8px] relative">
                                                 <img id="thumbnail" class=" object-cover w-full h-full rounded-md" 
-                                                    src="{{ asset('storage/images/product/' . $product->image . '')}}" 
+                                                    src="{{ asset('storage/images/template/' . $template->image . '')}}" 
                                                     alt="Logo">
                                                 <div class="w-full text-transparent rounded-md h-full absolute top-0 left-0 flex justify-center items-center hover:bg-black/60 hover:text-white/50 duration-300">
                                                     <label for="thumbnail-input" class="relative">
@@ -77,68 +77,42 @@
                                         </div>
                                         <div class=" w-full md:col-span-2 space-y-6">
                                             <div class=" space-y-2">
-                                                <label for="name">Nama Usaha</label>
-                                                <input value="{{$product->name}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
-                                            </div>
-                                            <div class=" space-y-2">
-                                                <label for="price">Harga</label>
-                                                <input value="{{$product->price}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="number" min="0" name="price" id="price">
+                                                <label for="name">Nama Template</label>
+                                                <input value="{{$template->name}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
                                             </div>
                                             <div class=" space-y-2">
                                                 <label for="link">Link Youtube</label>
-                                                <input value="{{$product->youtube}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="link" id="link">
+                                                <input value="{{$template->youtube}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="link" id="link">
+                                            </div>
+                                            <div class=" space-y-2">
+                                                <label for="home_button">Tombol Home</label>
+                                                <div class=" w-full grid grid-cols-2 gap-4">
+                                                    <div class=" w-full flex items-center gap-2">
+                                                        <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
+                                                        <label for="on">On</label>
+                                                    </div>
+                                                    <div class=" w-full flex items-center gap-2">
+                                                        <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$template->home_button === 'off' ? 'checked' : ''}}>
+                                                        <label for="off">Off</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="subtitle">Sub Judul</label>
-                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64">{{$product->subtitle}}</textarea>
-                                    </div>
-                                    <div class=" space-y-2">
-                                        <label for="no_tlp">No. Telephone</label>
-                                        <input value="{{$product->no_tlp}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
+                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64">{{$template->subtitle}}</textarea>
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="desc">Deskripsi</label>
-                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5">{{$product->description}}</textarea>
-                                    </div>
-                                    <div class=" space-y-2">
-                                        <label for="address">Alamat</label>
-                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="5">{{$product->address}}</textarea>
-                                    </div>
-                                    <x-admin.component.taginput title="Tag" :value="$product->productTags" name="tag[]" :tag="$tag"></x-admin.component.taginput>
-                                    <div class=" space-y-2">
-                                        <label for="address">Status</label>
-                                        <div class=" w-full grid grid-cols-2 gap-4">
-                                            <div class=" flex items-center gap-3">
-                                                <input type="radio" id="active" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="status" value="active" checked id="">
-                                                <label for="active">Active</label>
-                                            </div>
-                                            <div class=" flex items-center gap-3">
-                                                <input type="radio" id="unactive" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="status" value="unactive" {{$product->status === 'unactive' ? 'checked' : ''}} id="">
-                                                <label for="unactive">Unactive</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class=" space-y-2">
-                                        <label for="home_button">Tombol Home</label>
-                                        <div class=" w-full grid grid-cols-2 gap-4">
-                                            <div class=" w-full flex items-center gap-2">
-                                                <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
-                                                <label for="on">On</label>
-                                            </div>
-                                            <div class=" w-full flex items-center gap-2">
-                                                <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$product->home_button === 'off' ? 'checked' : ''}}>
-                                                <label for="off">Off</label>
-                                            </div>
-                                        </div>
+                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5">{{$template->description}}</textarea>
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="template">Template</label>
-                                        <div x-data="{ selected: '{{$product->template ?? ''}}' }" class=" w-full grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                                        <div x-data="{ selected: '{{$template->template ?? ''}}' }" class=" w-full grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                                             <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                                 <input type="radio" name="template" id="two" value="two" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'two') 
+                                                       @checked(isset($template->template) && $template->template === 'two') 
                                                        @change="selected = 'two'">
                                                 <label for="two" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'two' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
                                                 <div class=" bg-black flex items-start w-full h-full">
@@ -147,7 +121,7 @@
                                             </div>
                                             <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                                 <input type="radio" name="template" id="three" value="three" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'three') 
+                                                       @checked(isset($template->template) && $template->template === 'three') 
                                                        @change="selected = 'three'">
                                                 <label for="three" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'three' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
                                                 <div class=" bg-black flex items-start w-full h-full">
@@ -157,7 +131,7 @@
                                             <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                                 
                                                 <input type="radio" name="template" id="four" value="four" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'four') 
+                                                       @checked(isset($template->template) && $template->template === 'four') 
                                                        @change="selected = 'four'">
                                                 <label for="four" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'four' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
                                                 <div class=" bg-black flex items-start w-full h-full">
@@ -166,7 +140,7 @@
                                             </div>
                                             <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                                 <input type="radio" name="template" id="five" value="five" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'five') 
+                                                       @checked(isset($template->template) && $template->template === 'five') 
                                                        @change="selected = 'five'">
                                                 <label for="five" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'five' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
                                                 <div class=" bg-[#1679AB] flex items-start w-full h-full">
@@ -175,7 +149,7 @@
                                             </div>
                                             <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                                 <input type="radio" name="template" id="six" value="six" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'six') 
+                                                       @checked(isset($template->template) && $template->template === 'six') 
                                                        @change="selected = 'six'">
                                                 <label for="six" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'six' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
                                                 <div class=" bg-[#1679AB] flex items-start w-full h-full">
@@ -184,7 +158,7 @@
                                             </div>
                                             <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                                 <input type="radio" name="template" id="seven" value="seven" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'seven') 
+                                                       @checked(isset($template->template) && $template->template === 'seven') 
                                                        @change="selected = 'seven'">
                                                 <label for="seven" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'seven' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
                                                 <div class=" bg-[#1679AB] flex items-start w-full h-full">
@@ -193,7 +167,7 @@
                                             </div>
                                             <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                                 <input type="radio" name="template" id="eight" value="eight" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'eight') 
+                                                       @checked(isset($template->template) && $template->template === 'eight') 
                                                        @change="selected = 'eight'">
                                                 <label for="eight" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'eight' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
                                                 <div class=" bg-[#1679AB] flex items-start w-full h-full">
@@ -202,7 +176,7 @@
                                             </div>
                                             <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                                 <input type="radio" name="template" id="nine" value="nine" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'nine') 
+                                                       @checked(isset($template->template) && $template->template === 'nine') 
                                                        @change="selected = 'nine'">
                                                 <label for="nine" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'nine' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
                                                 <div class=" bg-[#1679AB] flex items-start w-full h-full">
@@ -211,7 +185,7 @@
                                             </div>
                                             <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                                 <input type="radio" name="template" id="ten" value="ten" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'ten') 
+                                                       @checked(isset($template->template) && $template->template === 'ten') 
                                                        @change="selected = 'ten'">
                                                 <label for="ten" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'ten' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
                                                 <div class=" bg-[#1679AB] flex items-start w-full h-full">
@@ -237,9 +211,9 @@
                             <p>Highlights ( Max 3 )</p>
                             <div class=" space-y-2">
                                 <div class=" w-full grid lg:grid-cols-2 gap-4">
-                                    @foreach ($product->productHighlight as $item)
+                                    @foreach ($template->templateHighlight as $item)
                                         <div class=" w-full rounded-xl flex justify-between gap-4">
-                                            <form id="highlight-form-{{$item->id}}" action="{{route('highlight.update', ['highlight' => $item->id])}}" method="POST" class="flex-grow" enctype="multipart/form-data">
+                                            <form id="highlight-form-{{$item->id}}" action="{{route('template-highlight.update', ['template_highlight' => $item->id])}}" method="POST" class="flex-grow" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class=" rounded-xl flex justify-between gap-4 bg-white">
@@ -247,7 +221,7 @@
                                                         <div class="w-full h-full flex flex-col text-sm font-medium gap-2 justify-center items-center">
                                                             <div class="w-full h-full relative flex justify-center overflow-hidden">
                                                                 <img id="highlightimage{{$item->id}}-preview" class="object-cover w-full" 
-                                                                    src="{{$item->image == '' ? asset('assets/images/placeholder.webp') : asset('storage/images/product/highlight/'. $item->image)  }}" 
+                                                                    src="{{$item->image == '' ? asset('assets/images/placeholder.webp') : asset('storage/images/template/highlight/'. $item->image)  }}" 
                                                                     alt="Logo">
                                                                 <div class="w-full h-full absolute z-10 top-0 opacity-0 hover:opacity-100 duration-300">
                                                                     <label for="highlightimage{{$item->id}}-input" class="relative">
@@ -286,14 +260,14 @@
                                                         </script>
                                                     </div>
                                                     <div class=" flex flex-col flex-grow justify-between gap-2">
-                                                        <input type="text" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" value="{{$item->title}}" name="title" placeholder="Judul" maxlength="27" >
-                                                        <textarea name="description" id="" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Deskripsi" maxlength="64" cols="40">{{$item->description}}</textarea>
+                                                        <input type="text" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" value="{{$item->title}}" name="title" placeholder="Title" maxlength="27" >
+                                                        <textarea name="description" id="" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Description" maxlength="64" cols="40">{{$item->description}}</textarea>
                                                     </div>
                                                 </div>
                                             </form>
                                             <div class=" min-w-[50px] grid grid-cols-1 grid-rows-2 gap-1">
                                                 <button onclick="submitHighlightForm({{$item->id}})" class=" min-w-[50px] bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center text-sm">Edit</button>
-                                                <form action="{{route('highlight.destroy', ['highlight'=>$item->id])}}" method="POST">
+                                                <form action="{{route('template-highlight.destroy', ['template_highlight'=>$item->id])}}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class=" min-w-[50px] h-full bg-red-500 hover:bg-red-700 duration-300 text-white rounded-md text-center text-sm">Hapus</button>
@@ -311,8 +285,8 @@
                                         }
                                     </script>
                                     
-                                    @if ($product->productHighlight->count() < 3)    
-                                        <form action="{{route('highlight.store')}}" method="POST" enctype="multipart/form-data">
+                                    @if ($template->templateHighlight->count() < 3)    
+                                        <form action="{{route('template-highlight.store')}}" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class=" w-full max-w-full rounded-xl flex justify-between gap-4 bg-white">
                                                 <div class=" min-w-20 sm:min-w-24 h-20 sm:h-24 aspect-square rounded-md overflow-hidden">
@@ -359,7 +333,7 @@
                                                     </script>
                                                 </div>
                                                 <div class=" flex flex-col flex-grow justify-between gap-2">
-                                                    <input type="text" class="hidden" name="product_id" value="{{$product->id}}">
+                                                    <input type="text" class="hidden" name="template_id" value="{{$template->id}}">
                                                     <input type="text" name="title" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" placeholder="Judul" maxlength="27" >
                                                     <textarea name="description" id="description" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Deskripsi" maxlength="64" cols="40"></textarea>
                                                 </div>
@@ -369,7 +343,7 @@
                                     @endif
                                 </div>
                                 <div class="">
-                                    <a href="{{route('product.index')}}">
+                                    <a href="{{route('template.index')}}">
                                         <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                                     </a>
                                 </div>
@@ -382,7 +356,7 @@
                 <div class="max-w-[1080px] mx-auto">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class=" p-4 md:p-6 text-gray-900 space-y-4">
-                            <div x-data="galleryComponent({{ $product->productGallery }}, {{ $product->id }})" class="flex flex-col gap-2">
+                            <div x-data="galleryComponent({{ $template->templateGallery }}, {{ $template->id }})" class="flex flex-col gap-2">
                                 <label class="font-semibold" for="image_gallery">Galeri ( Max 9 )</label>
                                 <input type="file" class="hidden" id="image_gallery" name="image_gallery[]" multiple accept="image/*" @change="addImages($event)">
                                 <div class="w-full grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -407,11 +381,11 @@
                                 <p x-show="errorMessage" class="text-red-500" x-text="errorMessage"></p>
                             </div>
                             <script>
-                                function galleryComponent(initialImages = [], productId) {
+                                function galleryComponent(initialImages = [], templateId) {
                                     return {
                                         images: initialImages.map(item => ({
                                             id: item.id, // Include image ID from the server for delete functionality
-                                            url: item.image ? `{{ asset('storage/images/product/gallery/') }}/${item.image}` : `{{ asset('assets/images/placeholder.png') }}`
+                                            url: item.image ? `{{ asset('storage/images/template/gallery/') }}/${item.image}` : `{{ asset('assets/images/placeholder.png') }}`
                                         })),
                                         errorMessage: '',
                                         addImages(event) {
@@ -429,10 +403,10 @@
                                             files.forEach(file => {
                                                 const formData = new FormData();
                                                 formData.append('image_gallery', file);
-                                                formData.append('product_id', productId); // Add product ID to the form data
+                                                formData.append('template_id', templateId); // Add template ID to the form data
                             
                                                 // Send the image data to the server using Axios
-                                                axios.post('/admin/product-gallery', formData)
+                                                axios.post('/admin/template-gallery', formData)
                                                     .then(response => {
                                                         const newImage = response.data; // Expect the server to return the new image details
                                                         const reader = new FileReader();
@@ -454,7 +428,7 @@
                                             const image = this.images[index];
                                             
                                             // Send delete request to the server using Axios
-                                            axios.delete(`/admin/product-gallery/${image.id}`)
+                                            axios.delete(`/admin/template-gallery/${image.id}`)
                                                 .then(() => {
                                                     // If successful, remove the image from the local array
                                                     this.images.splice(index, 1);
@@ -468,7 +442,7 @@
                                 }
                             </script>
                             <div class="">
-                                <a href="{{route('product.index')}}">
+                                <a href="{{route('template.index')}}">
                                     <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                                 </a>
                             </div>

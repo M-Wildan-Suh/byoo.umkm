@@ -14,7 +14,7 @@
                         <div class="w-full space-y-6">
                             <!-- Name -->
                             <div class="space-y-2">
-                                <label for="name">Name</label>
+                                <label for="name">Nama User</label>
                                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
@@ -40,7 +40,7 @@
 
                             <!-- Confirm Password -->
                             <div class="space-y-2">
-                                <label for="password_confirmation">Confirm Password</label>
+                                <label for="password_confirmation">Konfirmasi Password</label>
 
                                 <x-text-input id="password_confirmation" class="block mt-1 w-full"
                                                 type="password"

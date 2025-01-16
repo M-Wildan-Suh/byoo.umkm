@@ -69,7 +69,7 @@
         <div class=" w-full max-w-[1080px] mx-auto">
             <div class=" w-full space-y-12">
                 <div class=" w-full flex flex-col items-center justify-center text-[#4b5d70]">
-                    <p class=" text-3xl font-black">Mengapa Harus Kami</p>
+                    <p class=" text-3xl font-black">Manfaat Byoo.link</p>
                     <p>~~~~~~</p>
                 </div>
                 <div class=" w-full grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-4 py-8">

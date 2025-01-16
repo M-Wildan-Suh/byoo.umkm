@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Product') }}
+            {{ __('Tambah Template') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="max-w-[1080px] mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class=" p-4 md:p-6 text-gray-900">
-                    <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('template.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class=" w-full space-y-6">
                             <div class=" grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -48,16 +48,25 @@
                                 </div>
                                 <div class=" w-full md:col-span-2 space-y-6">
                                     <div class=" space-y-2">
-                                        <label for="name">Nama Usaha</label>
+                                        <label for="name">Nama Template</label>
                                         <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
-                                    </div>
-                                    <div class=" space-y-2">
-                                        <label for="price">Harga</label>
-                                        <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="number" min="0" name="price" id="price">
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="link">Link Youtube</label>
                                         <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="link" id="link">
+                                    </div>
+                                    <div class=" space-y-2">
+                                        <label for="home_button">Tombol Home</label>
+                                        <div class=" w-full grid grid-cols-2 gap-4">
+                                            <div class=" w-full flex items-center gap-2">
+                                                <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
+                                                <label for="on">On</label>
+                                            </div>
+                                            <div class=" w-full flex items-center gap-2">
+                                                <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off">
+                                                <label for="off">Off</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -66,30 +75,8 @@
                                 <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64"></textarea>
                             </div>
                             <div class=" space-y-2">
-                                <label for="no_tlp">No. Telephone</label>
-                                <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
-                            </div>
-                            <div class=" space-y-2">
                                 <label for="desc">Deskripsi</label>
                                 <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5"></textarea>
-                            </div>
-                            <div class=" space-y-2">
-                                <label for="address">Alamat</label>
-                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="5"></textarea>
-                            </div>
-                            <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]"></x-admin.component.taginput>
-                            <div class=" space-y-2">
-                                <label for="home_button">Tombol Home</label>
-                                <div class=" w-full grid grid-cols-2 gap-4">
-                                    <div class=" w-full flex items-center gap-2">
-                                        <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
-                                        <label for="on">On</label>
-                                    </div>
-                                    <div class=" w-full flex items-center gap-2">
-                                        <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off">
-                                        <label for="off">Off</label>
-                                    </div>
-                                </div>
                             </div>
                             <div class=" space-y-2">
                                 <label for="template">Template</label>
@@ -179,7 +166,7 @@
                                 </div>
                             </div>
                             <div class="">
-                                <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Save</button>
+                                <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                             </div>
                         </div>
                     </form>

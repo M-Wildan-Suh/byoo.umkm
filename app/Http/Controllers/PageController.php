@@ -8,6 +8,7 @@ use App\Models\PivotProductTag;
 use App\Models\Product;
 use App\Models\ProductGallery;
 use App\Models\ProductTag;
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -20,42 +21,12 @@ class PageController extends Controller
         // dd($request->filter);
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
-        if ($request->filter === 'all' && $request->search) {
-            $data = Product::where('status', 'active')->where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
-        } elseif ($request->filter && $request->search) {
-            $pivot = PivotProductTag::where('tag_id', $request->filter)->inRandomOrder()->get();
-            $pivot->transform(function ($data) {
-                $data = $data->product;
-                return $data;
-            });
-            $data = $pivot->filter(function ($product) use ($request) {
-                return stripos($product->name, $request->search) !== false;
-            });
-        } elseif ($request->search) {
-            $data = Product::where('status', 'active')->where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
-        } elseif ($request->filter === 'all') {
-            $data = Product::where('status', 'active')->inRandomOrder()->get();
-        } elseif ($request->filter) {
-            $pivot = PivotProductTag::where('tag_id', $request->filter)->inRandomOrder()->get();
-            $pivot->transform(function ($data) {
-                $data = $data->product;
-                return $data;
-            });
-            $data = $pivot;
-        } else {
-            $data = Product::where('status', 'active')->inRandomOrder()->get();
-        }
+        $data = Product::where('status', 'active')->inRandomOrder()->get();
         $data = $data->map(function ($item) {
             $item->slug = Str::slug($item->name, '-');
             return $item;
         });
-        $tag = ProductTag::all();
-        $recomend = Product::where('status', 'active')->get();
-        $recomend = $recomend->map(function ($item) {
-            $item->slug = Str::slug($item->name, '-');
-            return $item;
-        });
-        return view('welcome', compact('data', 'no_tlp', 'recomend', 'tag'));
+        return view('welcome', compact('data', 'no_tlp'));
     }
     public function product(Request $request) {
         // dd($request->filter);
@@ -91,17 +62,43 @@ class PageController extends Controller
             return $item;
         });
         $tag = ProductTag::all();
-        $recomend = Product::where('status', 'active')->get();
-        $recomend = $recomend->map(function ($item) {
+        $template = Template::inRandomOrder()->get();
+        $template = $template->map(function ($item) {
             $item->slug = Str::slug($item->name, '-');
             return $item;
         });
-        return view('product', compact('data', 'no_tlp', 'recomend', 'tag'));
+        return view('product', compact('data', 'no_tlp', 'template', 'tag'));
+    }
+    public function template(Request $request) {
+        $no_tlp = NoHandphone::first()->no_tlp;
+        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
+        if ($request->search) {
+            $data = Template::where('name', 'like', '%' . $request->search . '%')->get();
+        } else {
+            $data = Template::all();
+        }
+        $data = $data->map(function ($item) {
+            $item->slug = Str::slug($item->name, '-');
+            return $item;
+        });
+        return view('template', compact('data', 'no_tlp'));
     }
     public function detail($slug) {
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
         $data = Product::where('name', ucwords(str_replace('-', ' ', $slug)))->first();
+
+        $data->image = asset('storage/images/product/'. $data->image);
+
+        $data->productGallery = $data->productGallery->map(function ($item) {
+            $item->image = asset('storage/images/product/gallery/'. $item->image);
+            return $item;
+        });
+        
+        $data->productHighlight = $data->productHighlight->map(function ($item) {
+            $item->image = asset('storage/images/product/highlight/'. $item->image);
+            return $item;
+        });
 
         if (!$data) {
             return redirect()->route('home');
@@ -135,6 +132,58 @@ class PageController extends Controller
         return view('detail', compact('data', 'no_tlp'));
 
     }
+    public function templatedetail($slug) {
+        $no_tlp = NoHandphone::first()->no_tlp;
+        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
+        $data = Template::where('name', ucwords(str_replace('-', ' ', $slug)))->first();
+
+        $data->image = asset('storage/images/template/'. $data->image);
+
+        $data->templateGallery = $data->templateGallery->map(function ($item) {
+            $item->image = asset('storage/images/template/gallery/'. $item->image);
+            return $item;
+        });
+        
+        $data->templateHighlight = $data->templateHighlight->map(function ($item) {
+            $item->image = asset('storage/images/template/highlight/'. $item->image);
+            return $item;
+        });
+
+
+        if (!$data) {
+            return redirect()->route('home');
+        }
+
+        // Parsing URL YouTube
+        $url = $data->youtube;
+        $parsedUrl = parse_url($url);
+        $videoId = null;
+
+        if (isset($parsedUrl['host'])) {
+            if ($parsedUrl['host'] === 'youtu.be') {
+                // Jika URL menggunakan youtu.be, ambil ID dari path
+                $videoId = ltrim($parsedUrl['path'], '/');
+            } elseif (strpos($parsedUrl['host'], 'youtube.com') !== false) {
+                // Jika URL menggunakan youtube.com, periksa path dan query
+                if (strpos($parsedUrl['path'], '/shorts/') === 0) {
+                    // Jika URL adalah Shorts, ambil ID dari path
+                    $videoId = ltrim(str_replace('/shorts/', '', $parsedUrl['path']), '/');
+                } elseif (isset($parsedUrl['query'])) {
+                    // Jika URL menggunakan query, ambil ID dari parameter 'v'
+                    parse_str($parsedUrl['query'], $query);
+                    $videoId = $query['v'] ?? null;
+                }
+            }
+        }
+
+        $data->productGallery = $data->templateGallery;
+        $data->productHighlight = $data->templateHighlight;
+
+        // Buat embed URL jika ID ditemukan
+        $data->embed = $videoId ? "https://www.youtube.com/embed/" . $videoId : $data->youtube;
+
+        return view('detail', compact('data', 'no_tlp'));
+    }
     public function createproduct() {
         $tag = ProductTag::all();
         $product = Product::all();
@@ -150,7 +199,7 @@ class PageController extends Controller
         $newdata->name = $request->name;
         $newdata->subtitle = $request->subtitle;
         $newdata->price = $request->price;
-        $newdata->template = $request->template;
+        $newdata->template = 'two';
         $newdata->description = $request->description;
         $newdata->address = $request->address;
         $newdata->no_tlp = $request->no_tlp;

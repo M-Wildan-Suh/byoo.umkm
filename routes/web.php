@@ -8,7 +8,12 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductGalleryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\TemplateGalleryController;
+use App\Http\Controllers\TemplateHighlightController;
 use App\Http\Controllers\UserController;
+use App\Models\Template;
+use App\Models\TemplateHighlight;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +31,8 @@ Route::get('/', [PageController::class, 'home'])->name('home');
 
 Route::get('/product', [PageController::class, 'product'])->name('allproduct');
 
+Route::get('/template', [PageController::class, 'template'])->name('alltemplate');
+
 Route::get('/create-product', [PageController::class, 'createproduct'])->name('create.product');
 
 Route::post('/store-product', [PageController::class, 'storeproduct'])->name('store.product');
@@ -39,6 +46,8 @@ Route::get('/admin/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::group(['middleware' => 'cekRole'], function () {
         Route::resource('/admin/user', UserController::class);
+
+        Route::resource('/admin/template', TemplateController::class);
     
         Route::resource('/admin/access', AccessController::class);
     });
@@ -51,6 +60,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/admin/highlight', HighlightController::class);
 
+    Route::resource('/admin/template-highlight', TemplateHighlightController::class);
+
+    Route::resource('/admin/template-gallery', TemplateGalleryController::class);
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -59,4 +72,5 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/{slug}', [PageController::class, 'detail'])->name('detail');
+Route::get('/template/{slug}', [PageController::class, 'templatedetail'])->name('template.detail');
 

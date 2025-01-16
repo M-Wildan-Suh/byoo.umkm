@@ -1,15 +1,15 @@
 <div class=" w-full grid grid-cols-3 gap-2">
     @foreach ($data->productGallery as $item)
         <div id="gallery" class="flex items-center justify-center w-full aspect-[3/2] rounded overflow-hidden relative">
-            <a class=" w-full h-full" href="{{ asset('storage/images/product/gallery/' . $item->image)}}" data-caption="{{$item->image_alt}}" aria-label="{{$item->image_alt}}">
+            <a class=" w-full h-full" href="{{ $item->image}}" data-caption="{{$item->image_alt}}" aria-label="{{$item->image_alt}}">
                 <div class="absolute w-full h-full top-0 left-0 duration-300 hover:bg-black/30 z-10"></div>
-                <div x-data="{ src: '{{ asset('storage/images/product/gallery/' . $item->image) }}', isLoading: true, observer: null }"
+                <div x-data="{ src: '{{ $item->image }}', isLoading: true, observer: null }"
                     x-init="() => {
                     observer = new IntersectionObserver(entries => {
                         entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             const img = new Image();
-                            img.src = '{{ asset('storage/images/product/gallery/' . $item->image) }}';
+                            img.src = '{{ $item->image }}';
                             img.onload = () => {
                             src = img.src;
                             isLoading = false;

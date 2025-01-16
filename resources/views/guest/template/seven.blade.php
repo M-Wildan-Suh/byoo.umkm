@@ -7,7 +7,7 @@
                     <p class=" text-center">{{$data->subtitle}}</p>
                 </div>
                 <div class=" absolute top-20 right-2 sm:right-24 w-28 sm:w-36 aspect-square bg-white rounded-full overflow-hidden rotate-6">
-                    <img src="{{ asset('storage/images/product/' . $data->image) }}" class=" w-full h-full object-cover " alt="">
+                    <img src="{{ $data->image }}" class=" w-full h-full object-cover " alt="">
                 </div>
                 <div class=" pt-36 sm:pt-40 pl-8">
                     <div class=" w-52 sm:w-64 bg-white aspect-video overflow-hidden rounded-sm">
@@ -17,32 +17,8 @@
                     </div>
                 </div>
             </div>
-            <div class=" w-full max-w-[640px] mx-auto px-4 sm:px-0">
-                <!-- Accordion Item 1 -->
-                <div  x-data="{ open: null }" class="p-4 space-y-4 bg-[#E73879] rounded-md ">
-                    <button
-                        @click="open = open === 1 ? null : 1"
-                        class="w-full flex justify-between items-center rounded-md focus:outline-none text-white ">
-                        <span class="font-black text-lg">Deskripsi</span>
-                        <svg
-                            :class="{ 'rotate-180': open === 1 }"
-                            class="w-5 h-5 transform transition-transform"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div
-                        x-show="open === 1"
-                        x-transition
-                        class=" text-white rounded-md">
-                        <p class="">{!! nl2br(e($data->description == '' ? 'Description' : $data->description)) !!}</p>
-                    </div>
-                </div>
-            </div>
+
+            <x-guest.description color="#E73879" :data="$data" />
             
             <div class="w-full relative bg-[#E73879]">
                 <div class=" w-full h-10 mb-4">
@@ -56,7 +32,7 @@
                     @foreach ($data->productHighlight as $item)
                         <div class=" bg-[#FCC737] w-full p-3 rounded-xl flex gap-2 text-white">
                             <div class=" min-w-24 h-24 aspect-square rounded-full border-2 overflow-hidden text-teal-400">
-                                <img src="{{ asset('storage/images/product/highlight/' . $item->image) }}" class="w-full h-full object-cover" alt="">
+                                <img src="{{ $item->image }}" class="w-full h-full object-cover" alt="">
                             </div>
                             <div class=" flex flex-col justify-between gap-2">
                                 <p class=" line-clamp-1 font-semibold">{{$item->title}}</p>
@@ -90,30 +66,7 @@
             <div class="w-full max-w-[640px] mx-auto px-4 md:px-0 relative">
                 @include('components.guest.gallery')
             </div>
-            <div class=" w-full sticky bottom-0 py-2 px-4 sm:px-8 z-30 rounded-b-md">
-                <div class="grid {{ $data->home_button === 'on' ? 'grid-cols-2' : 'grid-cols-1' }} gap-2 w-full max-w-[640px] mx-auto">
-                    @if ($data->home_button === 'on')
-                        <a href="{{route('home')}}">
-                            <button
-                                class=" text-base w-full py-2 border rounded-md text-white bg-[#F26B0F] border-[#F26B0F] hover:text-white hover:bg-[#d55805] hover:border-[#d55805] hover:font-black duration-300 relative shadow-md shadow-black/20">
-                                <div class=" absolute w-5 aspect-square top-1.5 sm:top-2.5 left-2">
-                                    <svg viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"><path d="m21.146 8.576-7.55-6.135a2.543 2.543 0 0 0-3.192 0L2.855 8.575a1.119 1.119 0 0 0-.416.873v11.543c0 .62.505 1.13 1.125 1.13h5.062c.62 0 1.125-.51 1.125-1.13v-7.306h4.499v7.306c0 .62.505 1.13 1.125 1.13h5.062c.62 0 1.125-.51 1.125-1.13V9.448a1.122 1.122 0 0 0-.416-.872zm-.71 12.421h-5.062V13.68c0-.62-.505-1.119-1.125-1.119H9.75c-.62 0-1.125.499-1.125 1.119v7.317H3.564V9.448l7.55-6.134a1.411 1.411 0 0 1 1.773 0l7.55 6.134v11.549z" fill="currentColor" class="fill-000000"></path></svg>
-                                </div>
-                                Home
-                            </button>
-                        </a>
-                    @endif
-                    <a href="https://wa.me/{{ $no_tlp ?? '' }}">
-                        <button
-                            class=" text-base w-full py-2 border rounded-md bg-[#F26B0F] text-white border-[#F26B0F] hover:text-white hover:bg-[#d55805] hover:border-[#d55805] hover:font-black duration-300 relative shadow-md shadow-black/20">
-                            <div class=" absolute w-5 aspect-square top-1.5 sm:top-2.5 left-2">
-                                <svg viewBox="0 0 56.693 56.693" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 56.693 56.693"><path d="M46.38 10.714C41.73 6.057 35.544 3.492 28.954 3.489c-13.579 0-24.63 11.05-24.636 24.633a24.589 24.589 0 0 0 3.289 12.316L4.112 53.204l13.06-3.426a24.614 24.614 0 0 0 11.772 2.999h.01c13.577 0 24.63-11.052 24.635-24.635.002-6.582-2.558-12.772-7.209-17.428zM28.954 48.616h-.009a20.445 20.445 0 0 1-10.421-2.854l-.748-.444-7.75 2.033 2.07-7.555-.488-.775a20.427 20.427 0 0 1-3.13-10.897c.004-11.29 9.19-20.474 20.484-20.474a20.336 20.336 0 0 1 14.476 6.005 20.352 20.352 0 0 1 5.991 14.485c-.004 11.29-9.19 20.476-20.475 20.476z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="fill-000000"></path><path d="M40.185 33.281c-.615-.308-3.642-1.797-4.206-2.003-.564-.205-.975-.308-1.385.308-.41.617-1.59 2.003-1.949 2.414-.359.41-.718.462-1.334.154-.615-.308-2.599-.958-4.95-3.055-1.83-1.632-3.065-3.648-3.424-4.264-.36-.617-.038-.95.27-1.257.277-.276.615-.719.923-1.078.308-.36.41-.616.616-1.027.205-.41.102-.77-.052-1.078-.153-.308-1.384-3.338-1.897-4.57-.5-1.2-1.008-1.038-1.385-1.057-.359-.018-.77-.022-1.18-.022s-1.077.154-1.642.77c-.564.616-2.154 2.106-2.154 5.135 0 3.03 2.206 5.957 2.513 6.368.308.41 4.341 6.628 10.516 9.294a35.341 35.341 0 0 0 3.509 1.297c1.474.469 2.816.402 3.877.244 1.183-.177 3.642-1.49 4.155-2.927.513-1.438.513-2.67.359-2.927-.154-.257-.564-.41-1.18-.719z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="fill-000000"></path></svg>
-                            </div>
-                            WhatApp
-                        </button>
-                    </a>
-                </div>
-            </div>
+            <x-guest.contact classa="text-white bg-[#F26B0F] border-[#F26B0F] hover:text-white hover:bg-[#d55805] hover:border-[#d55805]" classb="text-white bg-[#F26B0F] border-[#F26B0F] hover:text-white hover:bg-[#d55805] hover:border-[#d55805]" :data="$data" :notlp="$no_tlp"/>
         </div>
     </div>
 </div>

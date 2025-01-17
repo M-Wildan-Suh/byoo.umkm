@@ -7,19 +7,19 @@
                     <!-- Tabs -->
                     <div class="flex flex-row gap-4">
                         <button 
-                            @click="activeTab = 'product'" 
+                            {{-- @click="activeTab = 'product'"  --}}
                             :class="activeTab === 'product' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
                             class="px-3 pb-2 border-b-2">
-                            Product
+                            Nama Usaha
                         </button>
                         <button 
-                            @click="activeTab = 'highlight'" 
+                            {{-- @click="activeTab = 'highlight'"  --}}
                             :class="activeTab === 'highlight' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
                             class="px-3 pb-2 border-b-2">
-                            Highlight
+                            Produk / Layanan
                         </button>
                         <button 
-                            @click="activeTab = 'gallery'" 
+                            {{-- @click="activeTab = 'gallery'"  --}}
                             :class="activeTab === 'gallery' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
                             class="px-3 pb-2 border-b-2">
                             Galeri
@@ -72,7 +72,7 @@
                                                 <div class=" w-full md:col-span-2 space-y-6">
                                                     <div x-data="productChecker()">
                                                         <div class="space-y-2">
-                                                            <label for="name">Nama Usaha Anda</label>
+                                                            <label for="name">Nama Usaha Kamu</label>
                                                             <input 
                                                                 class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
                                                                 type="text" 
@@ -110,22 +110,22 @@
                                                         <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="link" id="link">
                                                     </div> --}}
                                                     <div class=" space-y-2">
-                                                        <label for="subtitle">Sub Judul</label>
+                                                        <label for="subtitle">Tagline</label>
                                                         <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64"></textarea>
                                                     </div>
                                                     <div class=" space-y-2">
-                                                        <label for="no_tlp">No. Telephone</label>
+                                                        <label for="no_tlp">No. Whatsapp</label>
                                                         <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class=" space-y-2">
-                                                <label for="desc">Deskripsi</label>
+                                                <label for="desc">Tentang Usaha Anda</label>
                                                 <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5"></textarea>
                                             </div>
                                             <div class=" space-y-2">
                                                 <label for="address">Alamat</label>
-                                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="5"></textarea>
+                                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="1"></textarea>
                                             </div>
                                             {{-- <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]"></x-admin.component.taginput> --}}
                                             {{-- <div class=" space-y-2">
@@ -241,7 +241,7 @@
                             <div class=" w-full mx-auto">
                                 <div class="bg-[#F8FAFC] overflow-hidden shadow-sm sm:rounded-lg">
                                     <div class=" p-4 md:p-6 text-gray-900 space-y-4">
-                                        <p>Highlights ( Max 3 )</p>
+                                        <p>Produk / Layanan ( Max 3 )</p>
                                         <div class=" space-y-2">
                                             <div x-data="formManager()" class="w-full grid lg:grid-cols-2 gap-4">
                                                 <!-- Template untuk input -->
@@ -277,7 +277,7 @@
                                                                 x-model="input.title" 
                                                                 :name="'inputs[' + index + '][title]'" 
                                                                 class="min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" 
-                                                                placeholder="Judul" maxlength="27" required>
+                                                                placeholder="Produk / Layanan" maxlength="27" required>
                                                             <textarea x-model="input.description" 
                                                                 :name="'inputs[' + index + '][description]'" 
                                                                 class="min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" 
@@ -298,7 +298,7 @@
                                                     <button type="button" 
                                                         class="bg-[#ff7100] hover:bg-[#b95300] text-white w-full h-full py-1.5 rounded-md"
                                                         @click="addNewInput">
-                                                        Tambah Highlight
+                                                        Tambah Produk / Layanan
                                                     </button>
                                                 </div>
                                             </div>
@@ -329,8 +329,9 @@
                                                 }
                                             </script>
                                             
-                                            <div class="">
-                                                <button type="button" @click="activeTab = 'gallery'"  class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center"> Next</button>
+                                            <div class=" grid grid-cols-2 gap-4">
+                                                <button type="button" @click="activeTab = 'product'"  class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Kembali</button>
+                                                <button type="button" @click="activeTab = 'gallery'"  class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Next</button>
                                             </div>
                                         </div>
                                     </div>
@@ -388,8 +389,9 @@
                                                 };
                                             }
                                         </script>
-                                        <div class="">
-                                            <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Simpan</button>
+                                        <div class=" grid grid-cols-2 gap-4">
+                                            <button type="button" @click="activeTab = 'highlight'"  class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Kembali</button>
+                                            <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Join</button>
                                         </div>
                                     </div>
                                 </div>

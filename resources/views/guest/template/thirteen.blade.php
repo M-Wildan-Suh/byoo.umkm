@@ -1,29 +1,23 @@
 <div class=" mx-auto rounded-md bg-white min-h-screen relative">
     <div class=" space-y-6">
-        <div x-data="{ checkedItems: [] }" class=" min-h-screen pt-6 relative space-y-4 bg-gradient-to-b from-[#cdeef5] to-[#B1F0F7]">
+        <div x-data="{ checkedItems: [] }" class=" min-h-screen pt-6 relative space-y-4 bg-gradient-to-b from-[#ffe3c0] to-orange-100">
             <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative rounded-md overflow-hidden">
                 <div class=" w-full aspect-[2/1] max-h-[50vw] bg-[#81BFDA] rounded-md overflow-hidden relative">
                     <div class=" absolute inset-0">
-                        <img src="{{asset('/assets/images/bgeleven.png')}}" class=" w-full h-full object-cover" alt="">
+                        <img src="{{ $data->image }}" class=" w-full h-full object-cover object-center" alt="">
                     </div>
                     <div class=" w-full h-full grid grid-cols-2 relative">
-                        <div class=" w-full h-full flex items-center py-[20%] pl-[20%]">
-                            <div class=" w-full flex flex-col h-full justify-between text-white">
-                                <div class=" flex">
-                                    <div class=" w-auto px-1 sm:px-3 py-0.5 sm:pt-2 bg-white text-[#81BFDA] rounded-sm text-xs sm:text-lg font-bold">Welcome</div>
+                        <div class=" w-full h-full flex items-center justify-end overflow-hidden">
+                            <div class=" w-full h-full bg-black/40" style="clip-path: polygon(0% 0%, 85% 0%, 100% 100%, 0% 100%);">
+                                <div class=" w-full flex flex-col h-full justify-center gap-2 sm:gap-4 text-white py-[20%] px-[10%]">
+                                    <p class=" text-2xl sm:text-5xl font-black">{{$data->name}}</p>
+                                    <p class=" text-[8px] sm:text-sm">{{$data->subtitle}}</p>
+                                    <div class=" flex">
+                                        <a href="https://wa.me/{{ $notlp ?? '' }}">
+                                            <button class=" w-auto px-1 sm:px-3 py-[1px] sm:py-1 bg-white text-black rounded-sm text-[9px] sm:text-base font-bold">Hubungi Kami</button>
+                                        </a>
+                                    </div>
                                 </div>
-                                <p class=" text-2xl sm:text-5xl font-black">{{$data->name}}</p>
-                                <p class=" text-[8px] sm:text-sm">{{$data->subtitle}}</p>
-                                <div class=" flex">
-                                    <a href="https://wa.me/{{ $notlp ?? '' }}">
-                                        <button class=" w-auto px-1 sm:px-3 py-[1px] sm:py-1 bg-white text-[#81BFDA] rounded-sm text-[9px] sm:text-base font-bold">Hubungi Kami</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" w-full h-full flex items-center justify-end overflow-hidden p-[20%]">
-                            <div class=" flex max-w-full max-h-full aspect-square rounded-full overflow-hidden">
-                                <img src="{{ $data->image }}" class=" w-full h-full object-cover " alt="">
                             </div>
                         </div>
                     </div>
@@ -80,7 +74,7 @@
 
             <div class=" w-full max-w-[640px] mx-auto px-4 sm:px-0 relative">
                 <!-- Accordion Item 1 -->
-                <div class="p-4 bg-[#81BFDA] space-y-4 rounded-md text-white">
+                <div class="p-4 bg-[#cda476] space-y-4 rounded-md text-white">
                     <button
                         class="w-full flex justify-between items-center rounded-md focus:outline-non">
                         <span class="font-bold tracking-wide text-lg">Tentang Kami</span>
@@ -99,9 +93,9 @@
                         <div class="grid grid-cols-1 gap-3">
                             @foreach ($data->productHighlight as $item)
                                 @php
-                                    $colors = ['#ffd864', '#81BFDA']; // Kuning, Biru gelap kehijauan
+                                    // Tentukan warna berdasarkan indeks
+                                    $colors = ['#907658', '#cda476']; // Biru gelap kehijauan, Kuning
                                     $boxShadowColor = $colors[$loop->index % 2]; // Berganti warna setiap kelipatan 2
-                                    $textColor = $colors[($loop->index + 1) % 2]; // Warna kebalikan untuk teks
                                 @endphp
                                 <div style="background-color: {{ $boxShadowColor }};" class="w-full p-3 rounded-xl flex gap-2 text-white">
                                     <div class="min-w-24 h-24 aspect-square rounded-full border-2 overflow-hidden border-[#00fffb]">
@@ -113,7 +107,7 @@
                                         <div class="w-full flex items-end justify-between">
                                             <div class="flex gap-1">
                                                 @for ($i = 0; $i < 5; $i++)
-                                                    <div class="w-4 h-4" style="color: {{ $textColor }};">
+                                                    <div class="w-4 h-4 text-yellow-400" >
                                                         <svg viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
                                                             <g fill="none" fill-rule="evenodd">
                                                                 <path d="M30.757 1.144 38.2 16.948a1.968 1.968 0 0 0 1.475 1.123l16.644 2.534a2.08 2.08 0 0 1 1.086 3.502L45.362 36.408a2.115 2.115 0 0 0-.563 1.818l2.843 17.37a1.98 1.98 0 0 1-2.843 2.164l-14.887-8.201a1.88 1.88 0 0 0-1.824 0l-14.887 8.2a1.98 1.98 0 0 1-2.843-2.163l2.843-17.37a2.115 2.115 0 0 0-.563-1.818L.594 24.107a2.08 2.08 0 0 1 1.086-3.502l16.644-2.534a1.968 1.968 0 0 0 1.475-1.123l7.444-15.804a1.92 1.92 0 0 1 3.514 0Z" fill="#ffffff" class="fill-f6ab27"></path>
@@ -128,9 +122,8 @@
                                                     x-model="checkedItems" id="order-{{$item->id}}">
                                                 <button type="button" 
                                                         :class="checkedItems.includes('{{$item->id}}') ? 'opacity-80' : ''" 
-                                                        @click="checkedItems.includes('{{$item->id}}') ? checkedItems.splice(checkedItems.indexOf('{{$item->id}}'), 1) : checkedItems.push('{{$item->id}}')" 
-                                                        style="background-color: {{ $textColor }};" 
-                                                        class="duration-300 rounded-md py-1 px-3 text-sm">
+                                                        @click="checkedItems.includes('{{$item->id}}') ? checkedItems.splice(checkedItems.indexOf('{{$item->id}}'), 1) : checkedItems.push('{{$item->id}}')"  
+                                                        class="duration-300 rounded-md py-1 px-3 text-sm bg-yellow-400">
                                                     Pesan
                                                 </button>
                                             </div>
@@ -159,12 +152,12 @@
             </div>
             {{-- Divs --}}
             <div x-show="checkedItems.length === 0" class="sticky bottom-0">
-                <x-guest.contact classa="text-white bg-[#ffd864] border-[#ffd864] hover:text-white hover:bg-[#e6c154] hover:border-[#e6c154]" classb="bg-[#81BFDA] text-white border-[#81BFDA] hover:text-white hover:bg-[#629bb3] hover:border-[#629bb3]" :data="$data" :notlp="$no_tlp"/>
+                <x-guest.contact classa="text-white bg-[#907658] border-[#907658] hover:text-white hover:bg-[#6e583f] hover:border-[#6e583f]" classb="bg-[#cda476] text-white border-[#cda476] hover:text-white hover:bg-[#a07d56] hover:border-[#a07d56]" :data="$data" :notlp="$no_tlp"/>
             </div>
             <div x-show="checkedItems.length > 0" class="sticky bottom-0">
                 <div class="w-full sticky bottom-0 py-2 px-4 sm:px-8 z-30 rounded-b-md">
                     <div class="grid grid-cols-1 gap-4 w-full max-w-[640px] mx-auto">
-                        <button onclick="document.getElementById('order').submit();" class="text-base w-full flex flex-col items-center py-2 border rounded-md bg-[#81BFDA] text-white border-[#81BFDA] hover:text-white hover:bg-[#629bb3] hover:border-[#629bb3] duration-300 relative">
+                        <button onclick="document.getElementById('order').submit();" class="text-base w-full flex flex-col items-center py-2 border rounded-md bg-[#cda476] text-white border-[#cda476] hover:text-white hover:bg-[#a07d56] hover:border-[#a07d56] duration-300 relative">
                             <div class="w-5 aspect-square">
                                 <svg viewBox="0 0 56.693 56.693" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 56.693 56.693"><path d="M46.38 10.714C41.73 6.057 35.544 3.492 28.954 3.489c-13.579 0-24.63 11.05-24.636 24.633a24.589 24.589 0 0 0 3.289 12.316L4.112 53.204l13.06-3.426a24.614 24.614 0 0 0 11.772 2.999h.01c13.577 0 24.63-11.052 24.635-24.635.002-6.582-2.558-12.772-7.209-17.428zM28.954 48.616h-.009a20.445 20.445 0 0 1-10.421-2.854l-.748-.444-7.75 2.033 2.07-7.555-.488-.775a20.427 20.427 0 0 1-3.13-10.897c.004-11.29 9.19-20.474 20.484-20.474a20.336 20.336 0 0 1 14.476 6.005 20.352 20.352 0 0 1 5.991 14.485c-.004 11.29-9.19 20.476-20.475 20.476z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="fill-000000"></path><path d="M40.185 33.281c-.615-.308-3.642-1.797-4.206-2.003-.564-.205-.975-.308-1.385.308-.41.617-1.59 2.003-1.949 2.414-.359.41-.718.462-1.334.154-.615-.308-2.599-.958-4.95-3.055-1.83-1.632-3.065-3.648-3.424-4.264-.36-.617-.038-.95.27-1.257.277-.276.615-.719.923-1.078.308-.36.41-.616.616-1.027.205-.41.102-.77-.052-1.078-.153-.308-1.384-3.338-1.897-4.57-.5-1.2-1.008-1.038-1.385-1.057-.359-.018-.77-.022-1.18-.022s-1.077.154-1.642.77c-.564.616-2.154 2.106-2.154 5.135 0 3.03 2.206 5.957 2.513 6.368.308.41 4.341 6.628 10.516 9.294a35.341 35.341 0 0 0 3.509 1.297c1.474.469 2.816.402 3.877.244 1.183-.177 3.642-1.49 4.155-2.927.513-1.438.513-2.67.359-2.927-.154-.257-.564-.41-1.18-.719z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="fill-000000"></path></svg>
                             </div>

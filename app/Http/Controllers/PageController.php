@@ -304,4 +304,22 @@ class PageController extends Controller
 
         return redirect()->route('home');
     }
+    public function order(Request $request) {
+        $data = Highlight::whereIn('id', $request->order)->get();
+
+        // dd($data);
+        $no_tlp = NoHandphone::first()->no_tlp;
+        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
+
+        $message = "Halo, saya ingin memesan produk/layanan Anda.";
+
+        foreach ($data as $item) {
+            $message .= "\n- ". $item->title;
+        }
+
+        $message .= "\nUntuk produk/layanan diatas apakah masih tersedia?";
+        $whatsappUrl = "https://wa.me/{$no_tlp}?text=" . urlencode($message);
+
+        return redirect()->away($whatsappUrl);
+    }
 }

@@ -37,6 +37,8 @@ Route::get('/create-product', [PageController::class, 'createproduct'])->name('c
 
 Route::post('/store-product', [PageController::class, 'storeproduct'])->name('store.product');
 
+Route::post('/order', [PageController::class, 'order'])->name('order');
+
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 Route::get('/admin/dashboard', function () {

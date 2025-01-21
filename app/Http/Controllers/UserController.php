@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Hash;
 
+use function PHPUnit\Framework\returnSelf;
+
 class UserController extends Controller
 {
     /**
@@ -67,7 +69,14 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // dd($request);
+        $user = User::find($id);
+
+        $user->role = $request->role;
+
+        $user->save();
+
+        return redirect()->back();
     }
 
     /**

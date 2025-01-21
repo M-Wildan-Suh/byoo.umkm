@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccessController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HighlightController;
 use App\Http\Controllers\NoHandphoneController;
 use App\Http\Controllers\PageController;
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 
-Route::get('/product', [PageController::class, 'product'])->name('allproduct');
+Route::get('/komunitas', [PageController::class, 'product'])->name('allproduct');
 
 Route::get('/template', [PageController::class, 'template'])->name('alltemplate');
 
@@ -53,6 +54,8 @@ Route::middleware('auth')->group(function () {
     
         Route::resource('/admin/access', AccessController::class);
     });
+
+    Route::get('/admin/premium', [AdminController::class, 'premium'])->name('premium.index');
 
     Route::resource('/admin/no-handphone', NoHandphoneController::class);
 

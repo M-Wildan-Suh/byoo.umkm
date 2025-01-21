@@ -13,13 +13,13 @@
                         @click="activeTab = 'product'" 
                         :class="activeTab === 'product' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
                         class="px-3 pb-2 border-b-2">
-                        Product
+                        Usaha
                     </button>
                     <button 
                         @click="activeTab = 'highlight'" 
                         :class="activeTab === 'highlight' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
                         class="px-3 pb-2 border-b-2">
-                        Highlight
+                        Produk / Layanan
                     </button>
                     <button 
                         @click="activeTab = 'gallery'" 
@@ -81,8 +81,8 @@
                                                 <input value="{{$product->name}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
                                             </div>
                                             <div class=" space-y-2">
-                                                <label for="price">Harga</label>
-                                                <input value="{{$product->price}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="number" min="0" name="price" id="price">
+                                                <label for="subtitle">Tagline</label>
+                                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="1" maxlength="64">{{$product->subtitle}}</textarea>
                                             </div>
                                             <div class=" space-y-2">
                                                 <label for="link">Link Youtube</label>
@@ -91,15 +91,11 @@
                                         </div>
                                     </div>
                                     <div class=" space-y-2">
-                                        <label for="subtitle">Sub Judul</label>
-                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64">{{$product->subtitle}}</textarea>
-                                    </div>
-                                    <div class=" space-y-2">
                                         <label for="no_tlp">No. Telephone</label>
                                         <input value="{{$product->no_tlp}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
                                     </div>
                                     <div class=" space-y-2">
-                                        <label for="desc">Deskripsi</label>
+                                        <label for="desc">Tentang Usaha</label>
                                         <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5">{{$product->description}}</textarea>
                                     </div>
                                     <div class=" space-y-2">
@@ -120,19 +116,21 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class=" space-y-2">
-                                        <label for="home_button">Tombol Home</label>
-                                        <div class=" w-full grid grid-cols-2 gap-4">
-                                            <div class=" w-full flex items-center gap-2">
-                                                <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
-                                                <label for="on">On</label>
-                                            </div>
-                                            <div class=" w-full flex items-center gap-2">
-                                                <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$product->home_button === 'off' ? 'checked' : ''}}>
-                                                <label for="off">Off</label>
+                                    @if (Auth::user()->role === 'admin' || Auth::user()->role === 'premium')
+                                        <div class=" space-y-2">
+                                            <label for="home_button">Tombol Home</label>
+                                            <div class=" w-full grid grid-cols-2 gap-4">
+                                                <div class=" w-full flex items-center gap-2">
+                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
+                                                    <label for="on">On</label>
+                                                </div>
+                                                <div class=" w-full flex items-center gap-2">
+                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$product->home_button === 'off' ? 'checked' : ''}}>
+                                                    <label for="off">Off</label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
                                     <div class=" space-y-2">
                                         <label for="template">Template</label>
                                         <div x-data="{ selected: '{{$product->template ?? ''}}' }" class=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -261,7 +259,7 @@
                 <div class="max-w-[1080px] mx-auto">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class=" p-4 md:p-6 text-gray-900 space-y-4">
-                            <p>Highlights ( Max 3 )</p>
+                            <p>Produk / Layanan ( Max 3 )</p>
                             <div class=" space-y-2">
                                 <div class=" w-full grid lg:grid-cols-2 gap-4">
                                     @foreach ($product->productHighlight as $item)
@@ -313,7 +311,7 @@
                                                         </script>
                                                     </div>
                                                     <div class=" flex flex-col flex-grow justify-between gap-2">
-                                                        <input type="text" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" value="{{$item->title}}" name="title" placeholder="Judul" maxlength="27" >
+                                                        <input type="text" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" value="{{$item->title}}" name="title" placeholder="Nama Product" maxlength="27" >
                                                         <textarea name="description" id="" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Deskripsi" maxlength="64" cols="40">{{$item->description}}</textarea>
                                                     </div>
                                                 </div>
@@ -387,7 +385,7 @@
                                                 </div>
                                                 <div class=" flex flex-col flex-grow justify-between gap-2">
                                                     <input type="text" class="hidden" name="product_id" value="{{$product->id}}">
-                                                    <input type="text" name="title" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" placeholder="Judul" maxlength="27" >
+                                                    <input type="text" name="title" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" placeholder="Nama Product" maxlength="27" >
                                                     <textarea name="description" id="description" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Deskripsi" maxlength="64" cols="40"></textarea>
                                                 </div>
                                                 <button class=" min-w-[50px] bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center text-sm">Save</button>

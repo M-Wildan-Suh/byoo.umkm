@@ -33,6 +33,9 @@
                             {{ __('Akses') }}
                         </x-nav-link>
                     @endif
+                    <x-nav-link :href="route('premium.index')" :active="request()->routeIs('premium.index')">
+                        {{ __('Premium') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -104,6 +107,9 @@
                     {{ __('Akses') }}
                 </x-responsive-nav-link>
             @endif
+            <x-responsive-nav-link :href="route('premium.index')" :active="request()->routeIs('premium.index')">
+                {{ __('Premium') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

@@ -52,8 +52,8 @@
                                         <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
                                     </div>
                                     <div class=" space-y-2">
-                                        <label for="price">Harga</label>
-                                        <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="number" min="0" name="price" id="price">
+                                        <label for="subtitle">Tagline</label>
+                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="1" maxlength="64"></textarea>
                                     </div>
                                     <div class=" space-y-2">
                                         <label for="link">Link Youtube</label>
@@ -62,15 +62,11 @@
                                 </div>
                             </div>
                             <div class=" space-y-2">
-                                <label for="subtitle">Sub Judul</label>
-                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64"></textarea>
-                            </div>
-                            <div class=" space-y-2">
                                 <label for="no_tlp">No. Telephone</label>
                                 <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
                             </div>
                             <div class=" space-y-2">
-                                <label for="desc">Deskripsi</label>
+                                <label for="desc">Tentang Usaha</label>
                                 <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5"></textarea>
                             </div>
                             <div class=" space-y-2">

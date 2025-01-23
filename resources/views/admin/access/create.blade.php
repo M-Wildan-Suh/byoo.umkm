@@ -22,14 +22,21 @@
                             </div>
                             <div class=" space-y-2">
                                 <label for="product">Usaha</label>
-                                <select name="product" class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" id="user">
+                                <select name="product" class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" id="productr">
+                                    @if (empty($product) || $product->isEmpty())
+                                        <option value="" disabled selected>Data tidak tersedia</option>
+                                    @endif
                                     @foreach ($product as $item)
                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="">
-                                <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
+                                @if (empty($product) || $product->isEmpty())
+                                    <button disabled class=" opacity-60 cursor-not-allowed font-bold w-full py-2 bg-[#ff7100] duration-300 text-white rounded-md text-center">Simpan</button>
+                                @else
+                                    <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
+                                @endif
                             </div>
                         </div>
                     </form>

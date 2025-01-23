@@ -60,7 +60,7 @@
                 @include('components.guest.gallery')
             </div>
 
-            <x-guest.contact classa="text-white bg-blue-500 border-blue-500 hover:text-white hover:bg-blue-700 hover:border-blue-700" classb="bg-purple-500 text-white border-purple-500 hover:text-white hover:bg-purple-700 hover:border-purple-700" :data="$data" :notlp="$no_tlp"/>
+            <x-guest.contact :role="$role" classa="text-white bg-blue-500 border-blue-500 hover:text-white hover:bg-blue-700 hover:border-blue-700" classb="bg-purple-500 text-white border-purple-500 hover:text-white hover:bg-purple-700 hover:border-purple-700" :data="$data" :notlp="$no_tlp"/>
         </div>
     </div>
 </div>

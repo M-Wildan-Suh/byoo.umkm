@@ -67,6 +67,6 @@
         <div class="w-full max-w-[640px] mx-auto px-4 md:px-0 relative">
             @include('components.guest.gallery')
         </div>
-        <x-guest.contact classa="text-white bg-[#03497d] border-[#03497D] hover:text-white hover:bg-[#003156] hover:border-[#003156]" classb="bg-[#4b91b1] text-white border-[#4b91b1] hover:text-white hover:bg-[#37718c] hover:border-[#37718c]" :data="$data" :notlp="$no_tlp"/>
+        <x-guest.contact :role="$role" classa="text-white bg-[#03497d] border-[#03497D] hover:text-white hover:bg-[#003156] hover:border-[#003156]" classb="bg-[#4b91b1] text-white border-[#4b91b1] hover:text-white hover:bg-[#37718c] hover:border-[#37718c]" :data="$data" :notlp="$no_tlp"/>
     </div>
 </div>

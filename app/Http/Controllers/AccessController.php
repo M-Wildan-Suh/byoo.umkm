@@ -31,7 +31,8 @@ class AccessController extends Controller
     public function create()
     {
         $user = User::where('role', '!=', 'admin')->get();
-        $product = Product::all();
+        $access = Access::all();
+        $product = Product::whereNotIn('id', $access->pluck('product_id'))->get();
         return view('admin.access.create', compact('user', 'product'));
     }
 

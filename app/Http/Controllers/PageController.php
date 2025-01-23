@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Access;
 use App\Models\Highlight;
 use App\Models\NoHandphone;
 use App\Models\PivotProductTag;
@@ -88,6 +89,14 @@ class PageController extends Controller
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
         $data = Product::where('name', ucwords(str_replace('-', ' ', $slug)))->first();
 
+        $role = Access::where('product_id', $data->id)->first();
+
+        if ($role) {
+            $role = $role->user->role;
+        } else {
+            $role = 'admin';
+        }
+
         $data->image = asset('storage/images/product/'. $data->image);
 
         $data->productGallery = $data->productGallery->map(function ($item) {
@@ -129,7 +138,7 @@ class PageController extends Controller
         // Buat embed URL jika ID ditemukan
         $data->embed = $videoId ? "https://www.youtube.com/embed/" . $videoId : $data->youtube;
 
-        return view('detail', compact('data', 'no_tlp'));
+        return view('detail', compact('data', 'no_tlp', 'role'));
 
     }
     public function templatedetail($slug) {
@@ -138,6 +147,8 @@ class PageController extends Controller
         $data = Template::where('name', ucwords(str_replace('-', ' ', $slug)))->first();
 
         $data->image = asset('storage/images/template/'. $data->image);
+
+        $role = 'admin';
 
         $data->templateGallery = $data->templateGallery->map(function ($item) {
             $item->image = asset('storage/images/template/gallery/'. $item->image);
@@ -182,7 +193,7 @@ class PageController extends Controller
         // Buat embed URL jika ID ditemukan
         $data->embed = $videoId ? "https://www.youtube.com/embed/" . $videoId : $data->youtube;
 
-        return view('detail', compact('data', 'no_tlp'));
+        return view('detail', compact('data', 'no_tlp', 'role'));
     }
     public function createproduct() {
         $tag = ProductTag::all();

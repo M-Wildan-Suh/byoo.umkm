@@ -65,7 +65,7 @@
                 @include('components.guest.gallery')
             </div>
 
-            <x-guest.contact classa="text-white bg-[#80AF81] border-[#80AF81] hover:text-white hover:bg-[#59875a] hover:border-[#59875a]" classb="bg-[#508D4E] text-white border-[#508D4E] hover:text-white hover:bg-[#2d5f2c] hover:border-[#2d5f2c]" :data="$data" :notlp="$no_tlp"/>
+            <x-guest.contact :role="$role" classa="text-white bg-[#80AF81] border-[#80AF81] hover:text-white hover:bg-[#59875a] hover:border-[#59875a]" classb="bg-[#508D4E] text-white border-[#508D4E] hover:text-white hover:bg-[#2d5f2c] hover:border-[#2d5f2c]" :data="$data" :notlp="$no_tlp"/>
         </div>
     </div>
 </div>

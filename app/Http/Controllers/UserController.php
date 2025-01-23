@@ -73,6 +73,8 @@ class UserController extends Controller
         $user = User::find($id);
 
         $user->role = $request->role;
+        $user->premium_type = $request->premium_type;
+        $user->expired = $request->expired;
 
         $user->save();
 

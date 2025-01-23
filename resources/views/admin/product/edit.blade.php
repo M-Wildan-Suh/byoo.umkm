@@ -259,6 +259,18 @@
                 <div class="max-w-[1080px] mx-auto">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class=" p-4 md:p-6 text-gray-900 space-y-4">
+                            <div class=" space-y-2">
+                                <label for="order">Edit Tombol Order</label>
+                                <div class=" flex flex-col gap-2 font-medium">
+                                    <form action="{{route('no-handphone.store')}}" method="post">
+                                        @csrf
+                                        <div class="flex flex-row w-full border border-transparent focus-within:border-[#b95300] focus-within:ring-1 focus-within:ring-[#b95300] rounded-md">
+                                            <input type="text" id="no_handphone" name="no_handphone" placeholder="Masukkan nama tombol order..." value="" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none bg-neutral-100">
+                                            <button class="py-2 px-3 border border-[#ff7100] bg-[#ff7100] text-white rounded-r hover:bg-[#b95300] hover:border-[#b95300] duration-300 text-sm sm:text-base">Ganti</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                             <p>Produk / Layanan ( Max 3 )</p>
                             <div class=" space-y-2">
                                 <div class=" w-full grid lg:grid-cols-2 gap-4">

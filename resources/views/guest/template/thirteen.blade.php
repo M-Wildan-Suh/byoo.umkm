@@ -72,19 +72,7 @@
                 </script>
             </div>
 
-            <div class=" w-full max-w-[640px] mx-auto px-4 sm:px-0 relative">
-                <!-- Accordion Item 1 -->
-                <div class="p-4 bg-[#cda476] space-y-4 rounded-md text-white">
-                    <button
-                        class="w-full flex justify-between items-center rounded-md focus:outline-non">
-                        <span class="font-bold tracking-wide text-lg">Tentang Kami</span>
-                    </button>
-                    <div
-                        class=" text-sm rounded-md">
-                        <p class="">{!! nl2br(e($data->description == '' ? 'Description' : $data->description)) !!}</p>
-                    </div>
-                </div>
-            </div>
+            <x-guest.description color="#cda476" :data="$data" />
 
             <div class="w-full max-w-[640px] mx-auto px-4 md:px-0 relative">
                 <div class=" w-full">
@@ -117,16 +105,18 @@
                                                     </div>
                                                 @endfor
                                             </div>
-                                            <div class="bg-black rounded-md">
-                                                <input type="checkbox" class="hidden" name="order[]" value="{{$item->id}}" 
-                                                    x-model="checkedItems" id="order-{{$item->id}}">
-                                                <button type="button" 
-                                                        :class="checkedItems.includes('{{$item->id}}') ? 'opacity-80' : ''" 
-                                                        @click="checkedItems.includes('{{$item->id}}') ? checkedItems.splice(checkedItems.indexOf('{{$item->id}}'), 1) : checkedItems.push('{{$item->id}}')"  
-                                                        class="duration-300 rounded-md py-1 px-3 text-sm bg-yellow-400">
-                                                    Pesan
-                                                </button>
-                                            </div>
+                                            @if ($role === "admin" || $role === "premium")
+                                                <div class="bg-black rounded-md">
+                                                    <input type="checkbox" class="hidden" name="order[]" value="{{$item->id}}" 
+                                                        x-model="checkedItems" id="order-{{$item->id}}">
+                                                    <button type="button" 
+                                                            :class="checkedItems.includes('{{$item->id}}') ? 'opacity-80' : ''" 
+                                                            @click="checkedItems.includes('{{$item->id}}') ? checkedItems.splice(checkedItems.indexOf('{{$item->id}}'), 1) : checkedItems.push('{{$item->id}}')"  
+                                                            class="duration-300 rounded-md py-1 px-3 text-sm bg-yellow-400">
+                                                        Pesan
+                                                    </button>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +148,7 @@
                     </div>
                 </div>
             </div>
-            <x-guest.contact classa="text-white bg-[#907658] border-[#907658] hover:text-white hover:bg-[#6e583f] hover:border-[#6e583f]" classb="bg-[#cda476] text-white border-[#cda476] hover:text-white hover:bg-[#a07d56] hover:border-[#a07d56]" :data="$data" :notlp="$no_tlp"/>
+            <x-guest.contact :role="$role" classa="text-white bg-[#907658] border-[#907658] hover:text-white hover:bg-[#6e583f] hover:border-[#6e583f]" classb="bg-[#cda476] text-white border-[#cda476] hover:text-white hover:bg-[#a07d56] hover:border-[#a07d56]" :data="$data" :notlp="$no_tlp"/>
         </div>
     </div>
 </div>

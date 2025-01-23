@@ -14,7 +14,7 @@
                             Premium
                         </div>
                         <p>Rp??0.000</p>
-                        <p>Seumur Hidup</p>
+                        <p>Month</p>
                     </div>
                     <div class=" w-full space-y-3">
                         <p class=" text-lg">Manfaat memiliki Akun Premium :</p>
@@ -26,7 +26,65 @@
                         </ul>
                     </div>
                     <div class=" flex justify-end">
-                        <a href="https://wa.me/{{ $notlp ?? '' }}">
+                        <a href="https://wa.me/{{ $no_tlp ?? '' }}">
+                            <button class=" font-bold px-4 py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Beli Sekarang</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-4 px-4">
+        <div class="max-w-[1080px] mx-auto">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class=" p-4 md:p-6 text-gray-900 space-y-6">
+                    <div class=" flex gap-4 items-center font-black">
+                        <div class=" px-4 py-1 rounded-md bg-[#ff7100] text-white font-black">
+                            Premium
+                        </div>
+                        <p>Rp??0.000</p>
+                        <p>Year</p>
+                    </div>
+                    <div class=" w-full space-y-3">
+                        <p class=" text-lg">Manfaat memiliki Akun Premium :</p>
+                        <ul class=" list-disc pl-6">
+                            <li>Akses ke sistem edit yang lebih maksimal</li>
+                            <li>Pilihan Template yang lebih banyak</li>
+                            <li>Fungsi sistem order pada website</li>
+                            <li>Merubah no whatsapp yang digunakan pada contact menjadi no whatsapp anda</li>
+                        </ul>
+                    </div>
+                    <div class=" flex justify-end">
+                        <a href="https://wa.me/{{ $no_tlp ?? '' }}">
+                            <button class=" font-bold px-4 py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Beli Sekarang</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-4 px-4">
+        <div class="max-w-[1080px] mx-auto">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class=" p-4 md:p-6 text-gray-900 space-y-6">
+                    <div class=" flex gap-4 items-center font-black">
+                        <div class=" px-4 py-1 rounded-md bg-[#ff7100] text-white font-black">
+                            Premium
+                        </div>
+                        <p>Rp2.000.000</p>
+                        <p>Life Time</p>
+                    </div>
+                    <div class=" w-full space-y-3">
+                        <p class=" text-lg">Manfaat memiliki Akun Premium :</p>
+                        <ul class=" list-disc pl-6">
+                            <li>Akses ke sistem edit yang lebih maksimal</li>
+                            <li>Pilihan Template yang lebih banyak</li>
+                            <li>Fungsi sistem order pada website</li>
+                            <li>Merubah no whatsapp yang digunakan pada contact menjadi no whatsapp anda</li>
+                        </ul>
+                    </div>
+                    <div class=" flex justify-end">
+                        <a href="https://wa.me/{{ $no_tlp ?? '' }}">
                             <button class=" font-bold px-4 py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Beli Sekarang</button>
                         </a>
                     </div>

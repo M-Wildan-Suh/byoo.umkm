@@ -178,7 +178,7 @@
                     </div>
                 </div>
             </div>
-            <x-guest.contact :role="$role" classa="text-white bg-[#8E1616] border-white hover:text-white hover:bg-[#750d0d]" classb="bg-[#1D1616] text-white border-white hover:text-white hover:bg-[#a07d56]" :data="$data" :notlp="$no_tlp"/>
+            <x-guest.contact :role="$role" classa="text-white bg-[#8E1616] border-white hover:text-white hover:bg-[#750d0d]" classb="bg-[#1D1616] text-white border-white hover:text-white" :data="$data" :notlp="$no_tlp"/>
         </div>
     </div>
 </div>

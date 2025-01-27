@@ -47,31 +47,33 @@ Route::get('/admin/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::group(['middleware' => 'cekRole'], function () {
-        Route::resource('/admin/user', UserController::class);
-
-        Route::resource('/admin/template', TemplateController::class);
+    Route::group(['middleware' => 'cekUser'], function () {
+        Route::group(['middleware' => 'cekRole'], function () {
+            Route::resource('/admin/user', UserController::class);
     
-        Route::resource('/admin/access', AccessController::class);
+            Route::resource('/admin/template', TemplateController::class);
+        
+            Route::resource('/admin/access', AccessController::class);
+        });
+    
+        Route::get('/admin/premium', [AdminController::class, 'premium'])->name('premium.index');
+    
+        Route::resource('/admin/no-handphone', NoHandphoneController::class);
+    
+        Route::resource('/admin/product', ProductController::class);
+    
+        Route::resource('/admin/product-gallery', ProductGalleryController::class);
+    
+        Route::resource('/admin/highlight', HighlightController::class);
+    
+        Route::resource('/admin/template-highlight', TemplateHighlightController::class);
+    
+        Route::resource('/admin/template-gallery', TemplateGalleryController::class);
+    
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     });
-
-    Route::get('/admin/premium', [AdminController::class, 'premium'])->name('premium.index');
-
-    Route::resource('/admin/no-handphone', NoHandphoneController::class);
-
-    Route::resource('/admin/product', ProductController::class);
-
-    Route::resource('/admin/product-gallery', ProductGalleryController::class);
-
-    Route::resource('/admin/highlight', HighlightController::class);
-
-    Route::resource('/admin/template-highlight', TemplateHighlightController::class);
-
-    Route::resource('/admin/template-gallery', TemplateGalleryController::class);
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';

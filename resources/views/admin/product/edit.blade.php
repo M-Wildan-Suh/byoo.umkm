@@ -103,20 +103,48 @@
                                         <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="5">{{$product->address}}</textarea>
                                     </div>
                                     <x-admin.component.taginput title="Tag" :value="$product->productTags" name="tag[]" :tag="$tag"></x-admin.component.taginput>
-                                    <div class=" space-y-2">
-                                        <label for="address">Status</label>
-                                        <div class=" w-full grid grid-cols-2 gap-4">
-                                            <div class=" flex items-center gap-3">
-                                                <input type="radio" id="active" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="status" value="active" checked id="">
-                                                <label for="active">Active</label>
-                                            </div>
-                                            <div class=" flex items-center gap-3">
-                                                <input type="radio" id="unactive" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="status" value="unactive" {{$product->status === 'unactive' ? 'checked' : ''}} id="">
-                                                <label for="unactive">Unactive</label>
+                                    @if (Auth::user()->role === 'admin')
+                                        <div class=" space-y-2">
+                                            <label for="address">Status</label>
+                                            <div class=" w-full grid grid-cols-2 gap-4">
+                                                <div class=" flex items-center gap-3">
+                                                    <input type="radio" id="active" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="status" value="active" checked id="">
+                                                    <label for="active">Active</label>
+                                                </div>
+                                                <div class=" flex items-center gap-3">
+                                                    <input type="radio" id="unactive" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="status" value="unactive" {{$product->status === 'unactive' ? 'checked' : ''}} id="">
+                                                    <label for="unactive">Unactive</label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    @if (Auth::user()->role === 'admin' || Auth::user()->role === 'premium')
+                                        <div class=" space-y-2">
+                                            <label for="home_button">Tombol Home</label>
+                                            <div class=" w-full grid grid-cols-2 gap-4">
+                                                <div class=" w-full flex items-center gap-2">
+                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
+                                                    <label for="on">On</label>
+                                                </div>
+                                                <div class=" w-full flex items-center gap-2">
+                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$product->home_button === 'off' ? 'checked' : ''}}>
+                                                    <label for="off">Off</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @elseif (Auth::user()->role === 'premium' && Auth::user()->premium_type === 'lifetime')
+                                        <div class=" space-y-2">
+                                            <label for="home_button">Tombol Home</label>
+                                            <div class=" w-full grid grid-cols-2 gap-4">
+                                                <div class=" w-full flex items-center gap-2">
+                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
+                                                    <label for="on">On</label>
+                                                </div>
+                                                <div class=" w-full flex items-center gap-2">
+                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$product->home_button === 'off' ? 'checked' : ''}}>
+                                                    <label for="off">Off</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @elseif (Auth::user()->role === 'premium' && Carbon\Carbon::now()->lessThanOrEqualTo(Carbon\Carbon::parse(Auth::user()->expired)))
                                         <div class=" space-y-2">
                                             <label for="home_button">Tombol Home</label>
                                             <div class=" w-full grid grid-cols-2 gap-4">
@@ -243,6 +271,15 @@
                                                     <img src="{{asset('/assets/images/template/thirteen.png')}}" class=" w-full h-full object-cover object-top" alt="">
                                                 </div>
                                             </div>
+                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
+                                                <input type="radio" name="template" id="fourteen" value="fourteen" class="hidden" 
+                                                       @checked(isset($product->template) && $product->template === 'fourteen') 
+                                                       @change="selected = 'fourteen'">
+                                                <label for="fourteen" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'fourteen' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
+                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
+                                                    <img src="{{asset('/assets/images/template/fourteen.png')}}" class=" w-full h-full object-cover object-top" alt="">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     
@@ -259,18 +296,33 @@
                 <div class="max-w-[1080px] mx-auto">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class=" p-4 md:p-6 text-gray-900 space-y-4">
-                            <div class=" space-y-2">
-                                <label for="order">Edit Tombol Order</label>
-                                <div class=" flex flex-col gap-2 font-medium">
-                                    <form action="{{route('no-handphone.store')}}" method="post">
-                                        @csrf
-                                        <div class="flex flex-row w-full border border-transparent focus-within:border-[#b95300] focus-within:ring-1 focus-within:ring-[#b95300] rounded-md">
-                                            <input type="text" id="no_handphone" name="no_handphone" placeholder="Masukkan nama tombol order..." value="" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none bg-neutral-100">
-                                            <button class="py-2 px-3 border border-[#ff7100] bg-[#ff7100] text-white rounded-r hover:bg-[#b95300] hover:border-[#b95300] duration-300 text-sm sm:text-base">Ganti</button>
-                                        </div>
-                                    </form>
+                            @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'premium' && Auth::user()->premium_type === 'lifetime'))
+                                <div class=" space-y-2">
+                                    <label for="order">Edit Tombol Order</label>
+                                    <div class=" flex flex-col gap-2 font-medium">
+                                        <form action="{{route('no-handphone.store')}}" method="post">
+                                            @csrf
+                                            <div class="flex flex-row w-full border border-transparent focus-within:border-[#b95300] focus-within:ring-1 focus-within:ring-[#b95300] rounded-md">
+                                                <input type="text" id="no_handphone" name="no_handphone" placeholder="Masukkan nama tombol order..." value="" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none bg-neutral-100">
+                                                <button class="py-2 px-3 border border-[#ff7100] bg-[#ff7100] text-white rounded-r hover:bg-[#b95300] hover:border-[#b95300] duration-300 text-sm sm:text-base">Ganti</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
+                            @elseif (Auth::user()->role === 'premium' && Carbon\Carbon::now()->lessThanOrEqualTo(Carbon\Carbon::parse(Auth::user()->expired)))
+                                <div class=" space-y-2">
+                                    <label for="order">Edit Tombol Order</label>
+                                    <div class=" flex flex-col gap-2 font-medium">
+                                        <form action="{{route('no-handphone.store')}}" method="post">
+                                            @csrf
+                                            <div class="flex flex-row w-full border border-transparent focus-within:border-[#b95300] focus-within:ring-1 focus-within:ring-[#b95300] rounded-md">
+                                                <input type="text" id="no_handphone" name="no_handphone" placeholder="Masukkan nama tombol order..." value="" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none bg-neutral-100">
+                                                <button class="py-2 px-3 border border-[#ff7100] bg-[#ff7100] text-white rounded-r hover:bg-[#b95300] hover:border-[#b95300] duration-300 text-sm sm:text-base">Ganti</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            @endif
                             <p>Produk / Layanan ( Max 3 )</p>
                             <div class=" space-y-2">
                                 <div class=" w-full grid lg:grid-cols-2 gap-4">

@@ -31,6 +31,8 @@
                                 <th class=" px-1 sm:px-2 py-1">Nama User</th>
                                 <th class=" px-1 sm:px-2 py-1 hidden sm:table-cell">Email</th>
                                 <th class=" px-1 sm:px-2 py-1">Role</th>
+                                <th class=" px-1 sm:px-2 py-1">Expired</th>
+                                {{-- <th class=" px-1 sm:px-2 py-1">Role</th> --}}
                                 <th class=" px-1 sm:px-2 py-1">Opsi</th>
                             </tr>
                         </thead>
@@ -43,9 +45,13 @@
                             
                                     <!-- Kolom Email -->
                                     <td class="px-2 sm:px-4 py-2 text-nowrap hidden sm:table-cell" x-text="item.email"></td>
+
+                                    <td class="px-2 sm:px-4 py-2 text-nowrap" x-text="item.role"></td>
+
+                                    <td class="px-2 sm:px-4 py-2 text-nowrap" x-text="item.expired"></td>
                             
                                     <!-- Kolom Role -->
-                                    <td class="px-2 sm:px-4 py-2 text-nowrap">
+                                    {{-- <td class="px-2 sm:px-4 py-2 text-nowrap">
                                         <form 
                                             :action="`{{ route('user.show', '') }}/${item.id}`" 
                                             method="POST"
@@ -63,7 +69,7 @@
                                                 <option value="premium">Premium User</option>
                                             </select>
                                         </form>
-                                    </td>
+                                    </td> --}}
                             
                                     <!-- Kolom Aksi -->
                                     <td class="px-1 sm:px-2">

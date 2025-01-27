@@ -42,6 +42,7 @@ x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
                             name="premium_type" 
                             class="w-full border-gray-300 bg-transparent focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
                             id="premium_type"
+                            x-bind:value="editData.premium_type"
                             x-model="premiumType"
                             @change="updateDate">
                             <option value="month">Month</option>
@@ -56,7 +57,8 @@ x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
                             name="expired" 
                             id="expired" 
                             class="w-full border-gray-300 bg-transparent focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm"
-                            x-bind:value="expiredDate"
+                            x-bind:value="editData.expired"
+                            x-model="expiredDate"
                             x-bind:disabled="premiumType === 'lifetime'">
                         <span x-show="premiumType === 'lifetime'" class="text-sm italic text-gray-500">Unlimited</span>
                     </div>
@@ -65,7 +67,7 @@ x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
                 <script>
                     function premiumSelector() {
                         return {
-                            premiumType: 'month',
+                            premiumType: '',
                             expiredDate: '',
                             updateDate() {
                                 const currentDate = new Date();

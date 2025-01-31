@@ -1,7 +1,7 @@
-<x-app-layout>
+<x-app-layout title="Admin - Akses">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Product') }}
+            {{ __('Akses') }}
         </h2>
     </x-slot>
 
@@ -174,7 +174,7 @@
                             if (this.search === '') {
                                 return this.data;
                             }
-                            return this.data.filter(item => item.name.toLowerCase().includes(this.search.toLowerCase()));
+                            return this.data.filter(item => item.product_name.toLowerCase().includes(this.search.toLowerCase()));
                         },
 
                         get totalPages() {

@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('image');
-            $table->string('youtube');
+            $table->string('youtube')->nullable();
             $table->string('template')->default('one');
+            $table->string('order_title')->default('beli');
             $table->integer('price')->nullable();
             $table->string('address')->nullable();
             $table->string('no_tlp')->nullable();

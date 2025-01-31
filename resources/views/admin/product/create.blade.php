@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Admin - Tambah Usaha">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Create Product') }}
@@ -52,7 +52,7 @@
                                         <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
                                     </div>
                                     <div class=" space-y-2">
-                                        <label for="subtitle">Tagline</label>
+                                        <label for="subtitle">Deskripsi Singkat Tentang Usaha Anda</label>
                                         <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="1" maxlength="64"></textarea>
                                     </div>
                                     <div class=" space-y-2">
@@ -66,13 +66,13 @@
                                 <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
                             </div>
                             <div class=" space-y-2">
-                                <label for="desc">Tentang Usaha</label>
+                                <label for="desc">Deskripsi Panjang Tentang Usaha Anda</label>
                                 <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5"></textarea>
                             </div>
-                            <div class=" space-y-2">
+                            {{-- <div class=" space-y-2">
                                 <label for="address">Alamat</label>
                                 <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="5"></textarea>
-                            </div>
+                            </div> --}}
                             <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]"></x-admin.component.taginput>
                             <div class=" space-y-2">
                                 <label for="home_button">Tombol Home</label>

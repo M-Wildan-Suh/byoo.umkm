@@ -146,6 +146,18 @@ class ProductController extends Controller
         //
     }
 
+    public function productorder($id, Request $request)
+    {
+        // dd($request);
+        $data = Product::find($id);
+
+        $data->order_title = $request->order_title;
+
+        $data->save();
+
+        return redirect()->back()->with('highlight', 'highlight');
+    }
+
     /**
      * Update the specified resource in storage.
      */

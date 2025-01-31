@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Admin - Usaha">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Usaha Anda') }}
@@ -48,7 +48,7 @@
                         <thead>
                             <tr class="h-10 bg-[#ff7100] text-white divide-x-2 divide-white">
                                 <th class=" px-1 sm:px-2 py-1">Nama Usaha</th>
-                                <th class=" px-1 sm:px-2 py-1">No Tlp</th>
+                                <th class=" px-1 sm:px-2 py-1 hidden sm:table-cell">No Tlp</th>
                                 <th class=" px-1 sm:px-2 py-1">Status</th>
                                 <th class=" px-1 sm:px-2 py-1">Opsi</th>
                             </tr>
@@ -58,7 +58,7 @@
                                 <tr :class="index % 2 === 0 ? 'bg-neutral-100' : 'bg-neutral-200'"
                                     class="h-10 text-neutral-600 divide-x-2 divide-white">
                                     <td class=" px-2 sm:px-4 py-2 text-center font-semibold" x-text="item.name"></td>
-                                    <td class=" px-2 sm:px-4 py-2 text-nowrap" x-text="item.no_tlp"></td>
+                                    <td class=" px-2 sm:px-4 py-2 text-nowrap hidden sm:table-cell" x-text="item.no_tlp"></td>
                                     <td class=" px-2 sm:px-4 py-2 text-nowrap" x-text="item.status"></td>
                                     <td class=" px-1 sm:px-2">
                                         <div class="flex gap-2 justify-center">

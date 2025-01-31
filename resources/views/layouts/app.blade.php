@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+@props(['title' => null])
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -7,7 +8,7 @@
         
         <link rel="icon" href="{{ asset('/assets/images/logo.png') }}" type="image/x-icon">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{$title ?? ''}}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

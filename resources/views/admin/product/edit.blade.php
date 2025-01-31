@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Admin - Edit Usaha">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Edit Produk') }}
@@ -300,10 +300,11 @@
                                 <div class=" space-y-2">
                                     <label for="order">Edit Tombol Order</label>
                                     <div class=" flex flex-col gap-2 font-medium">
-                                        <form action="{{route('no-handphone.store')}}" method="post">
+                                        <form action="{{route('product.order', ['id' => $product->id])}}" method="post">
                                             @csrf
+                                            @method('put')
                                             <div class="flex flex-row w-full border border-transparent focus-within:border-[#b95300] focus-within:ring-1 focus-within:ring-[#b95300] rounded-md">
-                                                <input type="text" id="no_handphone" name="no_handphone" placeholder="Masukkan nama tombol order..." value="" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none bg-neutral-100">
+                                                <input type="text" id="order_title" name="order_title" placeholder="Masukkan nama tombol order..." value="{{$product->order_title}}" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none">
                                                 <button class="py-2 px-3 border border-[#ff7100] bg-[#ff7100] text-white rounded-r hover:bg-[#b95300] hover:border-[#b95300] duration-300 text-sm sm:text-base">Ganti</button>
                                             </div>
                                         </form>
@@ -313,10 +314,11 @@
                                 <div class=" space-y-2">
                                     <label for="order">Edit Tombol Order</label>
                                     <div class=" flex flex-col gap-2 font-medium">
-                                        <form action="{{route('no-handphone.store')}}" method="post">
+                                        <form action="{{route('product.order', ['id' => $product->id])}}" method="post">
                                             @csrf
+                                            @method('put')
                                             <div class="flex flex-row w-full border border-transparent focus-within:border-[#b95300] focus-within:ring-1 focus-within:ring-[#b95300] rounded-md">
-                                                <input type="text" id="no_handphone" name="no_handphone" placeholder="Masukkan nama tombol order..." value="" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none bg-neutral-100">
+                                                <input type="text" id="order_title" name="order_title" placeholder="Masukkan nama tombol order..." value="{{$product->order_title}}" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none">
                                                 <button class="py-2 px-3 border border-[#ff7100] bg-[#ff7100] text-white rounded-r hover:bg-[#b95300] hover:border-[#b95300] duration-300 text-sm sm:text-base">Ganti</button>
                                             </div>
                                         </form>
@@ -399,63 +401,121 @@
                                             }
                                         }
                                     </script>
-                                    
-                                    @if ($product->productHighlight->count() < 3)    
+
+                                    @if (Auth::user()->role === 'admin')
                                         <form action="{{route('highlight.store')}}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class=" w-full max-w-full rounded-xl flex justify-between gap-4 bg-white">
-                                                <div class=" min-w-20 sm:min-w-24 h-20 sm:h-24 aspect-square rounded-md overflow-hidden">
-                                                    <div class="w-full h-full flex flex-col text-sm font-medium gap-2 justify-center items-center">
-                                                        <div class="w-full h-full relative flex justify-center overflow-hidden">
-                                                            <img id="highlightimage-preview" class="object-cover w-full" 
-                                                                src="{{asset('assets/images/placeholder.webp')}}" 
-                                                                alt="Logo">
-                                                            <div class="w-full h-full absolute z-10 top-0 opacity-0 hover:opacity-100 duration-300">
-                                                                <label for="highlightimage-input" class="relative">
-                                                                    <div class="w-full h-full bg-black opacity-60 flex justify-center items-center text-neutral-400">
-                                                                        <div class="w-7 aspect-square">
-                                                                            <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M0 14.2V18h3.8l11-11.1L11 3.1 0 14.2ZM17.7 4c.4-.4.4-1 0-1.4L15.4.3c-.4-.4-1-.4-1.4 0l-1.8 1.8L16 5.9 17.7 4Z" fill="currentColor" fill-rule="evenodd" class="fill-000000"></path></svg>
+                                                @csrf
+                                                <div class=" w-full max-w-full rounded-xl flex justify-between gap-4 bg-white">
+                                                    <div class=" min-w-20 sm:min-w-24 h-20 sm:h-24 aspect-square rounded-md overflow-hidden">
+                                                        <div class="w-full h-full flex flex-col text-sm font-medium gap-2 justify-center items-center">
+                                                            <div class="w-full h-full relative flex justify-center overflow-hidden">
+                                                                <img id="highlightimage-preview" class="object-cover w-full" 
+                                                                    src="{{asset('assets/images/placeholder.webp')}}" 
+                                                                    alt="Logo">
+                                                                <div class="w-full h-full absolute z-10 top-0 opacity-0 hover:opacity-100 duration-300">
+                                                                    <label for="highlightimage-input" class="relative">
+                                                                        <div class="w-full h-full bg-black opacity-60 flex justify-center items-center text-neutral-400">
+                                                                            <div class="w-7 aspect-square">
+                                                                                <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M0 14.2V18h3.8l11-11.1L11 3.1 0 14.2ZM17.7 4c.4-.4.4-1 0-1.4L15.4.3c-.4-.4-1-.4-1.4 0l-1.8 1.8L16 5.9 17.7 4Z" fill="currentColor" fill-rule="evenodd" class="fill-000000"></path></svg>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <input accept="image/*" type="file" name="highlightimage" 
-                                                                        class="absolute bottom-0 left-0 z-0 w-40 opacity-0" 
-                                                                        id="highlightimage-input" 
-                                                                        required
-                                                                        oninput="handleImagePreview(this, 'highlightimage-preview')" />
-                                                                </label>
+                                                                        <input accept="image/*" type="file" name="highlightimage" 
+                                                                            class="absolute bottom-0 left-0 z-0 w-40 opacity-0" 
+                                                                            id="highlightimage-input" 
+                                                                            required
+                                                                            oninput="handleImagePreview(this, 'highlightimage-preview')" />
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        
+                                                        <script>
+                                                            function handleImagePreview(input, previewId) {
+                                                                const previewImage = document.getElementById(previewId);
+                                                                const [file] = input.files;
+                                                                if (file) {
+                                                                    previewImage.src = URL.createObjectURL(file);
+                                                                }
+                                                            }
+                                                        
+                                                            // Paste event to handle all image inputs
+                                                            window.addEventListener('paste', e => {
+                                                                const [file] = e.clipboardData.files;
+                                                                if (file) {
+                                                                    document.querySelectorAll('img[id$="-preview"]').forEach(img => {
+                                                                        img.src = URL.createObjectURL(file);
+                                                                    });
+                                                                }
+                                                            });
+                                                        </script>
                                                     </div>
-                                                    
-                                                    <script>
-                                                        function handleImagePreview(input, previewId) {
-                                                            const previewImage = document.getElementById(previewId);
-                                                            const [file] = input.files;
-                                                            if (file) {
-                                                                previewImage.src = URL.createObjectURL(file);
-                                                            }
-                                                        }
-                                                    
-                                                        // Paste event to handle all image inputs
-                                                        window.addEventListener('paste', e => {
-                                                            const [file] = e.clipboardData.files;
-                                                            if (file) {
-                                                                document.querySelectorAll('img[id$="-preview"]').forEach(img => {
-                                                                    img.src = URL.createObjectURL(file);
-                                                                });
-                                                            }
-                                                        });
-                                                    </script>
+                                                    <div class=" flex flex-col flex-grow justify-between gap-2">
+                                                        <input type="text" class="hidden" name="product_id" value="{{$product->id}}">
+                                                        <input type="text" name="title" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" placeholder="Nama Product" maxlength="27" >
+                                                        <textarea name="description" id="description" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Deskripsi" maxlength="64" cols="40"></textarea>
+                                                    </div>
+                                                    <button class=" min-w-[50px] bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center text-sm">Save</button>
                                                 </div>
-                                                <div class=" flex flex-col flex-grow justify-between gap-2">
-                                                    <input type="text" class="hidden" name="product_id" value="{{$product->id}}">
-                                                    <input type="text" name="title" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" placeholder="Nama Product" maxlength="27" >
-                                                    <textarea name="description" id="description" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Deskripsi" maxlength="64" cols="40"></textarea>
+                                            </form>
+                                    @else
+                                        @if ($product->productHighlight->count() < 3)    
+                                            <form action="{{route('highlight.store')}}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class=" w-full max-w-full rounded-xl flex justify-between gap-4 bg-white">
+                                                    <div class=" min-w-20 sm:min-w-24 h-20 sm:h-24 aspect-square rounded-md overflow-hidden">
+                                                        <div class="w-full h-full flex flex-col text-sm font-medium gap-2 justify-center items-center">
+                                                            <div class="w-full h-full relative flex justify-center overflow-hidden">
+                                                                <img id="highlightimage-preview" class="object-cover w-full" 
+                                                                    src="{{asset('assets/images/placeholder.webp')}}" 
+                                                                    alt="Logo">
+                                                                <div class="w-full h-full absolute z-10 top-0 opacity-0 hover:opacity-100 duration-300">
+                                                                    <label for="highlightimage-input" class="relative">
+                                                                        <div class="w-full h-full bg-black opacity-60 flex justify-center items-center text-neutral-400">
+                                                                            <div class="w-7 aspect-square">
+                                                                                <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M0 14.2V18h3.8l11-11.1L11 3.1 0 14.2ZM17.7 4c.4-.4.4-1 0-1.4L15.4.3c-.4-.4-1-.4-1.4 0l-1.8 1.8L16 5.9 17.7 4Z" fill="currentColor" fill-rule="evenodd" class="fill-000000"></path></svg>
+                                                                            </div>
+                                                                        </div>
+                                                                        <input accept="image/*" type="file" name="highlightimage" 
+                                                                            class="absolute bottom-0 left-0 z-0 w-40 opacity-0" 
+                                                                            id="highlightimage-input" 
+                                                                            required
+                                                                            oninput="handleImagePreview(this, 'highlightimage-preview')" />
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <script>
+                                                            function handleImagePreview(input, previewId) {
+                                                                const previewImage = document.getElementById(previewId);
+                                                                const [file] = input.files;
+                                                                if (file) {
+                                                                    previewImage.src = URL.createObjectURL(file);
+                                                                }
+                                                            }
+                                                        
+                                                            // Paste event to handle all image inputs
+                                                            window.addEventListener('paste', e => {
+                                                                const [file] = e.clipboardData.files;
+                                                                if (file) {
+                                                                    document.querySelectorAll('img[id$="-preview"]').forEach(img => {
+                                                                        img.src = URL.createObjectURL(file);
+                                                                    });
+                                                                }
+                                                            });
+                                                        </script>
+                                                    </div>
+                                                    <div class=" flex flex-col flex-grow justify-between gap-2">
+                                                        <input type="text" class="hidden" name="product_id" value="{{$product->id}}">
+                                                        <input type="text" name="title" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" placeholder="Nama Product" maxlength="27" >
+                                                        <textarea name="description" id="description" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Deskripsi" maxlength="64" cols="40"></textarea>
+                                                    </div>
+                                                    <button class=" min-w-[50px] bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center text-sm">Save</button>
                                                 </div>
-                                                <button class=" min-w-[50px] bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center text-sm">Save</button>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        @endif
                                     @endif
+                                    
                                 </div>
                                 <div class="">
                                     <a href="{{route('product.index')}}">

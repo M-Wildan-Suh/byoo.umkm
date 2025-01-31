@@ -61,6 +61,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/admin/no-handphone', NoHandphoneController::class);
     
         Route::resource('/admin/product', ProductController::class);
+        Route::put('/admin/product-order/{id}', [ProductController::class, 'productorder'])->name('product.order');
     
         Route::resource('/admin/product-gallery', ProductGalleryController::class);
     

@@ -1,6 +1,6 @@
 <div class=" mx-auto rounded-md bg-white min-h-screen relative">
     <div class=" space-y-6">
-        <div x-data="{ checkedItems: [] }" class=" min-h-screen pt-6 relative space-y-4 bg-gradient-to-b from-[#ffe3c0] to-orange-100">
+        <div class=" min-h-screen pt-6 relative space-y-4 bg-gradient-to-b from-[#ffe3c0] to-orange-100">
             <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative rounded-md overflow-hidden">
                 <div class=" w-full aspect-[2/1] max-h-[50vw] bg-[#81BFDA] rounded-md overflow-hidden relative">
                     <div class=" absolute inset-0">
@@ -75,8 +75,8 @@
             <x-guest.description color="#cda476" :data="$data" />
 
             <div class="w-full max-w-[640px] mx-auto px-4 md:px-0 relative">
-                <div class=" w-full">
-                    <form id="order" action="{{route('order')}}" method="post" enctype="multipart/form-data">
+                <div x-data="{ checkedItems: [] }" class=" w-full">
+                    <form id="myForm" action="{{route('order')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="grid grid-cols-1 gap-3">
                             @foreach ($data->productHighlight as $item)
@@ -86,35 +86,31 @@
                                     $boxShadowColor = $colors[$loop->index % 2]; // Berganti warna setiap kelipatan 2
                                 @endphp
                                 <div style="background-color: {{ $boxShadowColor }};" class="w-full p-3 rounded-xl flex gap-2 text-white">
-                                    <div class="min-w-24 h-24 aspect-square rounded-full border-2 overflow-hidden border-[#00fffb]">
+                                    <div class="min-w-24 h-24 aspect-square rounded-full border-2 overflow-hidden border-white">
                                         <img src="{{ $item->image }}" class="w-full h-full object-cover" alt="">
                                     </div>
                                     <div class="w-full flex flex-col justify-between gap-2">
                                         <p class="line-clamp-1 font-semibold">{{$item->title}}</p>
                                         <p class="line-clamp-2 text-sm">{{$item->description}}</p>
-                                        <div class="w-full flex items-end justify-between">
-                                            <div class="flex gap-1">
-                                                @for ($i = 0; $i < 5; $i++)
-                                                    <div class="w-4 h-4 text-yellow-400" >
-                                                        <svg viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
-                                                            <g fill="none" fill-rule="evenodd">
-                                                                <path d="M30.757 1.144 38.2 16.948a1.968 1.968 0 0 0 1.475 1.123l16.644 2.534a2.08 2.08 0 0 1 1.086 3.502L45.362 36.408a2.115 2.115 0 0 0-.563 1.818l2.843 17.37a1.98 1.98 0 0 1-2.843 2.164l-14.887-8.201a1.88 1.88 0 0 0-1.824 0l-14.887 8.2a1.98 1.98 0 0 1-2.843-2.163l2.843-17.37a2.115 2.115 0 0 0-.563-1.818L.594 24.107a2.08 2.08 0 0 1 1.086-3.502l16.644-2.534a1.968 1.968 0 0 0 1.475-1.123l7.444-15.804a1.92 1.92 0 0 1 3.514 0Z" fill="#ffffff" class="fill-f6ab27"></path>
-                                                                <path d="M17.148 38.872a6.124 6.124 0 0 0-1.654-5.264L6.07 23.983l12.857-1.957a5.966 5.966 0 0 0 4.49-3.37L29 6.802l5.581 11.85a5.969 5.969 0 0 0 4.492 3.374l12.857 1.957-9.426 9.627a6.125 6.125 0 0 0-1.652 5.264l2.184 13.348-11.194-6.167a5.88 5.88 0 0 0-5.683 0l-11.195 6.167 2.184-13.35Z" fill="currentColor" class="fill-f4cd1e"></path>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                @endfor
-                                            </div>
+                                        <div class="w-full flex items-end justify-end">
                                             @if ($role === "admin" || $role === "premium")
-                                                <div class="bg-black rounded-md">
-                                                    <input type="checkbox" class="hidden" name="order[]" value="{{$item->id}}" 
-                                                        x-model="checkedItems" id="order-{{$item->id}}">
-                                                    <button type="button" 
-                                                            :class="checkedItems.includes('{{$item->id}}') ? 'opacity-80' : ''" 
-                                                            @click="checkedItems.includes('{{$item->id}}') ? checkedItems.splice(checkedItems.indexOf('{{$item->id}}'), 1) : checkedItems.push('{{$item->id}}')"  
-                                                            class="duration-300 rounded-md py-1 px-3 text-sm bg-yellow-400">
-                                                        Pesan
-                                                    </button>
+                                                <div class="rounded-md">
+                                                    <input 
+                                                        type="checkbox" 
+                                                        class="hidden" 
+                                                        name="order[]" 
+                                                        value="{{$item->id}}" 
+                                                        id="order-{{ $item->id }}" 
+                                                        @input="checkedItems.some(data => data.id === {{ $item->id }}) 
+                                                            ? checkedItems = checkedItems.filter(data => data.id !== {{ $item->id }}) 
+                                                            : checkedItems.push({ id: {{ $item->id }}, title: '{{ $item->title }}' })">
+                
+                                                    <label 
+                                                        for="order-{{ $item->id }}" 
+                                                        :class="checkedItems.some(data => data.id === {{ $item->id }}) ? 'bg-white/50' : ''" 
+                                                        class="duration-300 rounded-md py-1 px-3 text-sm cursor-pointer border-2 border-white">
+                                                        {{$data->order_title}}
+                                                    </label>
                                                 </div>
                                             @endif
                                         </div>
@@ -122,15 +118,55 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div x-show="checkedItems.length > 0" class=" fixed top-6 left-1/2 -translate-x-1/2 pr-5 sm:pr-0 flex justify-end z-10 w-full max-w-[600px]">
-                            <button class="text-base flex flex-col items-center p-2 rounded-full bg-black/50 hover:bg-black/70 duration-300 text-white relative">
-                                <div class=" absolute -top-1 -right-1 bg-red-600 rounded-full w-5 h-5 text-xs flex items-center justify-center" x-text="checkedItems.length"></div>
-                                <div class="w-6 aspect-square">
-                                    <svg data-name="Layer 1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.53 5 5 3H1.25a1 1 0 0 0 0 2h2.22L6.7 18H20v-2H8.26l-.33-1.34L21 12.17V5ZM19 10.52 7.45 12.71 6 7h13ZM7 19a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 7 19Zm12 0a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 19 19Z" fill="currentColor" class="fill-000000"></path></svg>
-                                </div>
-                            </button>
-                        </div>
                     </form>
+                    <div 
+                        x-data="{ dropdownOpen: false }" 
+                        x-show="checkedItems.length > 0" 
+                        class="fixed top-6 left-1/2 -translate-x-1/2 pr-5 sm:pr-0 flex justify-end z-10 w-full max-w-[600px]">
+                        <button 
+                            @click="dropdownOpen = !dropdownOpen" 
+                            :class="dropdownOpen ? 'bg-black rounded-b-none' : 'bg-black/60 rounded-b-full'" 
+                            class="text-base flex flex-col items-center p-2 rounded-t-full duration-300 text-white relative">
+                            <div 
+                                class="absolute -top-1 -right-1 bg-red-600 rounded-full w-5 h-5 text-xs flex items-center justify-center" 
+                                x-text="checkedItems.length"></div>
+                            <div class="w-6 aspect-square">
+                                <svg data-name="Layer 1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M5.53 5 5 3H1.25a1 1 0 0 0 0 2h2.22L6.7 18H20v-2H8.26l-.33-1.34L21 12.17V5ZM19 10.52 7.45 12.71 6 7h13ZM7 19a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 7 19Zm12 0a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 19 19Z" 
+                                        fill="currentColor" class="fill-000000"></path>
+                                </svg>
+                            </div>
+                        </button>
+                
+                        <!-- Dropdown menu -->
+                        <div 
+                            x-show="dropdownOpen" 
+                            {{-- @click.outside="dropdownOpen = false"  --}}
+                            x-transition:enter="transition ease-out duration-300" 
+                            x-transition:enter-start="opacity-0 transform scale-95" 
+                            x-transition:enter-end="opacity-100 transform scale-100"
+                            x-transition:leave="transition ease-in duration-200"
+                            x-transition:leave-start="opacity-100 transform scale-100"
+                            x-transition:leave-end="opacity-0 transform scale-95"
+                            class="absolute top-full mt-0 right-5 sm:right-0 py-3 px-3 bg-black text-white rounded-md rounded-tr-none w-72 flex flex-col gap-2">
+                            <template x-for="item in checkedItems" :key="item.id">
+                                <div class="flex justify-between items-center py-1 px-2 border-2 border-white rounded-md">
+                                    <p class="font-semibold" x-text="item.title"></p>
+                                    <button 
+                                        @click="checkedItems = checkedItems.filter(checkedItem => checkedItem.id !== item.id)" 
+                                        class="text-red-500 hover:text-red-700 text-xl duration-300">&times;</button>
+                                </div>
+                            </template>
+                            <div class=" w-full flex justify-end">
+                                <button onclick="document.getElementById('myForm') ? document.getElementById('myForm').submit() : console.error('Form tidak ditemukan!')" class=" py-1.5 px-3 flex items-center gap-2 text-sm border-2 border-white rounded-md hover:bg-white/50 duration-300">
+                                    <div class=" w-4 h-4">
+                                        <svg viewBox="0 0 56.693 56.693" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 56.693 56.693"><path d="M46.38 10.714C41.73 6.057 35.544 3.492 28.954 3.489c-13.579 0-24.63 11.05-24.636 24.633a24.589 24.589 0 0 0 3.289 12.316L4.112 53.204l13.06-3.426a24.614 24.614 0 0 0 11.772 2.999h.01c13.577 0 24.63-11.052 24.635-24.635.002-6.582-2.558-12.772-7.209-17.428zM28.954 48.616h-.009a20.445 20.445 0 0 1-10.421-2.854l-.748-.444-7.75 2.033 2.07-7.555-.488-.775a20.427 20.427 0 0 1-3.13-10.897c.004-11.29 9.19-20.474 20.484-20.474a20.336 20.336 0 0 1 14.476 6.005 20.352 20.352 0 0 1 5.991 14.485c-.004 11.29-9.19 20.476-20.475 20.476z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="fill-000000"></path><path d="M40.185 33.281c-.615-.308-3.642-1.797-4.206-2.003-.564-.205-.975-.308-1.385.308-.41.617-1.59 2.003-1.949 2.414-.359.41-.718.462-1.334.154-.615-.308-2.599-.958-4.95-3.055-1.83-1.632-3.065-3.648-3.424-4.264-.36-.617-.038-.95.27-1.257.277-.276.615-.719.923-1.078.308-.36.41-.616.616-1.027.205-.41.102-.77-.052-1.078-.153-.308-1.384-3.338-1.897-4.57-.5-1.2-1.008-1.038-1.385-1.057-.359-.018-.77-.022-1.18-.022s-1.077.154-1.642.77c-.564.616-2.154 2.106-2.154 5.135 0 3.03 2.206 5.957 2.513 6.368.308.41 4.341 6.628 10.516 9.294a35.341 35.341 0 0 0 3.509 1.297c1.474.469 2.816.402 3.877.244 1.183-.177 3.642-1.49 4.155-2.927.513-1.438.513-2.67.359-2.927-.154-.257-.564-.41-1.18-.719z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="fill-000000"></path></svg>
+                                    </div>
+                                    <p>{{$data->order_title}}</p>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -148,6 +184,13 @@
                     </div>
                 </div>
             </div>
+
+            <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative flex flex-wrap gap-2">
+                @foreach ($data->productTags as $item)
+                    <div class=" text-sm px-3 py-1.5 bg-[#907658] text-white rounded-md">{{$item->productTag->tag}}</div>
+                @endforeach
+            </div>
+
             <x-guest.contact :role="$role" classa="text-white bg-[#907658] border-[#907658] hover:text-white hover:bg-[#6e583f] hover:border-[#6e583f]" classb="bg-[#cda476] text-white border-[#cda476] hover:text-white hover:bg-[#a07d56] hover:border-[#a07d56]" :data="$data" :notlp="$no_tlp"/>
         </div>
     </div>

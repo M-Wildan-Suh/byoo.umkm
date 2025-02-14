@@ -1,7 +1,7 @@
 <x-app-layout title="Admin - Edit Usaha">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Produk') }}
+            {{ __('Edit Usaha') }}
         </h2>
     </x-slot>
     <div x-data="{ activeTab: '{{ session('highlight', 'product') }}' }" class="w-full ">
@@ -37,7 +37,7 @@
                 <div class="max-w-[1080px] mx-auto">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div class=" p-4 md:p-6 text-gray-900">
-                            <form action="{{route('product.update', ['product' => $product->id])}}" method="POST" enctype="multipart/form-data">
+                            <form id="bussiness" action="{{route('product.update', ['product' => $product->id])}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class=" w-full space-y-6">
@@ -98,10 +98,6 @@
                                         <label for="desc">Tentang Usaha</label>
                                         <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5">{{$product->description}}</textarea>
                                     </div>
-                                    <div class=" space-y-2">
-                                        <label for="address">Alamat</label>
-                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="5">{{$product->address}}</textarea>
-                                    </div>
                                     <x-admin.component.taginput title="Tag" :value="$product->productTags" name="tag[]" :tag="$tag"></x-admin.component.taginput>
                                     @if (Auth::user()->role === 'admin')
                                         <div class=" space-y-2">
@@ -161,125 +157,15 @@
                                     @endif
                                     <div class=" space-y-2">
                                         <label for="template">Template</label>
-                                        <div x-data="{ selected: '{{$product->template ?? ''}}' }" class=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="two" value="two" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'two') 
-                                                       @change="selected = 'two'">
-                                                <label for="two" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'two' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-black flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/two.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="three" value="three" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'three') 
-                                                       @change="selected = 'three'">
-                                                <label for="three" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'three' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-black flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/three.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                
-                                                <input type="radio" name="template" id="four" value="four" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'four') 
-                                                       @change="selected = 'four'">
-                                                <label for="four" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'four' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-black flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/four.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="five" value="five" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'five') 
-                                                       @change="selected = 'five'">
-                                                <label for="five" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'five' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/five.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="six" value="six" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'six') 
-                                                       @change="selected = 'six'">
-                                                <label for="six" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'six' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/six.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="seven" value="seven" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'seven') 
-                                                       @change="selected = 'seven'">
-                                                <label for="seven" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'seven' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/seven.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="eight" value="eight" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'eight') 
-                                                       @change="selected = 'eight'">
-                                                <label for="eight" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'eight' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/eight.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="nine" value="nine" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'nine') 
-                                                       @change="selected = 'nine'">
-                                                <label for="nine" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'nine' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/nine.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="ten" value="ten" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'ten') 
-                                                       @change="selected = 'ten'">
-                                                <label for="ten" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'ten' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/ten.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="eleven" value="eleven" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'eleven') 
-                                                       @change="selected = 'eleven'">
-                                                <label for="eleven" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'eleven' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/eleven.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="twelve" value="twelve" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'twelve') 
-                                                       @change="selected = 'twelve'">
-                                                <label for="twelve" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'twelve' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/twelve.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="thirteen" value="thirteen" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'thirteen') 
-                                                       @change="selected = 'thirteen'">
-                                                <label for="thirteen" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'thirteen' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/thirteen.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="fourteen" value="fourteen" class="hidden" 
-                                                       @checked(isset($product->template) && $product->template === 'fourteen') 
-                                                       @change="selected = 'fourteen'">
-                                                <label for="fourteen" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'fourteen' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/fourteen.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
+                                        <div class=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                            @foreach ($template as $item)
+                                                <label class="w-full rounded-md bg-white aspect-[2/3] overflow-hidden relative">
+                                                    <input type="radio" name="template_id" value="{{$item->id}}" class="hidden peer" {{ $product->template_id === $item->id ? 'checked' : '' }}>
+                                                    <img src="{{asset('/storage/images/template/'.$item->image)}}" class=" w-full h-full object-cover object-top" alt="">
+                                                    <div class=" absolute inset-0 peer-checked:bg-black/50 duration-300">
+                                                    </div>
+                                                </label>
+                                            @endforeach
                                         </div>
                                     </div>
                                     
@@ -518,9 +404,7 @@
                                     
                                 </div>
                                 <div class="">
-                                    <a href="{{route('product.index')}}">
-                                        <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
-                                    </a>
+                                    <button @click="document.getElementById('bussiness').submit()" class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                                 </div>
                             </div>
                         </div>
@@ -538,88 +422,90 @@
                                     <template x-for="(image, index) in images" :key="index">
                                         <div class="w-full aspect-[3/2] rounded-md relative overflow-hidden">
                                             <img :src="image.url" class="w-full h-full object-cover" alt="Gallery Image Preview">
-                                            {{-- Delete Image --}}
                                             <label @click="deleteImage(index)" class="w-full text-transparent h-full absolute top-0 left-0 flex justify-center items-center p-[20%] hover:bg-black/60 hover:text-white/50 duration-300 cursor-pointer">
                                                 <svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="M19.5 8.99h-15a.5.5 0 0 0-.5.5v12.5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9.49a.5.5 0 0 0-.5-.5Zm-9.25 11.5a.75.75 0 0 1-1.5 0v-8.625a.75.75 0 0 1 1.5 0Zm5 0a.75.75 0 0 1-1.5 0v-8.625a.75.75 0 0 1 1.5 0ZM20.922 4.851a11.806 11.806 0 0 0-4.12-1.07 4.945 4.945 0 0 0-9.607 0A12.157 12.157 0 0 0 3.18 4.805 1.943 1.943 0 0 0 2 6.476 1 1 0 0 0 3 7.49h18a1 1 0 0 0 1-.985 1.874 1.874 0 0 0-1.078-1.654ZM11.976 2.01A2.886 2.886 0 0 1 14.6 3.579a44.676 44.676 0 0 0-5.2 0 2.834 2.834 0 0 1 2.576-1.569Z" fill="currentColor" class="fill-000000"></path></svg>
                                             </label>
                                         </div>
                                     </template>
                             
-                                    {{-- Add Image --}}
                                     <div class="w-full aspect-[3/2] border bg-neutral-100 border-neutral-600 rounded-md relative border-dashed overflow-hidden" x-show="images.length < 9">
                                         <label for="image_gallery" class="w-full text-neutral-600 h-full absolute top-0 left-0 flex justify-center items-center p-[20%] hover:bg-neutral-600 hover:text-white/50 duration-300 cursor-pointer">
                                             <svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="m9 13 3-4 3 4.5V12h4V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-4H5l3-4 1 2z" fill="currentColor" class="fill-000000"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z" fill="currentColor" class="fill-000000"></path></svg>
                                         </label>
                                     </div>
                                 </div>
-                            
                                 <p x-show="errorMessage" class="text-red-500" x-text="errorMessage"></p>
+                                <p x-show="loading" class="text-blue-500">Loading...</p>
                             </div>
+                            
                             <script>
                                 function galleryComponent(initialImages = [], productId) {
                                     return {
                                         images: initialImages.map(item => ({
-                                            id: item.id, // Include image ID from the server for delete functionality
+                                            id: item.id,
                                             url: item.image ? `{{ asset('storage/images/product/gallery/') }}/${item.image}` : `{{ asset('assets/images/placeholder.png') }}`
                                         })),
                                         errorMessage: '',
+                                        loading: false,
                                         addImages(event) {
                                             const files = Array.from(event.target.files);
                                             
-                                            // Check if adding new images would exceed the limit of 8
                                             if (this.images.length + files.length > 9) {
                                                 this.errorMessage = 'You can only upload up to 8 images.';
                                                 return;
                                             }
                             
-                                            this.errorMessage = ''; // Reset error message
+                                            this.errorMessage = '';
+                                            this.loading = true;
                             
-                                            // Loop through selected files
                                             files.forEach(file => {
                                                 const formData = new FormData();
                                                 formData.append('image_gallery', file);
-                                                formData.append('product_id', productId); // Add product ID to the form data
+                                                formData.append('product_id', productId);
                             
-                                                // Send the image data to the server using Axios
                                                 axios.post('/admin/product-gallery', formData)
                                                     .then(response => {
-                                                        const newImage = response.data; // Expect the server to return the new image details
+                                                        const newImage = response.data;
                                                         const reader = new FileReader();
                                                         reader.onload = (e) => {
                                                             this.images.push({
-                                                                id: newImage.id, // Use the ID returned from the server
-                                                                url: e.target.result // Local preview URL
+                                                                id: newImage.id,
+                                                                url: e.target.result
                                                             });
                                                         };
-                                                        reader.readAsDataURL(file); // Read the file to get a local preview
+                                                        reader.readAsDataURL(file);
                                                     })
                                                     .catch(error => {
                                                         console.error('Error uploading image:', error);
                                                         this.errorMessage = 'Error uploading image. Please try again.';
+                                                    })
+                                                    .finally(() => {
+                                                        this.loading = false;
                                                     });
                                             });
                                         },
                                         deleteImage(index) {
                                             const image = this.images[index];
+                                            this.loading = true;
                                             
-                                            // Send delete request to the server using Axios
                                             axios.delete(`/admin/product-gallery/${image.id}`)
                                                 .then(() => {
-                                                    // If successful, remove the image from the local array
                                                     this.images.splice(index, 1);
                                                 })
                                                 .catch(error => {
                                                     console.error('Error deleting image:', error);
                                                     this.errorMessage = 'Error deleting image. Please try again.';
+                                                })
+                                                .finally(() => {
+                                                    this.loading = false;
                                                 });
                                         }
                                     };
                                 }
                             </script>
+                            
                             <div class="">
-                                <a href="{{route('product.index')}}">
-                                    <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
-                                </a>
+                                <button @click="document.getElementById('bussiness').submit()" class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                             </div>
                         </div>
                     </div>

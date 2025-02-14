@@ -89,7 +89,17 @@
                             </div>
                             <div class=" space-y-2">
                                 <label for="template">Template</label>
-                                <div x-data="{ selected: '{{$product->template ?? ''}}' }" class=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                <div class=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                    @foreach ($template as $item)
+                                        <label class="w-full rounded-md bg-white aspect-[2/3] overflow-hidden relative">
+                                            <input type="radio" name="template_id" value="{{$item->id}}" class="hidden peer" {{ $loop->first ? 'checked' : '' }}>
+                                            <img src="{{asset('/storage/images/template/'.$item->image)}}" class=" w-full h-full object-cover object-top" alt="">
+                                            <div class=" absolute inset-0 peer-checked:bg-black/50 duration-300">
+                                            </div>
+                                        </label>
+                                    @endforeach
+                                </div>
+                                {{-- <div x-data="{ selected: '{{$product->template ?? ''}}' }" class=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                                     <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
                                         <input type="radio" name="template" id="two" value="two" class="hidden" 
                                                @checked(isset($product->template) && $product->template === 'two') 
@@ -208,7 +218,16 @@
                                             <img src="{{asset('/assets/images/template/fourteen.png')}}" class=" w-full h-full object-cover object-top" alt="">
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
+                                        <input type="radio" name="template" id="fifteen" value="fifteen" class="hidden" 
+                                               @checked(isset($product->template) && $product->template === 'fifteen') 
+                                               @change="selected = 'fifteen'">
+                                        <label for="fifteen" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'fifteen' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
+                                        <div class=" bg-[#1679AB] flex items-start w-full h-full">
+                                            <img src="{{asset('/assets/images/template/fifteen.png')}}" class=" w-full h-full object-cover object-top" alt="">
+                                        </div>
+                                    </div>
+                                </div> --}}
                             </div>
                             <div class="">
                                 <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Save</button>

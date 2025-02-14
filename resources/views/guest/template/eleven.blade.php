@@ -1,86 +1,14 @@
 <div class=" mx-auto rounded-md bg-white min-h-screen relative">
     <div class=" space-y-6">
-        <div class=" min-h-screen pt-6 relative space-y-4 bg-gradient-to-b from-[#cdeef5] to-[#B1F0F7]">
-            <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative rounded-md overflow-hidden">
-                <div class=" w-full aspect-[2/1] max-h-[50vw] bg-[#81BFDA] rounded-md overflow-hidden relative">
-                    <div class=" absolute inset-0">
-                        <img src="{{asset('/assets/images/bgeleven.png')}}" class=" w-full h-full object-cover" alt="">
-                    </div>
-                    <div class=" w-full h-full grid grid-cols-2 relative">
-                        <div class=" w-full h-full flex items-center py-[20%] pl-[20%]">
-                            <div class=" w-full flex flex-col h-full justify-between text-white">
-                                <div class=" flex">
-                                    <div class=" w-auto px-1 sm:px-3 py-0.5 sm:pt-2 bg-white text-[#81BFDA] rounded-sm text-xs sm:text-lg font-bold">Welcome</div>
-                                </div>
-                                <p class=" text-2xl sm:text-5xl font-black">{{$data->name}}</p>
-                                <p class=" text-[8px] sm:text-sm">{{$data->subtitle}}</p>
-                                <div class=" flex">
-                                    <a href="https://wa.me/{{ $notlp ?? '' }}">
-                                        <button class=" w-auto px-1 sm:px-3 py-[1px] sm:py-1 bg-white text-[#81BFDA] rounded-sm text-[9px] sm:text-base font-bold">Hubungi Kami</button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=" w-full h-full flex items-center justify-end overflow-hidden p-[20%]">
-                            <div class=" flex max-w-full max-h-full aspect-square rounded-full overflow-hidden">
-                                <img src="{{ $data->image }}" class=" w-full h-full object-cover " alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative rounded-md overflow-hidden">
-                <div class="swiper h-full max-h-full">
-                    <!-- Additional required wrapper -->
-                    <div class="swiper-wrapper">
-                        @foreach ($data->productGallery as $item)
-                            <div class="swiper-slide w-full aspect-[3/4] rounded-md overflow-hidden relative">
-                                <img src="{{ $item->image }}" class="w-full h-full object-cover object-center" alt="Raja Ampat">
-                                <div class=" w-full absolute inset-0 bg-black/20"></div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="prev absolute top-1/2 -translate-y-1/2 flex items-center px-2 left-0 z-10 py-3 bg-black/50 rounded-r-md">
-                        <div class=" text-white w-6 h-6">
-                            <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><path d="m39.376 48.002 30.47-25.39a6.003 6.003 0 0 0-7.688-9.223L26.156 43.391a6.01 6.01 0 0 0 0 9.223l36.002 30.001a6.003 6.003 0 0 0 7.688-9.223Z" fill="currentColor" class="fill-000000"></path></svg>
-                        </div>
-                    </div>
-                    <div class="next absolute top-1/2 -translate-y-1/2 flex items-center px-2 right-0 z-10 py-3 bg-black/50 rounded-l-md">
-                        <div class=" text-white w-6 h-6">
-                            <svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><path d="M69.844 43.388 33.842 13.386a6.003 6.003 0 0 0-7.688 9.223L56.624 48l-30.47 25.39a6.003 6.003 0 0 0 7.688 9.223l36.002-30.001a6.01 6.01 0 0 0 0-9.223Z" fill="currentColor" class="fill-000000"></path></svg>
-                        </div>
-                    </div>
-                </div>
-                <script>
-                    window.addEventListener('load', function() {
-                        const swiper = new Swiper('.swiper', {
-                            direction: 'horizontal',
-                            slidesPerView: 2,
-                            spaceBetween: 16,
-                            loop: true,
-                            speed: 500,
-                            autoplay: {
-                                delay: 6000,
-                                disableOnInteraction: false,
-                            },
-                            breakpoints: {
-                                640: {
-                                    slidesPerView: 3,
-                                },
-                            },
-                            // Navigation arrows
-                            navigation: {
-                                nextEl: '.next',
-                                prevEl: '.prev',
-                            },
-                        });
-                    });
-                </script>
-            </div>
+        <div class=" background min-h-screen pt-6 relative space-y-4 bg-gradient-to-b">
+            @include('components.guest.banner.'.$template->head_type)
 
-            <x-guest.description color="#81BFDA" :data="$data" />
+            @include('components.guest.gallery.potrait')
 
-            <div class="w-full max-w-[640px] mx-auto px-4 md:px-0 relative">
+            {{-- <x-guest.description color="#81BFDA" :data="$data" /> --}}
+            @include('components.guest.description')
+
+            <div class="w-full max-w-[600px] mx-auto px-4 md:px-0 relative">
                 <div x-data="{ checkedItems: [] }" class="w-full">
                     <form id="myForm" action="{{ route('order') }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -177,21 +105,22 @@
                 </div>
             </div>
 
-            <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative">
-                <div class=" w-full grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class=" w-full h-full rounded-md bg-[#FF0000] hidden sm:flex items-center justify-center p-[10%]">
-                        <div class=" w-full aspect-square">
-                            <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><rect height="512" rx="64" ry="64" width="512" fill="#ff0000" fill-opacity="1" fill-rule="nonzero" stroke="none" class="fill-cf2200"></rect><path d="M371.289 348.587h-21.956l.103-12.751c0-5.667 4.653-10.303 10.342-10.303h1.4c5.698 0 10.364 4.636 10.364 10.303l-.253 12.75zm-82.342-27.325c-5.57 0-10.125 3.742-10.125 8.325V391.6c0 4.573 4.556 8.307 10.125 8.307 5.59 0 10.15-3.734 10.15-8.307v-62.013c0-4.587-4.56-8.325-10.15-8.325zm133.72-34.689v117.974c0 28.297-24.543 51.453-54.534 51.453H143.871c-30.004 0-54.538-23.156-54.538-51.453V286.573c0-28.297 24.534-51.457 54.538-51.457h224.262c29.991 0 54.534 23.16 54.534 51.457zM158.83 417.356V293.084l27.8.01V274.68l-74.107-.111v18.102l23.134.067v124.618h23.19zm83.333-105.76h-23.177v66.36c0 9.6.582 14.4-.045 16.093-1.884 5.147-10.355 10.609-13.657.555-.56-1.76-.067-7.07-.076-16.19l-.093-66.818h-23.05l.072 65.764c0 10.08-.227 17.6.08 21.018.564 6.03.364 13.066 5.96 17.08 10.426 7.515 30.413-1.12 35.413-11.858l-.044 13.702 18.613.022V311.596zm74.147 75.99-.049-55.23c0-21.05-15.764-33.658-37.142-16.627l.093-41.062-23.155.035-.111 141.734 19.035-.28 1.734-8.827c24.337 22.324 39.63 7.031 39.595-19.742zm72.538-7.32-17.382.094c0 .689-.045 1.484-.045 2.351v9.698c0 5.187-4.289 9.413-9.497 9.413h-3.405c-5.218 0-9.502-4.226-9.502-9.413v-25.507h39.795v-14.978c0-10.946-.28-21.888-1.186-28.146-2.845-19.796-30.631-22.938-44.667-12.805-4.409 3.165-7.773 7.4-9.729 13.094-1.978 5.693-2.955 13.47-2.955 23.35v32.93c.004 54.746 66.502 47.009 58.568-.08zm-89.147-178.79c1.196 2.906 3.054 5.262 5.574 7.04 2.488 1.75 5.675 2.63 9.484 2.63 3.342 0 6.302-.902 8.88-2.764 2.569-1.853 4.733-4.622 6.498-8.315l-.436 9.093h25.836V99.289H335.2V184.8c0 4.631-3.813 8.422-8.476 8.422-4.635 0-8.462-3.79-8.462-8.422V99.289h-21.226v74.107c0 9.44.168 15.733.448 18.924a32.158 32.158 0 0 0 2.218 9.156zm-78.293-62.054c0-10.546.88-18.782 2.627-24.72 1.76-5.915 4.92-10.67 9.497-14.258 4.565-3.604 10.41-5.408 17.516-5.408 5.978 0 11.098 1.173 15.378 3.47 4.297 2.312 7.609 5.312 9.91 9.014 2.343 3.716 3.934 7.533 4.783 11.44.867 3.96 1.293 9.933 1.293 17.991v27.787c0 10.19-.409 17.689-1.2 22.449-.786 4.773-2.475 9.2-5.089 13.35-2.582 4.107-5.91 7.179-9.946 9.139-4.08 1.977-8.747 2.946-14.018 2.946-5.889 0-10.849-.813-14.938-2.51-4.102-1.69-7.27-4.236-9.529-7.619-2.28-3.386-3.884-7.51-4.853-12.32-.973-4.804-1.436-12.03-1.436-21.662v-29.089zm20.235 43.645c0 6.222 4.632 11.302 10.272 11.302 5.644 0 10.253-5.08 10.253-11.302v-58.49c0-6.213-4.609-11.293-10.253-11.293-5.64 0-10.272 5.08-10.272 11.294v58.489zM170.142 212.6h24.374l.044-84.267 28.8-72.186h-26.658l-15.31 53.617L165.861 56H139.48l30.64 72.373.044 84.227z" fill="#ffffff" fill-opacity="1" class="fill-ffffff"></path></svg>
-                        </div>
-                    </div>
-                    <div class=" sm:col-span-2 w-full aspect-video rounded-md overflow-hidden bg-white">
-                        <div class="w-full h-full">
-                            <iframe src="{{$data->embed}}" frameborder="0" class="w-full h-full" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('components.guest.youtube')
+
             <x-guest.contact :role="$role" classa="text-white bg-[#F29D35] hover:text-white hover:bg-[#e6c154]" classb="bg-[#81BFDA] text-white hover:text-white hover:bg-[#629bb3]" :data="$data" :notlp="$no_tlp"/>
         </div>
     </div>
 </div>
+<style>
+    .background {
+        @if ($template->bg_type === 'normal')
+            background-color: {{ $template->bg_main_color }};
+        @elseif ($template->bg_type === 'gradient')
+            background: linear-gradient(to bottom, {{ $template->bg_main_color }}, {{ $template->bg_second_color }});
+        @elseif ($template->bg_type === 'image')
+            background-image: url('{{ asset('storage/images/template/'.$template->bg_image) }}');
+            background-size: cover;
+            background-position: center;
+        @endif
+    };
+</style>

@@ -2,7 +2,7 @@
     <div class=" space-y-6">
         <div class=" min-h-screen pt-6 relative space-y-4 bg-[#EEEEEE]">
             <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative rounded-md overflow-hidden">
-                <div class=" w-full aspect-[2/1] max-h-[50vw] bg-[#1D1616] rounded-md overflow-hidden relative">
+                <div class=" w-full aspect-[2/1] max-h-[50vw] rounded-md overflow-hidden relative">
                     <div class=" absolute inset-0">
                         <img src="{{ $data->image }}" class=" w-full h-full object-cover object-center" alt="">
                     </div>
@@ -74,7 +74,7 @@
 
             <x-guest.description color="#1D1616" :data="$data" />
 
-            <div class="w-full max-w-[640px] mx-auto px-4 md:px-0 relative">
+            <div class="w-full max-w-[600px] mx-auto px-4 md:px-0 relative">
                 <div x-data="{ checkedItems: [] }" class=" w-full">
                     <form id="myForm" action="{{route('order')}}" method="post" enctype="multipart/form-data">
                         @csrf

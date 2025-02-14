@@ -1,12 +1,18 @@
 <div class=" mx-auto rounded-md bg-white min-h-screen relative">
     <div class=" space-y-6">
-        <div class=" min-h-screen pt-6 relative space-y-4 bg-gradient-to-b from-[#ffe3c0] to-orange-100">
-            <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative rounded-md overflow-hidden">
-                <div class=" w-full aspect-[2/1] max-h-[50vw] bg-white rounded-md overflow-hidden relative">
+        <div class=" min-h-screen pt-6 relative space-y-4 bg-[#EEEEEE]">
+            <div class=" w-full max-w-[600px] mx-auto px-4 md:px-0 relative rounded-md overflow-hidden">
+                <div class=" w-full aspect-[2/1] max-h-[50vw] bg-[#1D1616] rounded-md overflow-hidden relative">
                     <div class=" absolute inset-0">
                         <img src="{{ $data->image }}" class=" w-full h-full object-cover object-center" alt="">
                     </div>
-                    <div class=" w-full h-full grid grid-cols-2 relative">
+                    <div style="box-shadow: 0px -178px 115px -74px rgba(0,0,0,0.75) inset;" class=" w-full h-full flex items-end relative">
+                        <div class=" w-full px-4 sm:px-6 py-4 sm:py-8 text-white sm:space-y-3">
+                            <p class=" text-3xl sm:text-5xl font-bold">{{$data->name}}</p>
+                            <p class=" text-sm sm:text-xl">{{$data->subtitle}}</p>
+                        </div>
+                    </div>
+                    {{-- <div class=" w-full h-full grid grid-cols-2 relative">
                         <div class=" w-full h-full flex items-center justify-end overflow-hidden">
                             <div class=" w-full h-full bg-black/40" style="clip-path: polygon(0% 0%, 85% 0%, 100% 100%, 0% 100%);">
                                 <div class=" w-full flex flex-col h-full justify-center gap-2 sm:gap-4 text-white py-[20%] px-[10%]">
@@ -14,13 +20,13 @@
                                     <p class=" text-[8px] sm:text-sm">{{$data->subtitle}}</p>
                                     <div class=" flex">
                                         <a href="https://wa.me/{{ $notlp ?? '' }}">
-                                            <button class=" w-auto px-1 sm:px-3 py-[1px] sm:py-1 bg-white text-black rounded-sm text-[9px] sm:text-base font-bold">Hubungi Kami</button>
+                                            <button class=" w-auto px-1 sm:px-3 py-[1px] sm:py-1 bg-[#f05a28] text-white rounded-sm text-[9px] sm:text-base font-bold">Hubungi Kami</button>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative rounded-md overflow-hidden">
@@ -28,7 +34,7 @@
                     <!-- Additional required wrapper -->
                     <div class="swiper-wrapper">
                         @foreach ($data->productGallery as $item)
-                            <div class="swiper-slide w-full aspect-[3/4] rounded-md overflow-hidden relative">
+                            <div class="swiper-slide w-full aspect-square rounded-md overflow-hidden relative">
                                 <img src="{{ $item->image }}" class="w-full h-full object-cover object-center" alt="Raja Ampat">
                                 <div class=" w-full absolute inset-0 bg-black/20"></div>
                             </div>
@@ -72,27 +78,21 @@
                 </script>
             </div>
 
-            <x-guest.description color="#cda476" :data="$data" />
+            <x-guest.description color="#1D1616" :data="$data" />
 
             <div class="w-full max-w-[640px] mx-auto px-4 md:px-0 relative">
                 <div x-data="{ checkedItems: [] }" class=" w-full">
                     <form id="myForm" action="{{route('order')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <div class="grid grid-cols-1 gap-3">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                             @foreach ($data->productHighlight as $item)
-                                @php
-                                    // Tentukan warna berdasarkan indeks
-                                    $colors = ['#907658', '#cda476']; // Biru gelap kehijauan, Kuning
-                                    $boxShadowColor = $colors[$loop->index % 2]; // Berganti warna setiap kelipatan 2
-                                @endphp
-                                <div style="background-color: {{ $boxShadowColor }};" class="w-full p-3 rounded-xl flex gap-2 text-white">
-                                    <div class="min-w-24 h-24 aspect-square rounded-full border-2 overflow-hidden border-white">
+                                <div class=" flex flex-col w-full bg-[#1D1616] text-white rounded-md overflow-hidden shadow-md shadow-[#1D1616]/20">
+                                    <div class=" w-full aspect-square bg-white">
                                         <img src="{{ $item->image }}" class="w-full h-full object-cover" alt="">
                                     </div>
-                                    <div class="w-full flex flex-col justify-between gap-2">
-                                        <p class="line-clamp-1 font-semibold">{{$item->title}}</p>
-                                        <p class="line-clamp-2 text-sm">{{$item->description}}</p>
-                                        <div class="w-full flex items-end justify-end">
+                                    <div class=" flex-grow w-full p-3 flex flex-col justify-between gap-2 text-center">
+                                        <p class="line-clamp-2 text-sm font-semibold">{{$item->title}}</p>
+                                        <div class="w-full flex items-end justify-center">
                                             @if ($role === "admin" || $role === "premium")
                                                 <div class="rounded-md">
                                                     <input 
@@ -107,8 +107,8 @@
                 
                                                     <label 
                                                         for="order-{{ $item->id }}" 
-                                                        :class="checkedItems.some(data => data.id === {{ $item->id }}) ? 'bg-white/50' : ''" 
-                                                        class="duration-300 rounded-md py-1 px-3 text-sm cursor-pointer border-2 border-white">
+                                                        :class="checkedItems.some(data => data.id === {{ $item->id }}) ? ' opacity-60' : ''" 
+                                                        class="duration-300 rounded-md py-1 px-3 text-sm bg-[#f05a28] cursor-pointer border-2 border-white">
                                                         {{$data->order_title}}
                                                     </label>
                                                 </div>
@@ -184,14 +184,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative flex flex-wrap gap-2">
-                @foreach ($data->productTags as $item)
-                    <div class=" text-sm px-3 py-1.5 bg-[#907658] text-white rounded-md">{{$item->productTag->tag}}</div>
-                @endforeach
-            </div>
-
-            <x-guest.contact :role="$role" classa="text-white bg-[#907658] border-[#907658] hover:text-white hover:bg-[#6e583f] hover:border-[#6e583f]" classb="bg-[#cda476] text-white border-[#cda476] hover:text-white hover:bg-[#a07d56] hover:border-[#a07d56]" :data="$data" :notlp="$no_tlp"/>
+            
+            <x-guest.contact :role="$role" classa="text-white bg-[#f05a28] border-white hover:text-white hover:bg-[#750d0d]" classb="bg-[#1D1616] text-white border-white hover:text-white" :data="$data" :notlp="$no_tlp"/>
         </div>
     </div>
 </div>

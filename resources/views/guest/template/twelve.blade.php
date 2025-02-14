@@ -1,7 +1,7 @@
 <div class=" mx-auto rounded-md bg-white min-h-screen relative">
     <div class=" space-y-6">
         <div class=" min-h-screen pt-6 relative space-y-4 bg-gradient-to-b bg-neutral-100">
-            <div class=" w-full max-w-[640px] mx-auto px-4 md:px-0 relative rounded-md overflow-hidden">
+            <div class=" w-full max-w-[600px] mx-auto px-4 md:px-0 relative rounded-md overflow-hidden">
                 <div class=" w-full aspect-[2/1] max-h-[50vw] bg-[#81BFDA] rounded-md overflow-hidden relative">
                     <div class=" absolute flex items-center left-0 top-0 w-[60%] h-full">
                         <img src="{{ $data->image }}" class=" w-full h-full object-cover object-center" alt="">

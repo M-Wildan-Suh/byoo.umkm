@@ -88,6 +88,7 @@ class PageController extends Controller
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
         $data = Product::where('name', ucwords(str_replace('-', ' ', $slug)))->first();
+        $template = Template::find($data->template_id);
 
         $role = Access::where('product_id', $data->id)->first();
 
@@ -138,7 +139,7 @@ class PageController extends Controller
         // Buat embed URL jika ID ditemukan
         $data->embed = $videoId ? "https://www.youtube.com/embed/" . $videoId : $data->youtube;
 
-        return view('detail', compact('data', 'no_tlp', 'role'));
+        return view('detail', compact('data', 'no_tlp', 'role', 'template'));
 
     }
     public function templatedetail($slug) {

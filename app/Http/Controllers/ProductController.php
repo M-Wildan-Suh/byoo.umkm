@@ -9,6 +9,7 @@ use App\Models\PivotProductTag;
 use App\Models\Product;
 use App\Models\ProductGallery;
 use App\Models\ProductTag;
+use App\Models\Template;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -41,7 +42,8 @@ class ProductController extends Controller
     public function create()
     {
         $tag = ProductTag::all();
-        return view('admin.product.create', compact('tag'));
+        $template = Template::all();
+        return view('admin.product.create', compact('tag', 'template'));
     }
 
     /**
@@ -55,7 +57,7 @@ class ProductController extends Controller
         $newdata->name = $request->name;
         $newdata->subtitle = $request->subtitle;
         $newdata->price = $request->price;
-        $newdata->template = $request->template;
+        $newdata->template_id = $request->template_id;
         $newdata->description = $request->description;
         $newdata->address = $request->address;
         $newdata->no_tlp = $request->no_tlp;
@@ -133,8 +135,10 @@ class ProductController extends Controller
         // Memfilter tag berdasarkan ID yang tidak ada di excludedIds
         $tag = ProductTag::whereNotIn('id', $excludedIds)->get();
         // dd($tag);
+
+        $template = Template::all();
         
-        return view('admin.product.edit', compact('product', 'tag'));
+        return view('admin.product.edit', compact('product', 'tag', 'template'));
         
     }
 
@@ -168,7 +172,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->subtitle = $request->subtitle;
         $product->price = $request->price;
-        $product->template = $request->template;
+        $product->template_id = $request->template_id;
         $product->description = $request->description;
         $product->address = $request->address;
         $product->no_tlp = $request->no_tlp;

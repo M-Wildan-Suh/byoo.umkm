@@ -1,7 +1,7 @@
-@props(['color' => null, 'data', 'text' => null])
-<div class=" w-full max-w-[640px] mx-auto px-4 sm:px-0 relative">
+{{-- @props(['color' => null, 'data', 'text' => null]) --}}
+<div class=" w-full max-w-[600px] mx-auto px-4 sm:px-0 relative">
     <!-- Accordion Item 1 -->
-    <div  x-data="{ open: null }" style="background-color: {{$color ?? 'white'}}" class="p-4 space-y-2 rounded-md {{ $text ?? 'text-white' }}">
+    <div  x-data="{ open: null }" style="background-color: {{$template->desc_main_color ?? 'white'}}; color: {{$template->desc_text_color ?? 'black'}}" class="p-4 space-y-2 rounded-md {{ $text ?? 'text-white' }}">
         <p class="w-full font-bold tracking-wide text-lg">Tentang Kami</p>
         <div x-data="{ open: false }"  class="">
             <button @click="open = true" class=" text-sm hover:text-blue-500 duration-300 underline">

@@ -33,7 +33,6 @@
                         <thead>
                             <tr class="h-10 bg-[#ff7100] text-white divide-x-2 divide-white">
                                 <th class=" px-1 sm:px-2 py-1">Nama Template</th>
-                                <th class=" px-1 sm:px-2 py-1">Status</th>
                                 <th class=" px-1 sm:px-2 py-1">Opsi</th>
                             </tr>
                         </thead>
@@ -42,7 +41,6 @@
                                 <tr :class="index % 2 === 0 ? 'bg-neutral-100' : 'bg-neutral-200'"
                                     class="h-10 text-neutral-600 divide-x-2 divide-white">
                                     <td class=" px-2 sm:px-4 py-2 text-center font-semibold" x-text="item.name"></td>
-                                    <td class=" px-2 sm:px-4 py-2 text-nowrap" x-text="item.status"></td>
                                     <td class=" px-1 sm:px-2">
                                         <div class="flex gap-2 justify-center">
                                             <!-- Edit -->

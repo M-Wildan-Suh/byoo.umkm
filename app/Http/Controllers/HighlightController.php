@@ -59,8 +59,10 @@ class HighlightController extends Controller
             $newdata->image = $imageName . '.webp';
         }
         $newdata->save();
+
+        return response()->json($newdata);
         
-        return redirect()->back()->with('highlight', 'highlight');
+        // return redirect()->back()->with('highlight', 'highlight');
     }
 
     /**

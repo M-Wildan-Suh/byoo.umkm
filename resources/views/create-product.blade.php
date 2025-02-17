@@ -111,8 +111,8 @@
                                             <div class="w-full grid lg:grid-cols-2 gap-4">
                                                 <!-- Template untuk input -->
                                                 <template x-for="(input, index) in inputs" :key="index">
-                                                    <div class="input-group w-full max-w-full rounded-xl flex justify-between gap-2 sm:gap-4 bg-[#F8FAFC]">
-                                                        <div class=" min-w-16 sm:min-w-24 h-16 sm:h-24 aspect-square rounded-md overflow-hidden">
+                                                    <div class="input-group w-full max-w-full rounded-xl flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4 bg-[#F8FAFC]">
+                                                        <div class=" w-24 min-w-24 sm:h-24 aspect-square rounded-md overflow-hidden">
                                                             <div class="w-full h-full flex flex-col text-sm font-medium gap-2 justify-center items-center">
                                                                 <div class="w-full h-full relative flex justify-center overflow-hidden">
                                                                     <img :id="'highlightimage-preview-' + index" class="object-cover w-full"
@@ -137,7 +137,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="flex flex-col flex-grow justify-between gap-2">
+                                                        <div class=" w-full sm:w-auto flex flex-col flex-grow justify-between gap-2">
                                                             <div class=" flex items-center justify-between gap-2">
                                                                 <input type="text" 
                                                                     x-model="input.title" 
@@ -152,13 +152,6 @@
                                                                 :name="'inputs[' + index + '][description]'" 
                                                                 class="min-w-0 w-full p-0 resize-none border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm" 
                                                                 placeholder="Deskripsi" maxlength="64" cols="40" required></textarea>
-                                                        </div>
-                                                        <div class=" hidden">
-                                                            <button type="button" 
-                                                                class="min-w-[50px] h-full bg-red-500 hover:bg-red-600 duration-300 text-[#F8FAFC] rounded-md text-center text-sm"
-                                                                @click="removeInput(index)">
-                                                                Delete
-                                                            </button>
                                                         </div>
                                                     </div>
                                                 </template>

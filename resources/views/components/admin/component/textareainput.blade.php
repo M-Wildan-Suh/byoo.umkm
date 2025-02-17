@@ -2,13 +2,13 @@
 
 <div class=" w-full">
     <div class=" flex flex-col gap-2 text-sm sm:text-base font-medium">
-        <label for="{{$name}}">{{$title}}</label>
+        <label for="{{$name}}" class=" font-semibold">{{$title}}</label>
         <textarea name="{{$name}}" id="{{$name}}" placeholder="{{$placeholder}}" 
         @if ($xModel)
             {{ $xModel ? 'x-model='.$xModel : '' }} 
             x-bind:textContent="{{ $xModel ? '' : $value }}" 
         @endif 
-        class=" min-h-32 text-sm sm:text-base font-normal rounded-md border border-byolink-1 focus:ring-byolink-3 focus:border-byolink-3 bg-neutral-100" cols="30" rows="4">{{$value}}</textarea>
+        class=" min-h-32 text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" cols="30" rows="4">{{$value}}</textarea>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {

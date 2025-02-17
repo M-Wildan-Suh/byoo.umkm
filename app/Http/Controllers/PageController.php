@@ -29,6 +29,7 @@ class PageController extends Controller
         });
         return view('welcome', compact('data', 'no_tlp'));
     }
+
     public function product(Request $request) {
         // dd($request->filter);
         $no_tlp = NoHandphone::first()->no_tlp;
@@ -70,6 +71,7 @@ class PageController extends Controller
         });
         return view('product', compact('data', 'no_tlp', 'template', 'tag'));
     }
+
     public function template(Request $request) {
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
@@ -84,6 +86,7 @@ class PageController extends Controller
         });
         return view('template', compact('data', 'no_tlp'));
     }
+
     public function detail($slug) {
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
@@ -142,6 +145,7 @@ class PageController extends Controller
         return view('detail', compact('data', 'no_tlp', 'role', 'template'));
 
     }
+
     public function templatedetail($slug) {
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
@@ -196,23 +200,21 @@ class PageController extends Controller
 
         return view('detail', compact('data', 'no_tlp', 'role'));
     }
+
     public function createproduct() {
         $tag = ProductTag::all();
         $product = Product::all();
         return view('create-product', compact('tag', 'product'));
     }
+
     public function storeproduct(Request $request) {
-        // foreach ($request->file('image_gallery') as $item) {
-        //     dd($item);
-        // }
-        // dd($request);
-        $newdata= new Product();
+       $newdata= new Product();
 
         $newdata->name = $request->name;
         $newdata->subtitle = $request->subtitle;
         $newdata->price = $request->price;
-        $newdata->template = 'two';
-        $newdata->description = $request->description;
+        $newdata->template_id = 1;
+        $newdata->description = $request->desc;
         $newdata->address = $request->address;
         $newdata->no_tlp = $request->no_tlp;
         $newdata->youtube = $request->link; 
@@ -314,8 +316,14 @@ class PageController extends Controller
             }
         }
 
-        return redirect()->route('home');
+        $no_tlp = NoHandphone::first()->no_tlp;
+        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
+
+        $text = urlencode("Halo, saya sudah mendaftarkan usaha Saya dengan nama usaha".$newdata->name.". Saya tertarik dengan fitur-fitur yang ada dan ingin mengetahui lebih lanjut. Apakah bisa mendapatkan informasi lebih lengkap?");
+
+        return redirect()->away('https://wa.me/'.$no_tlp.'?text=' . $text);
     }
+
     public function order(Request $request) {
         $data = Highlight::whereIn('id', $request->order)->get();
 

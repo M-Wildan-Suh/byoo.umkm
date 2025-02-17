@@ -32,9 +32,9 @@
                 fill="#d9eafd" opacity="0"></path>
         </svg>
     </div>
-    <div class=" w-full px-4 py-20">
+    <div class=" w-full px-4 py-12 sm:py-20">
         <div class=" w-full max-w-[1080px] mx-auto">
-            <div class=" grid grid-cols-1 sm:grid-cols-2 gap-4 py-8">
+            <div class=" grid grid-cols-1 sm:grid-cols-2 gap-4 pb-8">
                 <div class=" w-full space-y-4">
                     <div class=" flex gap-2 items-center text-white">
                         <div class=" w-12 h-12">
@@ -44,7 +44,7 @@
                     </div>
                     <p class=" text-neutral-200">Jadilah bagian dari era digital dan wujudkan visi bisnis Anda bersama kami. Hubungi kami sekarang untuk solusi terbaik!</p>
                 </div>
-                <div class=" w-full grid grid-cols-2 gap-2">
+                <div class=" w-full grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-2">
                     <div class=" space-y-4">
                         <p class=" text-xl font-semibold text-white">Kontak Kami</p>
                         <div class=" space-y-2 text-neutral-200">

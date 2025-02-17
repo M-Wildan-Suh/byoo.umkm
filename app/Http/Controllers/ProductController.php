@@ -178,6 +178,7 @@ class ProductController extends Controller
         $product->no_tlp = $request->no_tlp;
         $product->home_button = $request->home_button;
         $product->youtube = $request->link;
+        $product->status = $request->status;
 
         if ($request->hasFile('thumbnail')) {
             if ($product->image) {

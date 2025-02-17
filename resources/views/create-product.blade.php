@@ -3,33 +3,35 @@
     <div class="py-20 px-4 sm:px-6 space-y-4 md:space-y-8">
         <div x-data="{ activeTab: '{{ session('highlight', 'product') }}' }" class="w-full py-2">
             <div class=" w-full max-w-[1080px] mx-auto bg-[#F8FAFC] rounded-md">
+                <!-- Tabs -->
                 <div class="w-full mx-auto pt-4 px-4 md:px-6 pb-0">
-                    <!-- Tabs -->
-                    <div class="flex flex-row gap-4">
+                    <div class=" grid grid-cols-3 gap-2 sm:gap-4 font-bold">
                         <button 
                             {{-- @click="activeTab = 'product'"  --}}
-                            :class="activeTab === 'product' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
-                            class="px-3 pb-2 border-b-2">
-                            Nama Usaha
+                            :class="activeTab === 'product' ? ' bg-[#ff7100] text-white' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
+                            class="px-3 py-2 rounded-md">
+                            Usaha
                         </button>
                         <button 
                             {{-- @click="activeTab = 'highlight'"  --}}
-                            :class="activeTab === 'highlight' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
-                            class="px-3 pb-2 border-b-2">
-                            Produk / Layanan
+                            :class="activeTab === 'highlight' ? ' bg-[#ff7100] text-white' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
+                            class="px-3 py-2 rounded-md">
+                            <span class=" sm:hidden">Produk</span>
+                            <span class=" hidden sm:block">Produk / Layanan</span>
                         </button>
                         <button 
                             {{-- @click="activeTab = 'gallery'"  --}}
-                            :class="activeTab === 'gallery' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
-                            class="px-3 pb-2 border-b-2">
+                            :class="activeTab === 'gallery' ? ' bg-[#ff7100] text-white' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
+                            class="px-3 py-2 rounded-md">
                             Galeri
                         </button>
                     </div>
                 </div>
                 <!-- Tab Contents -->
-                <div class="mt-4">
+                <div class="">
                     <form action="{{route('store.product')}}" method="post" enctype="multipart/form-data">
                         @csrf
+                        {{-- Bussiness --}}
                         <div x-show="activeTab === 'product'" class="">
                             <div class=" w-full mx-auto">
                                 <div class="bg-[#F8FAFC] overflow-hidden shadow-sm sm:rounded-lg">
@@ -37,217 +39,80 @@
                                         <div class=" w-full space-y-6">
                                             <div class=" grid grid-cols-1 md:grid-cols-3 gap-6">
                                                 <div class=" flex flex-col gap-2">
-                                                    <div class=" w-full h-full max-h-[268.8px] relative">
-                                                        <img id="thumbnail" class=" object-cover w-full h-full rounded-md" 
-                                                            src="{{ asset('assets/images/placeholder.webp')}}" 
-                                                            alt="Logo">
-                                                        <div class="w-full text-transparent rounded-md h-full absolute top-0 left-0 flex justify-center items-center hover:bg-black/60 hover:text-[#F8FAFC]/50 duration-300">
-                                                            <label for="thumbnail-input" class="relative">
-                                                                <div class="w-full h-full p-[35%]">
-                                                                    <svg fill="none" class=" w-full h-full" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.75A3.25 3.25 0 0 0 6.25 21h4.915l.356-1.423c.162-.648.497-1.24.97-1.712l5.902-5.903a3.279 3.279 0 0 1 2.607-.95V6.25A3.25 3.25 0 0 0 17.75 3H11v4.75A3.25 3.25 0 0 1 7.75 11H3v6.75ZM9.5 3.44 3.44 9.5h4.31A1.75 1.75 0 0 0 9.5 7.75V3.44Zm9.6 9.23-5.903 5.902a2.686 2.686 0 0 0-.706 1.247l-.458 1.831a1.087 1.087 0 0 0 1.319 1.318l1.83-.457a2.685 2.685 0 0 0 1.248-.707l5.902-5.902A2.286 2.286 0 0 0 19.1 12.67Z" fill="currentColor" class="fill-212121"></path></svg>
-                                                                </div>
-                                                                <input accept="image/*" type="file" name="thumbnail" class="absolute bottom-0 left-0 z-0 w-40 opacity-0" id="thumbnail-input"/>
-                                                            </label>
-                                                        </div>
-                                                        <script>
-                                                            const logoinput = document.getElementById('thumbnail-input');
-                                                            const logo = document.getElementById('thumbnail');
-                                    
-                                                            logoinput.onchange = evt => {
-                                                                const [file] = logoinput.files;
-                                                                if (file) {
-                                                                    logo.src = URL.createObjectURL(file);
-                                                                }
-                                                            };
-                                    
-                                                            window.addEventListener('paste', e => {
-                                                                const [file] = e.clipboardData.files;
-                                                                if (file) {
-                                                                    logo.src = URL.createObjectURL(file);
-                                                                }
-                                                            });
-                                                        </script>
+                                                    <div class=" w-full h-full aspect-[3/2] sm:aspect-auto max-h-[268.8px] overflow-hidden relative rounded-md">
+                                                        <x-admin.component.imageinput :value="null" name="thumbnail" />
                                                     </div>
                                                 </div>
                                                 <div class=" w-full md:col-span-2 space-y-6">
                                                     <div x-data="productChecker()">
-                                                        <div class="space-y-2">
-                                                            <label for="name">Nama Usaha Kamu</label>
+                                                        <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
+                                                            <div class=" flex gap-2">
+                                                                <label for="name" class=" font-semibold">Nama Usaha Kamu</label>
+                                                                <div x-show="isDuplicate" class="relative group pt-1">
+                                                                    <div class=" w-2 h-2 bg-red-500 rounded-full text-sm cursor-pointer"></div>
+                                                                    <span class="absolute top-0 left-5 hidden group-hover:block w-max bg-gray-800 text-white text-xs rounded px-2 py-1">
+                                                                        Nama sudah digunakan
+                                                                    </span>
+                                                                </div>
+                                                            </div>
                                                             <input 
-                                                                class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
+                                                                class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
                                                                 type="text" 
+                                                                placeholder="Masukkan Nama Usaha..."
                                                                 name="name" 
                                                                 id="name"
                                                                 x-model="inputName"
                                                                 @input="checkProductName"
                                                             >
-                                                            <p x-show="isDuplicate" class="text-red-500 text-sm">Nama usaha sudah digunakan</p>
                                                         </div>
+                                                        <script>
+                                                            function productChecker() {
+                                                                return {
+                                                                    // Data produk dari backend (menggunakan Blade untuk memasukkan data)
+                                                                    products: @json($product->pluck('name')).map(name => name.toLowerCase()), // Konversi nama produk menjadi huruf kecil
+                                                                    inputName: '', // Nilai input
+                                                                    isDuplicate: false, // Status duplikasi
+                                                                    
+                                                                    // Fungsi pengecekan
+                                                                    checkProductName() {
+                                                                        // Perbandingan tanpa memperhatikan kapitalisasi
+                                                                        this.isDuplicate = this.products.includes(this.inputName.trim().toLowerCase());
+                                                                    }
+                                                                };
+                                                            }
+                                                        </script>
                                                     </div>
-                                                    
-                                                    <script>
-                                                        function productChecker() {
-                                                            return {
-                                                                // Data produk dari backend (menggunakan Blade untuk memasukkan data)
-                                                                products: @json($product->pluck('name')).map(name => name.toLowerCase()), // Konversi nama produk menjadi huruf kecil
-                                                                inputName: '', // Nilai input
-                                                                isDuplicate: false, // Status duplikasi
-                                                                
-                                                                // Fungsi pengecekan
-                                                                checkProductName() {
-                                                                    // Perbandingan tanpa memperhatikan kapitalisasi
-                                                                    this.isDuplicate = this.products.includes(this.inputName.trim().toLowerCase());
-                                                                }
-                                                            };
-                                                        }
-                                                    </script>                                                    
-                                                    {{-- <div class=" space-y-2">
-                                                        <label for="price">Price</label>
-                                                        <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="number" min="0" name="price" id="price">
-                                                    </div>
-                                                    <div class=" space-y-2">
-                                                        <label for="link">Link Youtube</label>
-                                                        <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="link" id="link">
-                                                    </div> --}}
-                                                    <div class=" space-y-2">
-                                                        <label for="subtitle">Tagline</label>
-                                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64"></textarea>
-                                                    </div>
-                                                    <div class=" space-y-2">
-                                                        <label for="no_tlp">No. Whatsapp</label>
-                                                        <input class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
-                                                    </div>
+                                                    <x-admin.component.textinput title="Tagline" placeholder="Masukkan Tagline..." :value="''" name="subtitle" />
+                                                    <x-admin.component.numberinput title="No. Whatsapp" placeholder="Masukkan Nomor..." :value="''" name="no_tlp" />
                                                 </div>
                                             </div>
-                                            <div class=" space-y-2">
-                                                <label for="desc">Tentang Usaha Anda</label>
-                                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5"></textarea>
-                                            </div>
-                                            <div class=" space-y-2">
-                                                <label for="address">Alamat</label>
-                                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="address" id="address" rows="1"></textarea>
-                                            </div>
-                                            {{-- <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]"></x-admin.component.taginput> --}}
-                                            {{-- <div class=" space-y-2">
-                                                <label for="home_button">Home Button</label>
-                                                <div class=" w-full grid grid-cols-2 gap-4">
-                                                    <div class=" w-full flex items-center gap-2">
-                                                        <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
-                                                        <label for="on">On</label>
-                                                    </div>
-                                                    <div class=" w-full flex items-center gap-2">
-                                                        <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off">
-                                                        <label for="off">Off</label>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
-                                            {{-- <div class=" space-y-2">
-                                                <label for="template">template</label>
-                                                <div x-data="{ selected: '' }" class=" w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                                                    <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                        <input type="radio" name="template" id="two" value="two" class="hidden" 
-                                                            @checked(isset($product->template) && $product->template === 'two') 
-                                                            @change="selected = 'two'">
-                                                        <label for="two" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'two' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                        <div class=" bg-black flex items-start w-full h-full">
-                                                            <img src="{{asset('/assets/images/template/two.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                        <input type="radio" name="template" id="three" value="three" class="hidden" 
-                                                            @checked(isset($product->template) && $product->template === 'three') 
-                                                            @change="selected = 'three'">
-                                                        <label for="three" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'three' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                        <div class=" bg-black flex items-start w-full h-full">
-                                                            <img src="{{asset('/assets/images/template/three.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                        
-                                                        <input type="radio" name="template" id="four" value="four" class="hidden" 
-                                                            @checked(isset($product->template) && $product->template === 'four') 
-                                                            @change="selected = 'four'">
-                                                        <label for="four" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'four' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                        <div class=" bg-black flex items-start w-full h-full">
-                                                            <img src="{{asset('/assets/images/template/four.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                        <input type="radio" name="template" id="five" value="five" class="hidden" 
-                                                            @checked(isset($product->template) && $product->template === 'five') 
-                                                            @change="selected = 'five'">
-                                                        <label for="five" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'five' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                        <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                            <img src="{{asset('/assets/images/template/five.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                        <input type="radio" name="template" id="six" value="six" class="hidden" 
-                                                            @checked(isset($product->template) && $product->template === 'six') 
-                                                            @change="selected = 'six'">
-                                                        <label for="six" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'six' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                        <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                            <img src="{{asset('/assets/images/template/six.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                        <input type="radio" name="template" id="seven" value="seven" class="hidden" 
-                                                            @checked(isset($product->template) && $product->template === 'seven') 
-                                                            @change="selected = 'seven'">
-                                                        <label for="seven" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'seven' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                        <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                            <img src="{{asset('/assets/images/template/seven.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                        <input type="radio" name="template" id="eight" value="eight" class="hidden" 
-                                                            @checked(isset($product->template) && $product->template === 'eight') 
-                                                            @change="selected = 'eight'">
-                                                        <label for="eight" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'eight' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                        <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                            <img src="{{asset('/assets/images/template/eight.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                        <input type="radio" name="template" id="nine" value="nine" class="hidden" 
-                                                            @checked(isset($product->template) && $product->template === 'nine') 
-                                                            @change="selected = 'nine'">
-                                                        <label for="nine" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'nine' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                        <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                            <img src="{{asset('/assets/images/template/nine.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                        <input type="radio" name="template" id="ten" value="ten" class="hidden" 
-                                                            @checked(isset($product->template) && $product->template === 'ten') 
-                                                            @change="selected = 'ten'">
-                                                        <label for="ten" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'ten' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                        <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                            <img src="{{asset('/assets/images/template/ten.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> --}}
-                                            
+                                            <x-admin.component.textareainput title="Tentang Usaha Anda" placeholder="Jelaskan Usaha Anda..." :value="''" name="desc" />
                                             <div class="">
-                                                <button type="button" @click="activeTab = 'highlight'"  class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Next</button>
+                                                <button type="button" @click="activeTab = 'highlight'"  class=" text-sm sm:text-base font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Next</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Product / Service --}}
                         <div x-show="activeTab === 'highlight'" class="">
                             <div class=" w-full mx-auto">
                                 <div class="bg-[#F8FAFC] overflow-hidden shadow-sm sm:rounded-lg">
-                                    <div class=" p-4 md:p-6 text-gray-900 space-y-4">
-                                        <p>Produk / Layanan ( Max 3 )</p>
-                                        <div class=" space-y-2">
-                                            <div x-data="formManager()" class="w-full grid lg:grid-cols-2 gap-4">
+                                    <div class=" p-4 md:p-6 text-gray-900 space-y-6">
+                                        <div x-data="formManager()" class=" space-y-2">
+                                            <div class=" flex items-center gap-2">
+                                                <p class=" text-sm sm:text-base font-semibold">Produk / Layanan ( Max 3 )</p>
+                                                <button type="button" x-show="inputs.length < 3" @click="addNewInput" class=" w-4 h-4 text-[#ff7100] hover:scale-110 duration-300">
+                                                    <svg viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"><path d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1zm5 13h-3v3c0 1.1-.9 2-2 2s-2-.9-2-2v-3H7c-1.1 0-2-.9-2-2s.9-2 2-2h3V7c0-1.1.9-2 2-2s2 .9 2 2v3h3c1.1 0 2 .9 2 2s-.9 2-2 2z" fill="currentColor" class="fill-000000"></path></svg>
+                                                </button>
+                                            </div>
+                                            <div class="w-full grid lg:grid-cols-2 gap-4">
                                                 <!-- Template untuk input -->
                                                 <template x-for="(input, index) in inputs" :key="index">
-                                                    <div class="input-group w-full max-w-full rounded-xl flex justify-between gap-4 bg-[#F8FAFC]">
-                                                        <div class="min-w-20 sm:min-w-24 h-20 sm:h-24 aspect-square rounded-md overflow-hidden">
+                                                    <div class="input-group w-full max-w-full rounded-xl flex justify-between gap-2 sm:gap-4 bg-[#F8FAFC]">
+                                                        <div class=" min-w-16 sm:min-w-24 h-16 sm:h-24 aspect-square rounded-md overflow-hidden">
                                                             <div class="w-full h-full flex flex-col text-sm font-medium gap-2 justify-center items-center">
                                                                 <div class="w-full h-full relative flex justify-center overflow-hidden">
                                                                     <img :id="'highlightimage-preview-' + index" class="object-cover w-full"
@@ -273,17 +138,22 @@
                                                             </div>
                                                         </div>
                                                         <div class="flex flex-col flex-grow justify-between gap-2">
-                                                            <input type="text" 
-                                                                x-model="input.title" 
-                                                                :name="'inputs[' + index + '][title]'" 
-                                                                class="min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" 
-                                                                placeholder="Produk / Layanan" maxlength="27" required>
+                                                            <div class=" flex items-center justify-between gap-2">
+                                                                <input type="text" 
+                                                                    x-model="input.title" 
+                                                                    :name="'inputs[' + index + '][title]'" 
+                                                                    class="min-w-0 p-0 resize-none w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm sm:text-base" 
+                                                                    placeholder="Produk / Layanan" maxlength="27" required>
+                                                                <button class=" w-6 h-6 text-red-500 hover:scale-110 duration-300" type="button" @click="removeInput(index)">
+                                                                    <svg viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"><path d="M18.9 8H5.1c-.6 0-1.1.5-1 1.1l1.6 13.1c.1 1 1 1.7 2 1.7h8.5c1 0 1.9-.7 2-1.7l1.6-13.1c.1-.6-.3-1.1-.9-1.1zM20 2h-5c0-1.1-.9-2-2-2h-2C9.9 0 9 .9 9 2H4c-1.1 0-2 .9-2 2v1c0 .6.4 1 1 1h18c.6 0 1-.4 1-1V4c0-1.1-.9-2-2-2z" fill="currentColor" class="fill-000000"></path></svg>
+                                                                </button>
+                                                            </div>
                                                             <textarea x-model="input.description" 
                                                                 :name="'inputs[' + index + '][description]'" 
-                                                                class="min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" 
+                                                                class="min-w-0 w-full p-0 resize-none border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm" 
                                                                 placeholder="Deskripsi" maxlength="64" cols="40" required></textarea>
                                                         </div>
-                                                        <div>
+                                                        <div class=" hidden">
                                                             <button type="button" 
                                                                 class="min-w-[50px] h-full bg-red-500 hover:bg-red-600 duration-300 text-[#F8FAFC] rounded-md text-center text-sm"
                                                                 @click="removeInput(index)">
@@ -292,15 +162,6 @@
                                                         </div>
                                                     </div>
                                                 </template>
-                                                
-                                                <!-- Tombol di luar template untuk menambah input baru -->
-                                                <div x-show="inputs.length < 3" class="">
-                                                    <button type="button" 
-                                                        class="bg-[#ff7100] hover:bg-[#b95300] text-white w-full h-full py-1.5 rounded-md"
-                                                        @click="addNewInput">
-                                                        Tambah Produk / Layanan
-                                                    </button>
-                                                </div>
                                             </div>
                                             
                                             <script>
@@ -329,28 +190,30 @@
                                                 }
                                             </script>
                                             
-                                            <div class=" grid grid-cols-2 gap-4">
-                                                <button type="button" @click="activeTab = 'product'"  class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Kembali</button>
-                                                <button type="button" @click="activeTab = 'gallery'"  class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Next</button>
-                                            </div>
+                                        </div>
+                                        <div class=" grid grid-cols-2 gap-2 sm:gap-4">
+                                            <button type="button" @click="activeTab = 'product'"  class=" text-sm sm:text-base font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Kembali</button>
+                                            <button type="button" @click="activeTab = 'gallery'"  class=" text-sm sm:text-base font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Next</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Gallery --}}
                         <div x-show="activeTab === 'gallery'" class="">
                             <div class=" w-full mx-auto">
                                 <div class="bg-[#F8FAFC] overflow-hidden shadow-sm sm:rounded-lg">
                                     <div class=" p-4 md:p-6 text-gray-900 space-y-4">
                                         <div x-data="imageGallery" class="flex flex-col gap-2">
-                                            <label for="image_gallery">Galeri ( Max 9 )</label>
+                                            <label for="image_gallery" class=" text-sm sm:text-base font-semibold">Galeri ( Max 9 )</label>
                                             <input type="file" class="hidden" id="image_gallery" name="image_gallery[]" multiple @input="previewImages" accept="image/*">
                                             
                                             <!-- Pratinjau Gambar -->
-                                            <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                                            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
                                                 <!-- Loop Gambar -->
                                                 <template x-for="(image, index) in images" :key="index">
-                                                    <div class="w-full aspect-[3/2] rounded-md relative overflow-hidden">
+                                                    <div class="w-full aspect-[3/2] rounded-md relative overflow-hidden shadow-md shadow-black/20">
                                                         <img :src="image" class="w-full h-full object-cover" alt="Gallery Image Preview">
                                                         <!-- Tombol Hapus Gambar -->
                                                         <button type="button" @click="removeImage(index)" class="absolute inset-0 text-transparent hover:bg-black/60 hover:text-[#F8FAFC]/50 transition duration-300 p-[20%]">
@@ -389,9 +252,9 @@
                                                 };
                                             }
                                         </script>
-                                        <div class=" grid grid-cols-2 gap-4">
-                                            <button type="button" @click="activeTab = 'highlight'"  class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Kembali</button>
-                                            <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Join</button>
+                                        <div class=" grid grid-cols-2 gap-2 sm:gap-4">
+                                            <button type="button" @click="activeTab = 'highlight'"  class=" text-sm sm:text-base font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Kembali</button>
+                                            <button class=" text-sm sm:text-base font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-[#F8FAFC] rounded-md text-center">Join</button>
                                         </div>
                                     </div>
                                 </div>

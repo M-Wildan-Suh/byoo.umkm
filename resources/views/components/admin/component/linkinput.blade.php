@@ -1,9 +1,9 @@
 @props(['title', 'placeholder', 'link', 'name', 'value', 'xModel' => null])
 <div class=" w-full">
     <div class=" flex flex-col gap-2 text-sm sm:text-base font-medium">
-        <label for="{{$name}}">{{$title}}</label>
-        <div class="flex flex-row w-full border border-transparent focus-within:border-byolink-3 focus-within:ring-1 focus-within:ring-byolink-3 rounded-md">
-            <label for="{{$name}}" class="py-2 px-3 border border-byolink-1 bg-byolink-1 text-white rounded-l-md">{{$link}}</label>
+        <label for="{{$name}}" class=" font-semibold">{{$title}}</label>
+        <div class="flex flex-row w-full border border-transparent focus-within:border-[#ff7100] focus-within:ring-1 focus-within:ring-[#ff7100] rounded-md">
+            <label for="{{$name}}" class="py-2 px-3 border border-[#ff7100] bg-[#ff7100] text-white rounded-l-md">{{$link}}</label>
             <input type="text" id="{{$name}}" name="{{$name}}" 
                 placeholder="{{$placeholder}}"
                 @if ($xModel)
@@ -11,7 +11,7 @@
                     x-bind:value="{{ $xModel ? '' : $value }}" 
                 @endif
                 value="{{$value}}" 
-                class="flex-grow min-w-0 text-sm sm:text-base font-normal rounded-r-md border border-byolink-1 focus:ring-0 focus:border-none bg-neutral-100">
+                class="flex-grow min-w-0 text-sm sm:text-base font-normal rounded-r-md border border-gray-300 focus:ring-0 focus:border-none">
         </div>
     </div>
 </div>

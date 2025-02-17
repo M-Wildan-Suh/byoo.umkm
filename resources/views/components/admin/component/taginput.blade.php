@@ -1,6 +1,6 @@
 @props(['title', 'name', 'value', 'tag' => null])
 <div class="flex flex-col gap-2">
-    <label class="">{{$title}}</label>
+    <label class=" text-sm sm:text-base font-semibold">{{$title}}</label>
     <select class="js-example-basic-single" name="{{$name}}" multiple="multiple">
         @if(isset($value))
             @foreach($value as $item)

@@ -4,321 +4,233 @@
             {{ __('Edit Usaha') }}
         </h2>
     </x-slot>
-    <div x-data="{ activeTab: '{{ session('highlight', 'product') }}' }" class="w-full ">
-        <div class=" w-full py-2 px-4 bg-white">
-            <div class="w-full max-w-[1080px] mx-auto ">
-                <!-- Tabs -->
-                <div class="flex flex-row gap-4">
-                    <button 
-                        @click="activeTab = 'product'" 
-                        :class="activeTab === 'product' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
-                        class="px-3 pb-2 border-b-2">
-                        Usaha
-                    </button>
-                    <button 
-                        @click="activeTab = 'highlight'" 
-                        :class="activeTab === 'highlight' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
-                        class="px-3 pb-2 border-b-2">
-                        Produk / Layanan
-                    </button>
-                    <button 
-                        @click="activeTab = 'gallery'" 
-                        :class="activeTab === 'gallery' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
-                        class="px-3 pb-2 border-b-2">
-                        Galeri
-                    </button>
-                </div>
-            </div>
-        </div>
-    
-        <!-- Tab Contents -->
-        <div class="mt-4">
-            <div x-show="activeTab === 'product'" class="py-4 px-4">
-                <div class="max-w-[1080px] mx-auto">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class=" p-4 md:p-6 text-gray-900">
-                            <form id="bussiness" action="{{route('product.update', ['product' => $product->id])}}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <div class=" w-full space-y-6">
-                                    <div class=" grid grid-cols-1 md:grid-cols-3 gap-6">
-                                        <div class=" flex flex-col gap-2">
-                                            <div class=" w-full h-full max-h-[268.8px] relative">
-                                                <img id="thumbnail" class=" object-cover w-full h-full rounded-md" 
-                                                    src="{{ asset('storage/images/product/' . $product->image . '')}}" 
-                                                    alt="Logo">
-                                                <div class="w-full text-transparent rounded-md h-full absolute top-0 left-0 flex justify-center items-center hover:bg-black/60 hover:text-white/50 duration-300">
-                                                    <label for="thumbnail-input" class="relative">
-                                                        <div class="w-full h-full p-[35%]">
-                                                            <svg fill="none" class=" w-full h-full" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.75A3.25 3.25 0 0 0 6.25 21h4.915l.356-1.423c.162-.648.497-1.24.97-1.712l5.902-5.903a3.279 3.279 0 0 1 2.607-.95V6.25A3.25 3.25 0 0 0 17.75 3H11v4.75A3.25 3.25 0 0 1 7.75 11H3v6.75ZM9.5 3.44 3.44 9.5h4.31A1.75 1.75 0 0 0 9.5 7.75V3.44Zm9.6 9.23-5.903 5.902a2.686 2.686 0 0 0-.706 1.247l-.458 1.831a1.087 1.087 0 0 0 1.319 1.318l1.83-.457a2.685 2.685 0 0 0 1.248-.707l5.902-5.902A2.286 2.286 0 0 0 19.1 12.67Z" fill="currentColor" class="fill-212121"></path></svg>
-                                                        </div>
-                                                        <input accept="image/*" type="file" name="thumbnail" class="absolute bottom-0 left-0 z-0 w-40 opacity-0" id="thumbnail-input"/>
-                                                    </label>
+    <!-- Tab Contents -->
+    <div class="mt-4">
+        <div class="py-4 px-4">
+            <div class="max-w-[1080px] mx-auto">
+                <div x-data="{ activeTab: '{{ session('highlight', 'product') }}' }" class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <!-- Tabs -->
+                    <div class="w-full mx-auto pt-4 px-4 md:px-6 pb-0">
+                        <div class=" grid grid-cols-3 gap-2 sm:gap-4 font-bold">
+                            <button 
+                                @click="activeTab = 'product'" 
+                                :class="activeTab === 'product' ? ' bg-[#ff7100] text-white' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
+                                class="px-3 py-2 rounded-md">
+                                Usaha
+                            </button>
+                            <button 
+                                @click="activeTab = 'highlight'" 
+                                :class="activeTab === 'highlight' ? ' bg-[#ff7100] text-white' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
+                                class="px-3 py-2 rounded-md">
+                                <span class=" sm:hidden">Produk</span>
+                                <span class=" hidden sm:block">Produk / Layanan</span>
+                            </button>
+                            <button 
+                                @click="activeTab = 'gallery'" 
+                                :class="activeTab === 'gallery' ? ' bg-[#ff7100] text-white' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
+                                class="px-3 py-2 rounded-md">
+                                Galeri
+                            </button>
+                        </div>
+                    </div>
+                    <div x-show="activeTab === 'product'" class=" p-4 md:p-6 text-gray-900">
+                        <form id="bussiness" action="{{route('product.update', ['product' => $product->id])}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class=" w-full space-y-6">
+                                <div class=" grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div class=" flex flex-col gap-2">
+                                        <div class=" w-full h-full aspect-[3/2] sm:aspect-auto max-h-[268.8px] overflow-hidden relative rounded-md">
+                                            <x-admin.component.imageinput :value="asset('storage/images/product/' . $product->image . '')" name="thumbnail" />
+                                        </div>
+                                    </div>
+                                    <div class=" w-full md:col-span-2 space-y-6">
+                                        <div x-data="productChecker({{ json_encode($product->name) }})">
+                                            <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
+                                                <div class=" flex gap-2">
+                                                    <label for="name" class=" font-semibold">Nama Usaha Kamu</label>
+                                                    <div x-show="isDuplicate" class="relative group pt-1">
+                                                        <div class=" w-2 h-2 bg-red-500 rounded-full text-sm cursor-pointer"></div>
+                                                        <span class="absolute top-0 left-5 hidden group-hover:block w-max bg-gray-800 text-white text-xs rounded px-2 py-1">
+                                                            Nama sudah digunakan
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                                <script>
-                                                    const logoinput = document.getElementById('thumbnail-input');
-                                                    const logo = document.getElementById('thumbnail');
-                            
-                                                    logoinput.onchange = evt => {
-                                                        const [file] = logoinput.files;
-                                                        if (file) {
-                                                            logo.src = URL.createObjectURL(file);
+                                                <input 
+                                                    class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
+                                                    type="text" 
+                                                    placeholder="Masukkan Nama Usaha..."
+                                                    name="name" 
+                                                    id="name"
+                                                    x-model="inputName"
+                                                    @input="checkProductName"
+                                                >
+                                            </div>
+                                            <script>
+                                                function productChecker(input) {
+                                                    return {
+                                                        // Data produk dari backend (menggunakan Blade untuk memasukkan data)
+                                                        products: @json($data->pluck('name')).map(name => name.toLowerCase()), // Konversi nama produk menjadi huruf kecil
+                                                        inputName: input, // Nilai input
+                                                        isDuplicate: false, // Status duplikasi
+                                                        
+                                                        // Fungsi pengecekan
+                                                        checkProductName() {
+                                                            // Perbandingan tanpa memperhatikan kapitalisasi
+                                                            this.isDuplicate = this.products.includes(this.inputName.trim().toLowerCase());
                                                         }
                                                     };
-                            
-                                                    window.addEventListener('paste', e => {
-                                                        const [file] = e.clipboardData.files;
-                                                        if (file) {
-                                                            logo.src = URL.createObjectURL(file);
-                                                        }
-                                                    });
-                                                </script>
-                                            </div>
+                                                }
+                                            </script>
                                         </div>
-                                        <div class=" w-full md:col-span-2 space-y-6">
-                                            <div class=" space-y-2">
-                                                <label for="name">Nama Usaha</label>
-                                                <input value="{{$product->name}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
-                                            </div>
-                                            <div class=" space-y-2">
-                                                <label for="subtitle">Tagline</label>
-                                                <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="1" maxlength="64">{{$product->subtitle}}</textarea>
-                                            </div>
-                                            <div class=" space-y-2">
-                                                <label for="link">Link Youtube</label>
-                                                <input value="{{$product->youtube}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="link" id="link">
-                                            </div>
-                                        </div>
+                                        <x-admin.component.textinput title="Tagline" placeholder="Masukkan Tagline..." :value="$product->subtitle" name="subtitle" />
+                                        <x-admin.component.numberinput title="No. Whatsapp" placeholder="Masukkan Nomor..." :value="$product->no_tlp" name="no_tlp" />
                                     </div>
-                                    <div class=" space-y-2">
-                                        <label for="no_tlp">No. Telephone</label>
-                                        <input value="{{$product->no_tlp}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="no_tlp" id="no_tlp">
-                                    </div>
-                                    <div class=" space-y-2">
-                                        <label for="desc">Tentang Usaha</label>
-                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5">{{$product->description}}</textarea>
-                                    </div>
+                                </div>
+                                <x-admin.component.linkinput title="Youtube (Optional)" placeholder="Masukkan link..." :value="$product->youtube" name="link" link="Url" />
+
+                                <x-admin.component.textareainput title="Tentang Usaha Anda" placeholder="Jelaskan Usaha Anda..." :value="$product->description" name="description" />
+                                
+                                @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'premium' && Auth::user()->premium_type === 'lifetime') || (Auth::user()->role === 'premium' && Carbon\Carbon::now()->lessThanOrEqualTo(Carbon\Carbon::parse(Auth::user()->expired))))
                                     <x-admin.component.taginput title="Tag" :value="$product->productTags" name="tag[]" :tag="$tag"></x-admin.component.taginput>
                                     @if (Auth::user()->role === 'admin')
-                                        <div class=" space-y-2">
-                                            <label for="address">Status</label>
-                                            <div class=" w-full grid grid-cols-2 gap-4">
-                                                <div class=" flex items-center gap-3">
-                                                    <input type="radio" id="active" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="status" value="active" checked id="">
-                                                    <label for="active">Active</label>
-                                                </div>
-                                                <div class=" flex items-center gap-3">
-                                                    <input type="radio" id="unactive" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="status" value="unactive" {{$product->status === 'unactive' ? 'checked' : ''}} id="">
-                                                    <label for="unactive">Unactive</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class=" space-y-2">
-                                            <label for="home_button">Tombol Home</label>
-                                            <div class=" w-full grid grid-cols-2 gap-4">
-                                                <div class=" w-full flex items-center gap-2">
-                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
-                                                    <label for="on">On</label>
-                                                </div>
-                                                <div class=" w-full flex items-center gap-2">
-                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$product->home_button === 'off' ? 'checked' : ''}}>
-                                                    <label for="off">Off</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @elseif (Auth::user()->role === 'premium' && Auth::user()->premium_type === 'lifetime')
-                                        <div class=" space-y-2">
-                                            <label for="home_button">Tombol Home</label>
-                                            <div class=" w-full grid grid-cols-2 gap-4">
-                                                <div class=" w-full flex items-center gap-2">
-                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
-                                                    <label for="on">On</label>
-                                                </div>
-                                                <div class=" w-full flex items-center gap-2">
-                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$product->home_button === 'off' ? 'checked' : ''}}>
-                                                    <label for="off">Off</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @elseif (Auth::user()->role === 'premium' && Carbon\Carbon::now()->lessThanOrEqualTo(Carbon\Carbon::parse(Auth::user()->expired)))
-                                        <div class=" space-y-2">
-                                            <label for="home_button">Tombol Home</label>
-                                            <div class=" w-full grid grid-cols-2 gap-4">
-                                                <div class=" w-full flex items-center gap-2">
-                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
-                                                    <label for="on">On</label>
-                                                </div>
-                                                <div class=" w-full flex items-center gap-2">
-                                                    <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$product->home_button === 'off' ? 'checked' : ''}}>
-                                                    <label for="off">Off</label>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <x-admin.component.radioinput title="Status" :value="[['label'=>'Active', 'value'=>'active'], ['label'=>'Unactive', 'value'=>'unactive']]" :defaultvalue="$product->status" name="status" />
                                     @endif
-                                    <div class=" space-y-2">
-                                        <label for="template">Template</label>
-                                        <div class=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                                            @foreach ($template as $item)
-                                                <label class="w-full rounded-md bg-white aspect-[2/3] overflow-hidden relative">
-                                                    <input type="radio" name="template_id" value="{{$item->id}}" class="hidden peer" {{ $product->template_id === $item->id ? 'checked' : '' }}>
-                                                    <img src="{{asset('/storage/images/template/'.$item->image)}}" class=" w-full h-full object-cover object-top" alt="">
-                                                    <div class=" absolute inset-0 peer-checked:bg-black/50 duration-300">
-                                                    </div>
-                                                </label>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="">
-                                        <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div x-show="activeTab === 'highlight'" class="py-4 px-4">
-                <div class="max-w-[1080px] mx-auto">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class=" p-4 md:p-6 text-gray-900 space-y-4">
-                            @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'premium' && Auth::user()->premium_type === 'lifetime'))
+                                    <x-admin.component.radioinput title="Tombol Home" :value="[['label'=>'On', 'value'=>'on'], ['label'=>'Off', 'value'=>'off']]" :defaultvalue="$product->home_button" name="home_button" />
+                                @endif
                                 <div class=" space-y-2">
-                                    <label for="order">Edit Tombol Order</label>
-                                    <div class=" flex flex-col gap-2 font-medium">
-                                        <form action="{{route('product.order', ['id' => $product->id])}}" method="post">
-                                            @csrf
-                                            @method('put')
-                                            <div class="flex flex-row w-full border border-transparent focus-within:border-[#b95300] focus-within:ring-1 focus-within:ring-[#b95300] rounded-md">
-                                                <input type="text" id="order_title" name="order_title" placeholder="Masukkan nama tombol order..." value="{{$product->order_title}}" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none">
-                                                <button class="py-2 px-3 border border-[#ff7100] bg-[#ff7100] text-white rounded-r hover:bg-[#b95300] hover:border-[#b95300] duration-300 text-sm sm:text-base">Ganti</button>
-                                            </div>
-                                        </form>
+                                    <label for="template">Template</label>
+                                    <div class=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                        @foreach ($template as $item)
+                                            <label class="w-full rounded-md bg-white aspect-[2/3] overflow-hidden relative">
+                                                <input type="radio" name="template_id" value="{{$item->id}}" class="hidden peer" {{ $product->template_id === $item->id ? 'checked' : '' }}>
+                                                <img src="{{asset('/storage/images/template/'.$item->image)}}" class=" w-full h-full object-cover object-top" alt="">
+                                                <div class=" absolute inset-0 peer-checked:bg-black/50 duration-300">
+                                                </div>
+                                            </label>
+                                        @endforeach
                                     </div>
                                 </div>
-                            @elseif (Auth::user()->role === 'premium' && Carbon\Carbon::now()->lessThanOrEqualTo(Carbon\Carbon::parse(Auth::user()->expired)))
-                                <div class=" space-y-2">
-                                    <label for="order">Edit Tombol Order</label>
-                                    <div class=" flex flex-col gap-2 font-medium">
-                                        <form action="{{route('product.order', ['id' => $product->id])}}" method="post">
-                                            @csrf
-                                            @method('put')
-                                            <div class="flex flex-row w-full border border-transparent focus-within:border-[#b95300] focus-within:ring-1 focus-within:ring-[#b95300] rounded-md">
-                                                <input type="text" id="order_title" name="order_title" placeholder="Masukkan nama tombol order..." value="{{$product->order_title}}" class=" text-sm sm:text-base flex-grow rounded-l-md border border-[#ff7100] focus:ring-0 focus:border-none">
-                                                <button class="py-2 px-3 border border-[#ff7100] bg-[#ff7100] text-white rounded-r hover:bg-[#b95300] hover:border-[#b95300] duration-300 text-sm sm:text-base">Ganti</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            @endif
-                            <p>Produk / Layanan {{ in_array(Auth::user()->role, ['admin', 'premium']) || $product->productHighlight->count() < 3 ? 'Unlimited' : '( Max 3 )' }}
-                            </p>
-                            <div class=" space-y-2">
-                                @include('admin.product.component.product')
+                                
                                 <div class="">
-                                    <button @click="document.getElementById('bussiness').submit()" class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
+                                    <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                                 </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div x-show="activeTab === 'highlight'" class=" p-4 md:p-6 text-gray-900 space-y-4">
+                        @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'premium' && Auth::user()->premium_type === 'lifetime') || (Auth::user()->role === 'premium' && Carbon\Carbon::now()->lessThanOrEqualTo(Carbon\Carbon::parse(Auth::user()->expired))))
+                            <div class=" space-y-2">
+                                <label for="order" class=" text-sm sm:text-base font-semibold">Edit Tombol Order</label>
+                                <div class=" w-full">
+                                    <form action="{{route('product.order', ['id' => $product->id])}}" method="post">
+                                        @csrf
+                                        <x-admin.component.sectiontitleinput placeholder="Masukkan nama tombol order..." value="{{$product->order_title}}" name="order_title"></x-admin.component.sectiontitleinput>
+                                    </form>
+                                </div>
+                            </div>
+                        @endif
+                        <p class=" text-sm sm:text-base font-semibold">Produk / Layanan {{ in_array(Auth::user()->role, ['admin', 'premium']) || $product->productHighlight->count() < 3 ? 'Unlimited' : '( Max 3 )' }}
+                        </p>
+                        <div class=" space-y-2">
+                            @include('admin.product.component.product')
+                            <div class="">
+                                <button @click="document.getElementById('bussiness').submit()" class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div x-show="activeTab === 'gallery'" class="py-4 px-4">
-                <div class="max-w-[1080px] mx-auto">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class=" p-4 md:p-6 text-gray-900 space-y-4">
-                            <div x-data="galleryComponent({{ $product->productGallery }}, {{ $product->id }})" class="flex flex-col gap-2">
-                                <label class="font-semibold" for="image_gallery">Galeri ( Max 9 )</label>
-                                <input type="file" class="hidden" id="image_gallery" name="image_gallery[]" multiple accept="image/*" @change="addImages($event)">
-                                <div class="w-full grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                                    <template x-for="(image, index) in images" :key="index">
-                                        <div class="w-full aspect-[3/2] rounded-md relative overflow-hidden">
-                                            <img :src="image.url" class="w-full h-full object-cover" alt="Gallery Image Preview">
-                                            <label @click="deleteImage(index)" class="w-full text-transparent h-full absolute top-0 left-0 flex justify-center items-center p-[20%] hover:bg-black/60 hover:text-white/50 duration-300 cursor-pointer">
-                                                <svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="M19.5 8.99h-15a.5.5 0 0 0-.5.5v12.5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9.49a.5.5 0 0 0-.5-.5Zm-9.25 11.5a.75.75 0 0 1-1.5 0v-8.625a.75.75 0 0 1 1.5 0Zm5 0a.75.75 0 0 1-1.5 0v-8.625a.75.75 0 0 1 1.5 0ZM20.922 4.851a11.806 11.806 0 0 0-4.12-1.07 4.945 4.945 0 0 0-9.607 0A12.157 12.157 0 0 0 3.18 4.805 1.943 1.943 0 0 0 2 6.476 1 1 0 0 0 3 7.49h18a1 1 0 0 0 1-.985 1.874 1.874 0 0 0-1.078-1.654ZM11.976 2.01A2.886 2.886 0 0 1 14.6 3.579a44.676 44.676 0 0 0-5.2 0 2.834 2.834 0 0 1 2.576-1.569Z" fill="currentColor" class="fill-000000"></path></svg>
-                                            </label>
-                                        </div>
-                                    </template>
-                            
-                                    <div class="w-full aspect-[3/2] border bg-neutral-100 border-neutral-600 rounded-md relative border-dashed overflow-hidden" x-show="images.length < 9">
-                                        <label for="image_gallery" class="w-full text-neutral-600 h-full absolute top-0 left-0 flex justify-center items-center p-[20%] hover:bg-neutral-600 hover:text-white/50 duration-300 cursor-pointer">
-                                            <svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="m9 13 3-4 3 4.5V12h4V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-4H5l3-4 1 2z" fill="currentColor" class="fill-000000"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z" fill="currentColor" class="fill-000000"></path></svg>
+                    <div x-show="activeTab === 'gallery'" class=" p-4 md:p-6 text-gray-900 space-y-4">
+                        <div x-data="galleryComponent({{ $product->productGallery }}, {{ $product->id }})" class="flex flex-col gap-2">
+                            <label class="font-semibold" for="image_gallery">Galeri ( Max 9 )</label>
+                            <input type="file" class="hidden" id="image_gallery" name="image_gallery[]" multiple accept="image/*" @change="addImages($event)">
+                            <div class="w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
+                                <template x-for="(image, index) in images" :key="index">
+                                    <div class="w-full aspect-[3/2] rounded-md relative overflow-hidden">
+                                        <img :src="image.url" class="w-full h-full object-cover" alt="Gallery Image Preview">
+                                        <label @click="deleteImage(index)" class="w-full text-transparent h-full absolute top-0 left-0 flex justify-center items-center p-[20%] hover:bg-black/60 hover:text-white/50 duration-300 cursor-pointer">
+                                            <svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="M19.5 8.99h-15a.5.5 0 0 0-.5.5v12.5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9.49a.5.5 0 0 0-.5-.5Zm-9.25 11.5a.75.75 0 0 1-1.5 0v-8.625a.75.75 0 0 1 1.5 0Zm5 0a.75.75 0 0 1-1.5 0v-8.625a.75.75 0 0 1 1.5 0ZM20.922 4.851a11.806 11.806 0 0 0-4.12-1.07 4.945 4.945 0 0 0-9.607 0A12.157 12.157 0 0 0 3.18 4.805 1.943 1.943 0 0 0 2 6.476 1 1 0 0 0 3 7.49h18a1 1 0 0 0 1-.985 1.874 1.874 0 0 0-1.078-1.654ZM11.976 2.01A2.886 2.886 0 0 1 14.6 3.579a44.676 44.676 0 0 0-5.2 0 2.834 2.834 0 0 1 2.576-1.569Z" fill="currentColor" class="fill-000000"></path></svg>
                                         </label>
                                     </div>
+                                </template>
+                        
+                                <div class="w-full aspect-[3/2] border bg-neutral-100 border-neutral-600 rounded-md relative border-dashed overflow-hidden" x-show="images.length < 9">
+                                    <label for="image_gallery" class="w-full text-neutral-600 h-full absolute top-0 left-0 flex justify-center items-center p-[20%] hover:bg-neutral-600 hover:text-white/50 duration-300 cursor-pointer">
+                                        <svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="m9 13 3-4 3 4.5V12h4V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-4H5l3-4 1 2z" fill="currentColor" class="fill-000000"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z" fill="currentColor" class="fill-000000"></path></svg>
+                                    </label>
                                 </div>
-                                <p x-show="errorMessage" class="text-red-500" x-text="errorMessage"></p>
-                                <p x-show="loading" class="text-blue-500">Loading...</p>
                             </div>
-                            
-                            <script>
-                                function galleryComponent(initialImages = [], productId) {
-                                    return {
-                                        images: initialImages.map(item => ({
-                                            id: item.id,
-                                            url: item.image ? `{{ asset('storage/images/product/gallery/') }}/${item.image}` : `{{ asset('assets/images/placeholder.png') }}`
-                                        })),
-                                        errorMessage: '',
-                                        loading: false,
-                                        addImages(event) {
-                                            const files = Array.from(event.target.files);
-                                            
-                                            if (this.images.length + files.length > 9) {
-                                                this.errorMessage = 'You can only upload up to 8 images.';
-                                                return;
-                                            }
-                            
-                                            this.errorMessage = '';
-                                            this.loading = true;
-                            
-                                            files.forEach(file => {
-                                                const formData = new FormData();
-                                                formData.append('image_gallery', file);
-                                                formData.append('product_id', productId);
-                            
-                                                axios.post('/admin/product-gallery', formData)
-                                                    .then(response => {
-                                                        const newImage = response.data;
-                                                        const reader = new FileReader();
-                                                        reader.onload = (e) => {
-                                                            this.images.push({
-                                                                id: newImage.id,
-                                                                url: e.target.result
-                                                            });
-                                                        };
-                                                        reader.readAsDataURL(file);
-                                                    })
-                                                    .catch(error => {
-                                                        console.error('Error uploading image:', error);
-                                                        this.errorMessage = 'Error uploading image. Please try again.';
-                                                    })
-                                                    .finally(() => {
-                                                        this.loading = false;
-                                                    });
-                                            });
-                                        },
-                                        deleteImage(index) {
-                                            const image = this.images[index];
-                                            this.loading = true;
-                                            
-                                            axios.delete(`/admin/product-gallery/${image.id}`)
-                                                .then(() => {
-                                                    this.images.splice(index, 1);
+                            <p x-show="errorMessage" class="text-red-500" x-text="errorMessage"></p>
+                            <p x-show="loading" class="text-blue-500">Loading...</p>
+                        </div>
+                        
+                        <script>
+                            function galleryComponent(initialImages = [], productId) {
+                                return {
+                                    images: initialImages.map(item => ({
+                                        id: item.id,
+                                        url: item.image ? `{{ asset('storage/images/product/gallery/') }}/${item.image}` : `{{ asset('assets/images/placeholder.png') }}`
+                                    })),
+                                    errorMessage: '',
+                                    loading: false,
+                                    addImages(event) {
+                                        const files = Array.from(event.target.files);
+                                        
+                                        if (this.images.length + files.length > 9) {
+                                            this.errorMessage = 'You can only upload up to 8 images.';
+                                            return;
+                                        }
+                        
+                                        this.errorMessage = '';
+                                        this.loading = true;
+                        
+                                        files.forEach(file => {
+                                            const formData = new FormData();
+                                            formData.append('image_gallery', file);
+                                            formData.append('product_id', productId);
+                        
+                                            axios.post('/admin/product-gallery', formData)
+                                                .then(response => {
+                                                    const newImage = response.data;
+                                                    const reader = new FileReader();
+                                                    reader.onload = (e) => {
+                                                        this.images.push({
+                                                            id: newImage.id,
+                                                            url: e.target.result
+                                                        });
+                                                    };
+                                                    reader.readAsDataURL(file);
                                                 })
                                                 .catch(error => {
-                                                    console.error('Error deleting image:', error);
-                                                    this.errorMessage = 'Error deleting image. Please try again.';
+                                                    console.error('Error uploading image:', error);
+                                                    this.errorMessage = 'Error uploading image. Please try again.';
                                                 })
                                                 .finally(() => {
                                                     this.loading = false;
                                                 });
-                                        }
-                                    };
-                                }
-                            </script>
-                            
-                            <div class="">
-                                <button @click="document.getElementById('bussiness').submit()" class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
-                            </div>
+                                        });
+                                    },
+                                    deleteImage(index) {
+                                        const image = this.images[index];
+                                        this.loading = true;
+                                        
+                                        axios.delete(`/admin/product-gallery/${image.id}`)
+                                            .then(() => {
+                                                this.images.splice(index, 1);
+                                            })
+                                            .catch(error => {
+                                                console.error('Error deleting image:', error);
+                                                this.errorMessage = 'Error deleting image. Please try again.';
+                                            })
+                                            .finally(() => {
+                                                this.loading = false;
+                                            });
+                                    }
+                                };
+                            }
+                        </script>
+                        
+                        <div class="">
+                            <button @click="document.getElementById('bussiness').submit()" class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                         </div>
                     </div>
                 </div>

@@ -43,7 +43,8 @@ class ProductController extends Controller
     {
         $tag = ProductTag::all();
         $template = Template::all();
-        return view('admin.product.create', compact('tag', 'template'));
+        $product = Product::all();
+        return view('admin.product.create', compact('tag', 'template', 'product'));
     }
 
     /**
@@ -137,8 +138,9 @@ class ProductController extends Controller
         // dd($tag);
 
         $template = Template::all();
+        $data = Product::all();
         
-        return view('admin.product.edit', compact('product', 'tag', 'template'));
+        return view('admin.product.edit', compact('product', 'tag', 'template', 'data'));
         
     }
 

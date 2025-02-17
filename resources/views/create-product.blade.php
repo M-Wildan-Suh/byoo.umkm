@@ -137,7 +137,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class=" w-full sm:w-auto flex flex-col flex-grow justify-between gap-2">
+                                                        <div class=" w-full sm:w-auto sm:h-24 flex flex-col flex-grow justify-between gap-2">
                                                             <div class=" flex items-center justify-between gap-2">
                                                                 <input type="text" 
                                                                     x-model="input.title" 

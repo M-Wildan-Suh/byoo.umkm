@@ -11,6 +11,7 @@ use App\Models\ProductGallery;
 use App\Models\ProductTag;
 use App\Models\Template;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
@@ -56,6 +57,7 @@ class ProductController extends Controller
         $newdata= new Product();
 
         $newdata->name = $request->name;
+        $newdata->slug = Str::slug($newdata->name);
         $newdata->subtitle = $request->subtitle;
         $newdata->price = $request->price;
         $newdata->template_id = $request->template_id;
@@ -138,7 +140,7 @@ class ProductController extends Controller
         // dd($tag);
 
         $template = Template::all();
-        $data = Product::all();
+        $data = Product::whereNotIn('id', [$product->id])->get();
         
         return view('admin.product.edit', compact('product', 'tag', 'template', 'data'));
         
@@ -172,6 +174,7 @@ class ProductController extends Controller
         // dd($product);
 
         $product->name = $request->name;
+        $product->slug = Str::slug($product->name);
         $product->subtitle = $request->subtitle;
         $product->price = $request->price;
         $product->template_id = $request->template_id;

@@ -23,10 +23,6 @@ class PageController extends Controller
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
         $data = Product::where('status', 'active')->inRandomOrder()->get();
-        $data = $data->map(function ($item) {
-            $item->slug = Str::slug($item->name, '-');
-            return $item;
-        });
         return view('welcome', compact('data', 'no_tlp'));
     }
 
@@ -59,16 +55,8 @@ class PageController extends Controller
         } else {
             $data = Product::where('status', 'active')->inRandomOrder()->get();
         }
-        $data = $data->map(function ($item) {
-            $item->slug = Str::slug($item->name, '-');
-            return $item;
-        });
         $tag = ProductTag::all();
         $template = Template::inRandomOrder()->get();
-        $template = $template->map(function ($item) {
-            $item->slug = Str::slug($item->name, '-');
-            return $item;
-        });
         return view('product', compact('data', 'no_tlp', 'template', 'tag'));
     }
 
@@ -90,7 +78,7 @@ class PageController extends Controller
     public function detail($slug) {
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
-        $data = Product::where('name', ucwords(str_replace('-', ' ', $slug)))->first();
+        $data = Product::where('slug', $slug)->first();
         $template = Template::find($data->template_id);
 
         $role = Access::where('product_id', $data->id)->first();
@@ -211,6 +199,7 @@ class PageController extends Controller
        $newdata= new Product();
 
         $newdata->name = $request->name;
+        $newdata->slug = Str::slug($newdata->name);
         $newdata->subtitle = $request->subtitle;
         $newdata->price = $request->price;
         $newdata->template_id = 1;

@@ -43,6 +43,11 @@
                                     <td class=" px-2 sm:px-4 py-2 text-center font-semibold" x-text="item.name"></td>
                                     <td class=" px-1 sm:px-2">
                                         <div class="flex gap-2 justify-center">
+                                            {{--  --}}
+                                            <button @click="addImage(item)" class="w-5 h-5 hover:text-blue-500 duration-300">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m9 13 3-4 3 4.5V12h4V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-4H5l3-4 1 2z" fill="currentColor" class="fill-000000"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z" fill="currentColor" class="fill-000000"></path></svg>
+                                            </button>
+
                                             <!-- Edit -->
                                             <a :href="`{{ route('template.show', '') }}/${item.id}`"
                                                 class="w-5 h-5 hover:text-green-500 duration-300">
@@ -125,6 +130,39 @@
                     </div>
                 </div>
 
+                <!-- Image Modal -->
+                <div x-show="imageModal"
+                    class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-40 px-4">
+                    <div class="w-full max-w-[720px] bg-white pb-6 rounded-md flex flex-col gap-4 relative overflow-hidden border-2 border-[#ff7100]">
+                        <button @click="imageModal = false"
+                            class=" absolute top-6 right-6 w-6 h-6 text-white hover:text-red-500 duration-300">
+                            <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                                enable-background="new 0 0 512 512">
+                                <path
+                                    d="M437.5 386.6 306.9 256l130.6-130.6c14.1-14.1 14.1-36.8 0-50.9-14.1-14.1-36.8-14.1-50.9 0L256 205.1 125.4 74.5c-14.1-14.1-36.8-14.1-50.9 0-14.1 14.1-14.1 36.8 0 50.9L205.1 256 74.5 386.6c-14.1 14.1-14.1 36.8 0 50.9 14.1 14.1 36.8 14.1 50.9 0L256 306.9l130.6 130.6c14.1 14.1 36.8 14.1 50.9 0 14-14.1 14-36.9 0-50.9z"
+                                    fill="currentColor" class="fill-000000"></path>
+                            </svg>
+                        </button>
+                        <div class=" pt-6 pb-3 bg-[#ff7100] text-white">
+                            <h2 class=" px-6 text-2xl font-bold">Tambahkan Gambar</h2>
+                        </div>
+                        <form :action="`{{ route('template.editimage', '') }}/${modalData.id}`" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('put')
+                            <div class=" w-full space-y-4">
+                                <div class=" w-full p-4 flex items-center justify-center">
+                                    <div class=" w-52 aspect-[2/3] overflow-hidden relative rounded-md">
+                                        <x-admin.component.imageinput :value="null" name="thumbnail" x-model="modalData.image" />
+                                    </div>
+                                </div>
+                                <div class="flex justify-end space-x-4 px-6">
+                                    <x-admin.component.submitbutton title="Tambah" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
                 <!-- Delete Confirmation Modal -->
                 <div x-show="confirmDeleteModal"
                     class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-40 px-4">
@@ -165,6 +203,7 @@
                         currentPage: 1,
                         perPage: 15,
                         showModal: false,
+                        imageModal: false,
                         confirmDeleteModal: false,
                         modalData: {},
 
@@ -210,6 +249,11 @@
                         showDetail(item) {
                             this.modalData = item;
                             this.showModal = true;
+                        },
+
+                        addImage(item) {
+                            this.modalData = item;
+                            this.imageModal = true;
                         },
 
                         confirmDelete(item) {

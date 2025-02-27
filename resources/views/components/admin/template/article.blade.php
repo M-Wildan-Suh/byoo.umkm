@@ -14,7 +14,7 @@
         <!-- Modal Article -->
         <div x-data="{tab : 'section'}" @click.away="article = false" class="w-full max-w-[720px] bg-white pb-6 rounded-md flex flex-col gap-4 relative overflow-hidden border-2 border-byolink-1">
             <div class=" pt-6 pb-3 bg-byolink-1 text-white z-30">
-                <h2 class=" px-6 text-2xl font-bold">Edit Artikel</h2>
+                <h2 class=" px-6 text-2xl font-bold">Edit Tentang Kami</h2>
                 <button @click="article = false"
                     type="button"
                     class=" absolute top-6 right-6 w-6 h-6 text-white hover:text-red-500 duration-300">
@@ -27,20 +27,12 @@
                 </button>
             </div>
             <div class="w-full px-4 sm:px-6">
-                <div class=" space-y-4 sm:space-y-6">
+                <div class=" space-y-4 sm:space-y-6 text-black">
                     <div class="w-full">
                         <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
                             <label for="desc_main_color">Background Color</label>
                             <div class=" w-full flex items-center justify-center overflow-hidden shadow-md shadow-black/20 rounded-md h-10">
                                 <input type="color" name="desc_main_color" id="desc_main_color" class=" min-w-[105%] h-14 rounded-md cursor-pointer" value="{{$template->desc_main_color ?? '#ffffff'}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
-                            <label for="desc_second_color">Main Color</label>
-                            <div class=" w-full flex items-center justify-center overflow-hidden shadow-md shadow-black/20 rounded-md h-10">
-                                <input type="color" name="desc_second_color" id="desc_second_color" class=" min-w-[105%] h-14 rounded-md cursor-pointer" value="{{$template->desc_second_color ?? '#1d588d'}}">
                             </div>
                         </div>
                     </div>
@@ -67,22 +59,13 @@
                     <script>
                         function changedesc() {
                             const descmain = document.getElementById('desc_main_color');
-                            const descsecond = document.getElementById('desc_second_color');
                             const desctext = document.getElementById('desc_text_color');
                             const desc = document.getElementById("desc");
                             const tagdesc = document.getElementById("tagdesc");
                             const bgdesc = document.querySelectorAll("#descicon")
-                            const linkdesc = desc.querySelectorAll("a");
 
                             desc.style.backgroundColor = descmain.value;
                             desc.style.color = desctext.value
-                            tagdesc.style.backgroundColor = descsecond.value;
-                            bgdesc.forEach(element => {
-                                element.style.color = descsecond.value;
-                            });
-                            linkdesc.forEach(element => {
-                                element.style.color = descsecond.value;
-                            });
                         }
                     </script>
                 </div>

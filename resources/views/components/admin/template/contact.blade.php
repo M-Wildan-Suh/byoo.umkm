@@ -1,6 +1,6 @@
 <div x-data="{contact: false}" class="">
-    <button @click="contact = true" type="button" class=" absolute right-0 top-0 p-2 aspect-square bg-black/50 hover:bg-black duration-300 rounded-r-full z-10">
-        <div class=" w-5 aspect-square text-white">
+    <button @click="contact = true" type="button" class=" absolute right-0 top-0 p-2 aspect-square bg-black/50 hover:bg-black duration-300 rounded-r-md z-10">
+        <div class=" w-4 aspect-square text-white">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m18.988 2.012 3 3L19.701 7.3l-3-3zM8 16h3l7.287-7.287-3-3L8 13z" fill="currentColor" class="fill-000000"></path><path d="M19 19H8.158c-.026 0-.053.01-.079.01-.033 0-.066-.009-.1-.01H5V5h6.847l2-2H5c-1.103 0-2 .896-2 2v14c0 1.104.897 2 2 2h14a2 2 0 0 0 2-2v-8.668l-2 2V19z" fill="currentColor" class="fill-000000"></path></svg>
         </div>
     </button>
@@ -27,20 +27,20 @@
                 </button>
             </div>
             <div class="w-full px-4 sm:px-6">
-                <div class=" grid grid-cols-2 gap-4 sm:gap-6">
+                <div class=" grid grid-cols-1 gap-4 sm:gap-6">
                     <div class="w-full">
                         <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
-                            <label for="contact_main_color">Telephone Color</label>
+                            <label for="contact_main_color">Home & WhatsApp Color</label>
                             <div class=" w-full flex items-center justify-center overflow-hidden shadow-md shadow-black/20 rounded-md h-10">
-                                <input type="color" name="contact_main_color" id="contact_main_color" class=" min-w-[105%] h-14 rounded-md cursor-pointer" value="{{$template->contact_main_color ?? '#1d588d'}}">
+                                <input type="color" name="contact_main_color" id="contact_main_color" class=" min-w-[105%] h-14 rounded-md cursor-pointer" value="{{$template->contact_main_color ?? '#000000'}}">
                             </div>
                         </div>
                     </div>
                     <div class="w-full">
                         <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
-                            <label for="contact_second_color">WhatsApp Color</label>
+                            <label for="contact_second_color">Telephone Color</label>
                             <div class=" w-full flex items-center justify-center overflow-hidden shadow-md shadow-black/20 rounded-md h-10">
-                                <input type="color" name="contact_second_color" id="contact_second_color" class=" min-w-[105%] h-14 rounded-md cursor-pointer" value="{{$template->contact_second_color ?? '#25d366'}}">
+                                <input type="color" name="contact_second_color" id="contact_second_color" class=" min-w-[105%] h-14 rounded-md cursor-pointer" value="{{$template->contact_second_color ?? '#8E1616'}}">
                             </div>
                         </div>
                     </div>
@@ -61,10 +61,12 @@
                             const contactmain = document.getElementById('contact_main_color');
                             const contactsecond = document.getElementById('contact_second_color');
                             const phone = document.getElementById('phone');
-                            const wa = document.getElementById("wa");
+                            const wa = document.querySelectorAll("#wa");
 
-                            phone.style.backgroundColor = contactmain.value;
-                            wa.style.backgroundColor = contactsecond.value
+                            phone.style.backgroundColor = contactsecond.value;
+                            wa.forEach(element => {
+                                element.style.backgroundColor = contactmain.value
+                            });
                         }
                     </script>
                 </div>

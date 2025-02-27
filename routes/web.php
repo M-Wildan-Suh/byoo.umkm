@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
             Route::resource('/admin/user', UserController::class);
     
             Route::resource('/admin/template', TemplateController::class);
+            Route::put('/template/editimage/{id}', [TemplateController::class, 'editimage'])->name('template.editimage');
         
             Route::resource('/admin/access', AccessController::class);
         });

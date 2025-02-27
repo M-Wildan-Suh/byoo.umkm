@@ -5,7 +5,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 @foreach ($data->productHighlight as $item)
                     <div style="background-color: {{$template->product_main_color}}" class=" flex flex-col w-full text-white rounded-md overflow-hidden shadow-md shadow-black/20">
-                        <div class=" w-full aspect-square bg-white">
+                        <div class=" w-full aspect-square bg-white overflow-hidden">
                             <img src="{{ $item->image }}" class="w-full h-full object-cover" alt="">
                         </div>
                         <div class=" flex-grow w-full p-3 flex flex-col justify-between gap-2 text-center">
@@ -27,7 +27,7 @@
                                             for="order-{{ $item->id }}" 
                                             style="background-color: {{$template->product_second_color}}"
                                             :class="checkedItems.some(data => data.id === {{ $item->id }}) ? ' opacity-50' : ''" 
-                                            class="duration-300 rounded-md py-1 px-3 text-sm cursor-pointer border-2 border-white">
+                                            class="duration-300 rounded-md py-1 px-3 text-sm cursor-pointer">
                                             {{$data->order_title}}
                                         </label>
                                     </div>

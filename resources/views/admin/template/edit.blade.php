@@ -4,461 +4,196 @@
             {{ __('Edit Template') }}
         </h2>
     </x-slot>
-    <div x-data="{ activeTab: '{{ session('highlight', 'template') }}' }" class="w-full ">
-        <div class=" w-full py-2 px-4 bg-white">
-            <div class="w-full max-w-[1080px] mx-auto ">
-                <!-- Tabs -->
-                <div class="flex flex-row gap-4">
-                    <button 
-                        @click="activeTab = 'template'" 
-                        :class="activeTab === 'template' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
-                        class="px-3 pb-2 border-b-2">
-                        Template
-                    </button>
-                    <button 
-                        @click="activeTab = 'highlight'" 
-                        :class="activeTab === 'highlight' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
-                        class="px-3 pb-2 border-b-2">
-                        Highlight
-                    </button>
-                    <button 
-                        @click="activeTab = 'gallery'" 
-                        :class="activeTab === 'gallery' ? 'text-[#ff7100] border-[#ff7100]' : 'text-neutral-600 border-transparent hover:border-black hover:text-black duration-300'"
-                        class="px-3 pb-2 border-b-2">
-                        Galeri
-                    </button>
-                </div>
+
+    <div class="sm:pl-12 sm:pr-12 lg:pr-32 duration-300 pt-8 pb-20 sm:pb-8 px-4 space-y-6">
+        <div class="w-full p-4 sm:p-6 bg-neutral-100 rounded-md shadow-md shadow-black/20 relative overflow-hidden">
+            <div id="background" class=" absolute inset-0 flex items-center justify-center">
+                <style>
+                    #background {
+                        @if ($template->bg_type === "normal")
+                            background-color: {{$template->bg_main_color}};
+                        @elseif ($template->bg_type === "gradient")
+                            background : linear-gradient(to bottom, {{$template->bg_main_color}}, {{$template->bg_second_color}});
+                        @endif
+                    };
+                </style>
+                <img style="display: {{$template->bg_type === "image" ? "block" : "none"}}" id="bg_image-now" src="{{asset('storage/images/template/background/'.$template->bg_image)}}" class=" w-full h-full object-cover object-center" alt="">
             </div>
-        </div>
-    
-        <!-- Tab Contents -->
-        <div class="mt-4">
-            <div x-show="activeTab === 'template'" class="py-4 px-4">
-                <div class="max-w-[1080px] mx-auto">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class=" p-4 md:p-6 text-gray-900">
-                            <form action="{{route('template.update', ['template' => $template->id])}}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <div class=" w-full space-y-6">
-                                    <div class=" grid grid-cols-1 md:grid-cols-3 gap-6">
-                                        <div class=" flex flex-col gap-2">
-                                            <div class=" w-full h-full max-h-[268.8px] relative">
-                                                <img id="thumbnail" class=" object-cover w-full h-full rounded-md" 
-                                                    src="{{ asset('storage/images/template/' . $template->image . '')}}" 
-                                                    alt="Logo">
-                                                <div class="w-full text-transparent rounded-md h-full absolute top-0 left-0 flex justify-center items-center hover:bg-black/60 hover:text-white/50 duration-300">
-                                                    <label for="thumbnail-input" class="relative">
-                                                        <div class="w-full h-full p-[35%]">
-                                                            <svg fill="none" class=" w-full h-full" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.75A3.25 3.25 0 0 0 6.25 21h4.915l.356-1.423c.162-.648.497-1.24.97-1.712l5.902-5.903a3.279 3.279 0 0 1 2.607-.95V6.25A3.25 3.25 0 0 0 17.75 3H11v4.75A3.25 3.25 0 0 1 7.75 11H3v6.75ZM9.5 3.44 3.44 9.5h4.31A1.75 1.75 0 0 0 9.5 7.75V3.44Zm9.6 9.23-5.903 5.902a2.686 2.686 0 0 0-.706 1.247l-.458 1.831a1.087 1.087 0 0 0 1.319 1.318l1.83-.457a2.685 2.685 0 0 0 1.248-.707l5.902-5.902A2.286 2.286 0 0 0 19.1 12.67Z" fill="currentColor" class="fill-212121"></path></svg>
-                                                        </div>
-                                                        <input accept="image/*" type="file" name="thumbnail" class="absolute bottom-0 left-0 z-0 w-40 opacity-0" id="thumbnail-input"/>
+            <form action="{{ route('template.update', ['template' => $template->id]) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('put')
+                @include('components.admin.template.background')
+                <div class=" space-y-4 sm:space-y-6 relative">
+                    <x-admin.component.textinput title="Nama Template" placeholder="Masukkan Nama Template..." :value="$template->name" name="name" />
+
+                    <div class=" w-full">
+                        <div class="w-full flex items-center justify-center">
+                            <div class=" w-[400px] aspect-[2/1] max-h-full max-w-full rounded-md overflow-hidden shadow-md shadow-black/20 relative">
+                                @include('components.admin.template.header')
+                                <div class=" w-full">
+                                    <img id="header" src="{{asset('assets/images/template/header/'.$template->head_type.'.jpg')}}" class=" w-full" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" w-full">
+                        <div class="w-full flex items-center justify-center">
+                            <div class=" w-[400px] rounded-md overflow-hidden relative">
+                                @include('components.admin.template.gallery')
+                                <div class=" w-full">
+                                    <img id="gallery" src="{{asset('assets/images/template/gallery/'.$template->gallery_type.'.png')}}" class=" w-full" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" w-full">
+                        <div class=" w-full flex items-center justify-center">
+                            <div id="desc" style="background-color: {{$template->desc_main_color ?? 'white'}};color: {{$template->desc_text_color ?? 'black'}}" class=" max-w-[400px] w-full rounded-md shadow-md p-4 space-y-2 overflow-hidden relative">
+                                @include('components.admin.template.article')
+                                <p class="w-full font-bold tracking-wide text-lg">Tentang Kami</p>
+        
+                                @include('components.guest.termandcondition')
+
+                                <div
+                                    class=" text-sm rounded-md">
+                                    <p class="">Tahu bulat adalah camilan khas Indonesia yang terbuat dari tahu berbentuk bulat, digoreng hingga renyah di luar dan lembut di dalam. Dijual keliling dengan panggilan khas, camilan ini sering disajikan dengan bumbu tabur seperti balado atau keju. Harganya terjangkau, menjadikannya favorit banyak orang.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" w-full">
+                        <div class=" w-full flex items-center justify-center">
+                            <div x-data="{producttype: '{{$template->product_type}}'}"
+                                x-init="window.addEventListener('updateProductType', (e) => producttype = e.detail)"
+                                class=" max-w-[400px] w-full rounded-md relative">
+                                @include('components.admin.template.product')
+                                <div x-show="producttype === 'grid'" class=" w-full grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                                    <div class=" w-full rounded-md overflow-hidden">
+                                        <div class=" w-full aspect-square bg-white">
+                                            <img src="{{asset('assets/images/placeholder.webp')}}" class=" w-full h-full object-cover" alt="">
+                                        </div>
+                                        <div id="product" style="background-color: {{$template->product_main_color}}; color: {{$template->product_text_color}};" class=" px-2 py-1 flex flex-col items-center justify-center text-center gap-1">
+                                            <p class=" text-sm">Tahu Bulat</p>
+                                            <button id="probutton" style="background-color: {{$template->product_second_color}}" type="button" class=" text-xs px-2 py-1 rounded-md">Order</button>
+                                        </div>
+                                    </div>
+                                    <div class=" w-full rounded-md overflow-hidden">
+                                        <div class=" w-full aspect-square bg-white">
+                                            <img src="{{asset('assets/images/placeholder.webp')}}" class=" w-full h-full object-cover" alt="">
+                                        </div>
+                                        <div id="product" style="background-color: {{$template->product_main_color}}; color: {{$template->product_text_color}};" class=" px-2 py-1 flex flex-col items-center justify-center text-center gap-1">
+                                            <p class=" text-sm">Sotong</p>
+                                            <button id="probutton" style="background-color: {{$template->product_second_color}}" type="button" class=" text-xs px-2 py-1 rounded-md">Order</button>
+                                        </div>
+                                    </div>
+                                    <div class=" w-full rounded-md overflow-hidden">
+                                        <div class=" w-full aspect-square bg-white">
+                                            <img src="{{asset('assets/images/placeholder.webp')}}" class=" w-full h-full object-cover" alt="">
+                                        </div>
+                                        <div id="product" style="background-color: {{$template->product_main_color}}; color: {{$template->product_text_color}};" class=" px-2 py-1 flex flex-col items-center justify-center text-center gap-1">
+                                            <p class=" text-sm">Tempe</p>
+                                            <button id="probutton" style="background-color: {{$template->product_second_color}}" type="button" class=" text-xs px-2 py-1 rounded-md">Order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div x-show="producttype === 'list'" class=" w-full space-y-3">
+                                    <div id="product" style="background-color: {{$template->product_main_color}}; color: {{$template->product_text_color}};" class="w-full p-3 rounded-xl flex gap-2 relative">
+                                        <div class=" min-w-20 h-20 aspect-square rounded-full overflow-hidden bg-white">
+                                            <img src="{{asset('assets/images/placeholder.webp')}}" class=" w-full h-full object-cover" alt="">
+                                        </div>
+                                        <div class="w-full flex flex-col gap-1.5">
+                                            <p class="line-clamp-1 font-semibold">Tahu Bulat</p>
+                                            <p class="line-clamp-2 text-sm">Murah nikmat, pilihan segala kalangan</p>
+                                            <div class=" absolute flex justify-end right-2 -translate-y-3/4 top-full">
+                                                <div style="{{$template->product_main_color}}" class=" flex rounded-md">
+                                                    <label 
+                                                        style="background-color: {{$template->product_second_color}}"
+                                                        class="duration-300 rounded-md py-1 px-3 text-sm cursor-pointer">
+                                                        Order
                                                     </label>
                                                 </div>
-                                                <script>
-                                                    const logoinput = document.getElementById('thumbnail-input');
-                                                    const logo = document.getElementById('thumbnail');
-                            
-                                                    logoinput.onchange = evt => {
-                                                        const [file] = logoinput.files;
-                                                        if (file) {
-                                                            logo.src = URL.createObjectURL(file);
-                                                        }
-                                                    };
-                            
-                                                    window.addEventListener('paste', e => {
-                                                        const [file] = e.clipboardData.files;
-                                                        if (file) {
-                                                            logo.src = URL.createObjectURL(file);
-                                                        }
-                                                    });
-                                                </script>
                                             </div>
                                         </div>
-                                        <div class=" w-full md:col-span-2 space-y-6">
-                                            <div class=" space-y-2">
-                                                <label for="name">Nama Template</label>
-                                                <input value="{{$template->name}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="name" id="name">
-                                            </div>
-                                            <div class=" space-y-2">
-                                                <label for="link">Link Youtube</label>
-                                                <input value="{{$template->youtube}}" class=" w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" type="text" name="link" id="link">
-                                            </div>
-                                            <div class=" space-y-2">
-                                                <label for="home_button">Tombol Home</label>
-                                                <div class=" w-full grid grid-cols-2 gap-4">
-                                                    <div class=" w-full flex items-center gap-2">
-                                                        <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="on" id="on" checked>
-                                                        <label for="on">On</label>
-                                                    </div>
-                                                    <div class=" w-full flex items-center gap-2">
-                                                        <input type="radio" class=" focus:bg-[#ff7100] focus:ring-[#ff7100] checked:focus:ring-[#ff7100] checked:ring-[#ff7100] checked:text-[#ff7100]" name="home_button" value="off" id="off" {{$template->home_button === 'off' ? 'checked' : ''}}>
-                                                        <label for="off">Off</label>
-                                                    </div>
+                                    </div>
+                                    <div id="product" style="background-color: {{$template->product_main_color}}; color: {{$template->product_text_color}};" class="w-full p-3 rounded-xl flex gap-2 relative">
+                                        <div class=" min-w-20 h-20 aspect-square rounded-full overflow-hidden bg-white">
+                                            <img src="{{asset('assets/images/placeholder.webp')}}" class=" w-full h-full object-cover" alt="">
+                                        </div>
+                                        <div class="w-full flex flex-col gap-1.5">
+                                            <p class="line-clamp-1 font-semibold">Sotong</p>
+                                            <p class="line-clamp-2 text-sm">Variasi yang membuat anda menjadi tidak bosan</p>
+                                            <div class=" absolute flex justify-end right-2 -translate-y-3/4 top-full">
+                                                <div style="{{$template->product_main_color}}" class=" flex rounded-md">
+                                                    <label 
+                                                        style="background-color: {{$template->product_second_color}}"
+                                                        class="duration-300 rounded-md py-1 px-3 text-sm cursor-pointer">
+                                                        Order
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class=" space-y-2">
-                                        <label for="subtitle">Sub Judul</label>
-                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="subtitle" id="subtitle" rows="2" maxlength="64">{{$template->subtitle}}</textarea>
-                                    </div>
-                                    <div class=" space-y-2">
-                                        <label for="desc">Deskripsi</label>
-                                        <textarea class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" name="description" id="desc" rows="5">{{$template->description}}</textarea>
-                                    </div>
-                                    <div class=" space-y-2">
-                                        <label for="template">Template</label>
-                                        <div x-data="{ selected: '{{$template->template ?? ''}}' }" class=" w-full grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="two" value="two" class="hidden" 
-                                                       @checked(isset($template->template) && $template->template === 'two') 
-                                                       @change="selected = 'two'">
-                                                <label for="two" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'two' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-black flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/two.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="three" value="three" class="hidden" 
-                                                       @checked(isset($template->template) && $template->template === 'three') 
-                                                       @change="selected = 'three'">
-                                                <label for="three" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'three' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-black flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/three.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                
-                                                <input type="radio" name="template" id="four" value="four" class="hidden" 
-                                                       @checked(isset($template->template) && $template->template === 'four') 
-                                                       @change="selected = 'four'">
-                                                <label for="four" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'four' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-black flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/four.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="five" value="five" class="hidden" 
-                                                       @checked(isset($template->template) && $template->template === 'five') 
-                                                       @change="selected = 'five'">
-                                                <label for="five" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'five' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/five.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="six" value="six" class="hidden" 
-                                                       @checked(isset($template->template) && $template->template === 'six') 
-                                                       @change="selected = 'six'">
-                                                <label for="six" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'six' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/six.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="seven" value="seven" class="hidden" 
-                                                       @checked(isset($template->template) && $template->template === 'seven') 
-                                                       @change="selected = 'seven'">
-                                                <label for="seven" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'seven' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/seven.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="eight" value="eight" class="hidden" 
-                                                       @checked(isset($template->template) && $template->template === 'eight') 
-                                                       @change="selected = 'eight'">
-                                                <label for="eight" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'eight' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/eight.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="nine" value="nine" class="hidden" 
-                                                       @checked(isset($template->template) && $template->template === 'nine') 
-                                                       @change="selected = 'nine'">
-                                                <label for="nine" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'nine' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/nine.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="ten" value="ten" class="hidden" 
-                                                       @checked(isset($template->template) && $template->template === 'ten') 
-                                                       @change="selected = 'ten'">
-                                                <label for="ten" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'ten' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/ten.png')}}" class=" w-full h-full object-cover object-top" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="w-full aspect-[2/3] rounded-md overflow-hidden relative">
-                                                <input type="radio" name="template" id="eleven" value="eleven" class="hidden" 
-                                                       @checked(isset($template->template) && $template->template === 'eleven') 
-                                                       @change="selected = 'eleven'">
-                                                <label for="eleven" class="absolute z-10 w-full h-full top-0 left-0 duration-300" :class="selected === 'eleven' ? 'bg-black/50' : 'hover:bg-black/20'"></label>
-                                                <div class=" bg-[#1679AB] flex items-start w-full h-full">
-                                                    <img src="{{asset('/assets/images/template/eleven.png')}}" class=" w-full h-full object-cover object-top" alt="">
+                                    <div id="product" style="background-color: {{$template->product_main_color}}; color: {{$template->product_text_color}};" class="w-full p-3 rounded-xl flex gap-2 relative">
+                                        <div class=" min-w-20 h-20 aspect-square rounded-full overflow-hidden bg-white">
+                                            <img src="{{asset('assets/images/placeholder.webp')}}" class=" w-full h-full object-cover" alt="">
+                                        </div>
+                                        <div class="w-full flex flex-col gap-1.5">
+                                            <p class="line-clamp-1 font-semibold">Tempe</p>
+                                            <p class="line-clamp-2 text-sm">Sehat bergizi</p>
+                                            <div class=" absolute flex justify-end right-2 -translate-y-3/4 top-full">
+                                                <div style="{{$template->product_main_color}}" class=" flex rounded-md">
+                                                    <label 
+                                                        style="background-color: {{$template->product_second_color}}"
+                                                        class="duration-300 rounded-md py-1 px-3 text-sm cursor-pointer">
+                                                        Order
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
-                                    <div class="">
-                                        <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div x-show="activeTab === 'highlight'" class="py-4 px-4">
-                <div class="max-w-[1080px] mx-auto">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class=" p-4 md:p-6 text-gray-900 space-y-4">
-                            <p>Highlights ( Max 3 )</p>
-                            <div class=" space-y-2">
-                                <div class=" w-full grid lg:grid-cols-2 gap-4">
-                                    @foreach ($template->templateHighlight as $item)
-                                        <div class=" w-full rounded-xl flex justify-between gap-4">
-                                            <form id="highlight-form-{{$item->id}}" action="{{route('template-highlight.update', ['template_highlight' => $item->id])}}" method="POST" class="flex-grow" enctype="multipart/form-data">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class=" rounded-xl flex justify-between gap-4 bg-white">
-                                                    <div class=" min-w-20 sm:min-w-24 h-20 sm:h-24 aspect-square rounded-md border-2 overflow-hidden">
-                                                        <div class="w-full h-full flex flex-col text-sm font-medium gap-2 justify-center items-center">
-                                                            <div class="w-full h-full relative flex justify-center overflow-hidden">
-                                                                <img id="highlightimage{{$item->id}}-preview" class="object-cover w-full" 
-                                                                    src="{{$item->image == '' ? asset('assets/images/placeholder.webp') : asset('storage/images/template/highlight/'. $item->image)  }}" 
-                                                                    alt="Logo">
-                                                                <div class="w-full h-full absolute z-10 top-0 opacity-0 hover:opacity-100 duration-300">
-                                                                    <label for="highlightimage{{$item->id}}-input" class="relative">
-                                                                        <div class="w-full h-full bg-black opacity-60 flex justify-center items-center text-neutral-400">
-                                                                            <div class="w-7 aspect-square">
-                                                                                <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M0 14.2V18h3.8l11-11.1L11 3.1 0 14.2ZM17.7 4c.4-.4.4-1 0-1.4L15.4.3c-.4-.4-1-.4-1.4 0l-1.8 1.8L16 5.9 17.7 4Z" fill="currentColor" fill-rule="evenodd" class="fill-000000"></path></svg>
-                                                                            </div>
-                                                                        </div>
-                                                                        <input accept="image/*" type="file" name="highlightimage" 
-                                                                            class="absolute bottom-0 left-0 z-0 w-40 opacity-0" 
-                                                                            id="highlightimage{{$item->id}}-input" 
-                                                                            oninput="handleImagePreview(this, 'highlightimage{{$item->id}}-preview')" />
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <script>
-                                                            function handleImagePreview(input, previewId) {
-                                                                const previewImage = document.getElementById(previewId);
-                                                                const [file] = input.files;
-                                                                if (file) {
-                                                                    previewImage.src = URL.createObjectURL(file);
-                                                                }
-                                                            }
-                                                        
-                                                            // Paste event to handle all image inputs
-                                                            window.addEventListener('paste', e => {
-                                                                const [file] = e.clipboardData.files;
-                                                                if (file) {
-                                                                    document.querySelectorAll('img[id$="-preview"]').forEach(img => {
-                                                                        img.src = URL.createObjectURL(file);
-                                                                    });
-                                                                }
-                                                            });
-                                                        </script>
-                                                    </div>
-                                                    <div class=" flex flex-col flex-grow justify-between gap-2">
-                                                        <input type="text" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" value="{{$item->title}}" name="title" placeholder="Title" maxlength="27" >
-                                                        <textarea name="description" id="" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Description" maxlength="64" cols="40">{{$item->description}}</textarea>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            <div class=" min-w-[50px] grid grid-cols-1 grid-rows-2 gap-1">
-                                                <button onclick="submitHighlightForm({{$item->id}})" class=" min-w-[50px] bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center text-sm">Edit</button>
-                                                <form action="{{route('template-highlight.destroy', ['template_highlight'=>$item->id])}}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class=" min-w-[50px] h-full bg-red-500 hover:bg-red-700 duration-300 text-white rounded-md text-center text-sm">Hapus</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    @endforeach
-
-                                    <script>
-                                        function submitHighlightForm(formId) {
-                                            const form = document.getElementById(`highlight-form-${formId}`);
-                                            if (form) {
-                                                form.submit();
-                                            }
-                                        }
-                                    </script>
-                                    
-                                    @if ($template->templateHighlight->count() < 3)    
-                                        <form action="{{route('template-highlight.store')}}" method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class=" w-full max-w-full rounded-xl flex justify-between gap-4 bg-white">
-                                                <div class=" min-w-20 sm:min-w-24 h-20 sm:h-24 aspect-square rounded-md overflow-hidden">
-                                                    <div class="w-full h-full flex flex-col text-sm font-medium gap-2 justify-center items-center">
-                                                        <div class="w-full h-full relative flex justify-center overflow-hidden">
-                                                            <img id="highlightimage-preview" class="object-cover w-full" 
-                                                                src="{{asset('assets/images/placeholder.webp')}}" 
-                                                                alt="Logo">
-                                                            <div class="w-full h-full absolute z-10 top-0 opacity-0 hover:opacity-100 duration-300">
-                                                                <label for="highlightimage-input" class="relative">
-                                                                    <div class="w-full h-full bg-black opacity-60 flex justify-center items-center text-neutral-400">
-                                                                        <div class="w-7 aspect-square">
-                                                                            <svg viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path d="M0 14.2V18h3.8l11-11.1L11 3.1 0 14.2ZM17.7 4c.4-.4.4-1 0-1.4L15.4.3c-.4-.4-1-.4-1.4 0l-1.8 1.8L16 5.9 17.7 4Z" fill="currentColor" fill-rule="evenodd" class="fill-000000"></path></svg>
-                                                                        </div>
-                                                                    </div>
-                                                                    <input accept="image/*" type="file" name="highlightimage" 
-                                                                        class="absolute bottom-0 left-0 z-0 w-40 opacity-0" 
-                                                                        id="highlightimage-input" 
-                                                                        required
-                                                                        oninput="handleImagePreview(this, 'highlightimage-preview')" />
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <script>
-                                                        function handleImagePreview(input, previewId) {
-                                                            const previewImage = document.getElementById(previewId);
-                                                            const [file] = input.files;
-                                                            if (file) {
-                                                                previewImage.src = URL.createObjectURL(file);
-                                                            }
-                                                        }
-                                                    
-                                                        // Paste event to handle all image inputs
-                                                        window.addEventListener('paste', e => {
-                                                            const [file] = e.clipboardData.files;
-                                                            if (file) {
-                                                                document.querySelectorAll('img[id$="-preview"]').forEach(img => {
-                                                                    img.src = URL.createObjectURL(file);
-                                                                });
-                                                            }
-                                                        });
-                                                    </script>
-                                                </div>
-                                                <div class=" flex flex-col flex-grow justify-between gap-2">
-                                                    <input type="text" class="hidden" name="template_id" value="{{$template->id}}">
-                                                    <input type="text" name="title" class=" min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0" placeholder="Judul" maxlength="27" >
-                                                    <textarea name="description" id="description" class=" min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" placeholder="Deskripsi" maxlength="64" cols="40"></textarea>
-                                                </div>
-                                                <button class=" min-w-[50px] bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center text-sm">Save</button>
-                                            </div>
-                                        </form>
-                                    @endif
-                                </div>
-                                <div class="">
-                                    <a href="{{route('template.index')}}">
-                                        <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
-                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div x-show="activeTab === 'gallery'" class="py-4 px-4">
-                <div class="max-w-[1080px] mx-auto">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class=" p-4 md:p-6 text-gray-900 space-y-4">
-                            <div x-data="galleryComponent({{ $template->templateGallery }}, {{ $template->id }})" class="flex flex-col gap-2">
-                                <label class="font-semibold" for="image_gallery">Galeri ( Max 9 )</label>
-                                <input type="file" class="hidden" id="image_gallery" name="image_gallery[]" multiple accept="image/*" @change="addImages($event)">
-                                <div class="w-full grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                                    <template x-for="(image, index) in images" :key="index">
-                                        <div class="w-full aspect-[3/2] rounded-md relative overflow-hidden">
-                                            <img :src="image.url" class="w-full h-full object-cover" alt="Gallery Image Preview">
-                                            {{-- Delete Image --}}
-                                            <label @click="deleteImage(index)" class="w-full text-transparent h-full absolute top-0 left-0 flex justify-center items-center p-[20%] hover:bg-black/60 hover:text-white/50 duration-300 cursor-pointer">
-                                                <svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="M19.5 8.99h-15a.5.5 0 0 0-.5.5v12.5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9.49a.5.5 0 0 0-.5-.5Zm-9.25 11.5a.75.75 0 0 1-1.5 0v-8.625a.75.75 0 0 1 1.5 0Zm5 0a.75.75 0 0 1-1.5 0v-8.625a.75.75 0 0 1 1.5 0ZM20.922 4.851a11.806 11.806 0 0 0-4.12-1.07 4.945 4.945 0 0 0-9.607 0A12.157 12.157 0 0 0 3.18 4.805 1.943 1.943 0 0 0 2 6.476 1 1 0 0 0 3 7.49h18a1 1 0 0 0 1-.985 1.874 1.874 0 0 0-1.078-1.654ZM11.976 2.01A2.886 2.886 0 0 1 14.6 3.579a44.676 44.676 0 0 0-5.2 0 2.834 2.834 0 0 1 2.576-1.569Z" fill="currentColor" class="fill-000000"></path></svg>
-                                            </label>
-                                        </div>
-                                    </template>
-                            
-                                    {{-- Add Image --}}
-                                    <div class="w-full aspect-[3/2] border bg-neutral-100 border-neutral-600 rounded-md relative border-dashed overflow-hidden" x-show="images.length < 9">
-                                        <label for="image_gallery" class="w-full text-neutral-600 h-full absolute top-0 left-0 flex justify-center items-center p-[20%] hover:bg-neutral-600 hover:text-white/50 duration-300 cursor-pointer">
-                                            <svg viewBox="0 0 24 24" class="w-full h-full" xmlns="http://www.w3.org/2000/svg"><path d="m9 13 3-4 3 4.5V12h4V5c0-1.103-.897-2-2-2H4c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h8v-4H5l3-4 1 2z" fill="currentColor" class="fill-000000"></path><path d="M19 14h-2v3h-3v2h3v3h2v-3h3v-2h-3z" fill="currentColor" class="fill-000000"></path></svg>
-                                        </label>
+                    <div class=" w-full">
+                        <div class="w-full flex items-center justify-center">
+                            <div class=" w-[400px] aspect-video max-h-full max-w-full rounded-md overflow-hidden shadow-md shadow-black/20 relative">
+                                <img src="{{asset('assets/images/ytplaceholder.jpg')}}" class=" w-full h-full object-cover" alt="">
+                                <div class=" absolute inset-0 flex items-center justify-center bg-black/10">
+                                    <div class=" w-10">
+                                        <svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 2"><path d="M15 2.5A12.5 12.5 0 1 0 27.5 15 12.514 12.514 0 0 0 15 2.5Zm4.968 14.14-5.647 3.942a2 2 0 0 1-3.144-1.64v-7.883a2 2 0 0 1 3.144-1.641l5.647 3.941a2 2 0 0 1 0 3.28Z" fill="none"></path><path d="M15 0a15 15 0 1 0 15 15A15.016 15.016 0 0 0 15 0Zm0 27.5A12.5 12.5 0 1 1 27.5 15 12.514 12.514 0 0 1 15 27.5Z" fill="#ffffff" class="fill-000000"></path><path d="M19.968 13.36 14.32 9.417a2 2 0 0 0-3.144 1.64v7.883a2 2 0 0 0 3.144 1.641l5.647-3.941v-.001a2 2 0 0 0 0-3.28Z" fill="#ffffff" class="fill-000000"></path></g></svg>
                                     </div>
                                 </div>
-                            
-                                <p x-show="errorMessage" class="text-red-500" x-text="errorMessage"></p>
-                            </div>
-                            <script>
-                                function galleryComponent(initialImages = [], templateId) {
-                                    return {
-                                        images: initialImages.map(item => ({
-                                            id: item.id, // Include image ID from the server for delete functionality
-                                            url: item.image ? `{{ asset('storage/images/template/gallery/') }}/${item.image}` : `{{ asset('assets/images/placeholder.png') }}`
-                                        })),
-                                        errorMessage: '',
-                                        addImages(event) {
-                                            const files = Array.from(event.target.files);
-                                            
-                                            // Check if adding new images would exceed the limit of 8
-                                            if (this.images.length + files.length > 9) {
-                                                this.errorMessage = 'You can only upload up to 8 images.';
-                                                return;
-                                            }
-                            
-                                            this.errorMessage = ''; // Reset error message
-                            
-                                            // Loop through selected files
-                                            files.forEach(file => {
-                                                const formData = new FormData();
-                                                formData.append('image_gallery', file);
-                                                formData.append('template_id', templateId); // Add template ID to the form data
-                            
-                                                // Send the image data to the server using Axios
-                                                axios.post('/admin/template-gallery', formData)
-                                                    .then(response => {
-                                                        const newImage = response.data; // Expect the server to return the new image details
-                                                        const reader = new FileReader();
-                                                        reader.onload = (e) => {
-                                                            this.images.push({
-                                                                id: newImage.id, // Use the ID returned from the server
-                                                                url: e.target.result // Local preview URL
-                                                            });
-                                                        };
-                                                        reader.readAsDataURL(file); // Read the file to get a local preview
-                                                    })
-                                                    .catch(error => {
-                                                        console.error('Error uploading image:', error);
-                                                        this.errorMessage = 'Error uploading image. Please try again.';
-                                                    });
-                                            });
-                                        },
-                                        deleteImage(index) {
-                                            const image = this.images[index];
-                                            
-                                            // Send delete request to the server using Axios
-                                            axios.delete(`/admin/template-gallery/${image.id}`)
-                                                .then(() => {
-                                                    // If successful, remove the image from the local array
-                                                    this.images.splice(index, 1);
-                                                })
-                                                .catch(error => {
-                                                    console.error('Error deleting image:', error);
-                                                    this.errorMessage = 'Error deleting image. Please try again.';
-                                                });
-                                        }
-                                    };
-                                }
-                            </script>
-                            <div class="">
-                                <a href="{{route('template.index')}}">
-                                    <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
-                                </a>
                             </div>
                         </div>
                     </div>
+                    <div class=" w-full">
+                        <div class="w-full flex items-center justify-center">
+                            <div class=" w-full max-w-[400px] relative">
+                                @include('components.admin.template.contact')
+                                <div class=" w-full grid grid-cols-3 gap-2 text-sm">
+                                    <button id="wa" style="background-color: {{$template->contact_main_color}}" class=" w-full flex items-center justify-center gap-0.5 bg-black py-2 text-white rounded-md">
+                                        <div class=" w-4 aspect-square">
+                                            <svg viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"><path d="m21.146 8.576-7.55-6.135a2.543 2.543 0 0 0-3.192 0L2.855 8.575a1.119 1.119 0 0 0-.416.873v11.543c0 .62.505 1.13 1.125 1.13h5.062c.62 0 1.125-.51 1.125-1.13v-7.306h4.499v7.306c0 .62.505 1.13 1.125 1.13h5.062c.62 0 1.125-.51 1.125-1.13V9.448a1.122 1.122 0 0 0-.416-.872zm-.71 12.421h-5.062V13.68c0-.62-.505-1.119-1.125-1.119H9.75c-.62 0-1.125.499-1.125 1.119v7.317H3.564V9.448l7.55-6.134a1.411 1.411 0 0 1 1.773 0l7.55 6.134v11.549z" fill="currentColor" class="fill-000000"></path></svg>
+                                        </div>
+                                    </button>
+                                    <button id="phone" style="background-color: {{$template->contact_second_color}}" class=" w-full flex items-center justify-center gap-0.5 bg-[#8E1616] py-2 text-white rounded-md">
+                                        <div class=" w-4 aspect-square">
+                                            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g data-name="1"><path d="M348.73 450.06a198.63 198.63 0 0 1-46.4-5.85c-52.43-12.65-106.42-44.74-152-90.36s-77.71-99.62-90.36-152c-13.32-55.1-3.82-102.24 26.72-132.78l8.72-8.72a42.2 42.2 0 0 1 59.62 0l50.11 50.1a42.18 42.18 0 0 1 0 59.62l-29.6 29.59c14.19 24.9 33.49 49.82 56.3 72.63s47.75 42.12 72.64 56.31l29.59-29.6a42.15 42.15 0 0 1 59.62 0l50.1 50.1a42.16 42.16 0 0 1 0 59.61l-8.73 8.72c-21.53 21.57-51.33 32.63-86.33 32.63ZM125.22 78a12 12 0 0 0-8.59 3.56l-8.73 8.72c-22.87 22.87-29.55 60-18.81 104.49 11.37 47.13 40.64 96.1 82.41 137.86s90.73 71 137.87 82.41c44.5 10.74 81.61 4.06 104.48-18.81l8.72-8.72a12.16 12.16 0 0 0 0-17.19l-50.09-50.1a12.16 12.16 0 0 0-17.19 0l-37.51 37.51a15 15 0 0 1-17.5 2.72c-30.75-15.9-61.75-39.05-89.65-66.95s-51-58.88-66.94-89.63a15 15 0 0 1 2.71-17.5l37.52-37.51a12.16 12.16 0 0 0 0-17.19l-50.1-50.11a12.07 12.07 0 0 0-8.6-3.56Z" fill="currentColor" class="fill-000000"></path><path d="M364.75 269.73a15 15 0 0 1-15-15 99.37 99.37 0 0 0-99.25-99.26 15 15 0 0 1 0-30c71.27 0 129.25 58 129.25 129.26a15 15 0 0 1-15 15Z" fill="currentColor" class="fill-000000"></path><path d="M428.15 269.73a15 15 0 0 1-15-15c0-89.69-73-162.66-162.65-162.66a15 15 0 0 1 0-30c106.23 0 192.65 86.43 192.65 192.66a15 15 0 0 1-15 15Z" fill="currentColor" class="fill-000000"></path></g></svg>
+                                        </div>
+                                    </button>
+                                    <button id="wa" style="background-color: {{$template->contact_main_color}}" class=" w-full flex items-center justify-center gap-0.5 bg-black py-2 text-white rounded-md">
+                                        <div class=" w-4 aspect-square">
+                                            <svg viewBox="0 0 56.693 56.693" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 56.693 56.693"><path d="M46.38 10.714C41.73 6.057 35.544 3.492 28.954 3.489c-13.579 0-24.63 11.05-24.636 24.633a24.589 24.589 0 0 0 3.289 12.316L4.112 53.204l13.06-3.426a24.614 24.614 0 0 0 11.772 2.999h.01c13.577 0 24.63-11.052 24.635-24.635.002-6.582-2.558-12.772-7.209-17.428zM28.954 48.616h-.009a20.445 20.445 0 0 1-10.421-2.854l-.748-.444-7.75 2.033 2.07-7.555-.488-.775a20.427 20.427 0 0 1-3.13-10.897c.004-11.29 9.19-20.474 20.484-20.474a20.336 20.336 0 0 1 14.476 6.005 20.352 20.352 0 0 1 5.991 14.485c-.004 11.29-9.19 20.476-20.475 20.476z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="fill-000000"></path><path d="M40.185 33.281c-.615-.308-3.642-1.797-4.206-2.003-.564-.205-.975-.308-1.385.308-.41.617-1.59 2.003-1.949 2.414-.359.41-.718.462-1.334.154-.615-.308-2.599-.958-4.95-3.055-1.83-1.632-3.065-3.648-3.424-4.264-.36-.617-.038-.95.27-1.257.277-.276.615-.719.923-1.078.308-.36.41-.616.616-1.027.205-.41.102-.77-.052-1.078-.153-.308-1.384-3.338-1.897-4.57-.5-1.2-1.008-1.038-1.385-1.057-.359-.018-.77-.022-1.18-.022s-1.077.154-1.642.77c-.564.616-2.154 2.106-2.154 5.135 0 3.03 2.206 5.957 2.513 6.368.308.41 4.341 6.628 10.516 9.294a35.341 35.341 0 0 0 3.509 1.297c1.474.469 2.816.402 3.877.244 1.183-.177 3.642-1.49 4.155-2.927.513-1.438.513-2.67.359-2.927-.154-.257-.564-.41-1.18-.719z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" class="fill-000000"></path></svg>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <x-admin.component.submitbutton title="Edit"/>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </x-app-layout>

@@ -30,14 +30,14 @@
                 <div class="w-full px-4 sm:px-6 h-[309px] sm:h-[292px] overflow-auto">
                     <div class=" w-full grid grid-cols-2 gap-4">
                         <label class="w-full rounded-md bg-white overflow-hidden relative flex items-center">
-                            <input type="radio" name="gallery" value="potrait" class="hidden peer" checked>
-                            <img src="{{asset('assets/images/template/gallery/potrait.png')}}" class=" w-full" alt="">
+                            <input type="radio" name="gallery" value="square" class="hidden peer" checked>
+                            <img src="{{asset('assets/images/template/gallery/square.png')}}" class=" w-full" alt="">
                             <div class=" absolute inset-0 peer-checked:bg-black/50 duration-300">
                             </div>
                         </label>
                         <label class="w-full rounded-md bg-white overflow-hidden relative flex items-center">
-                            <input type="radio" name="gallery" value="square" class="hidden peer" {{isset($template) && $template->gallery_type === 'two' ? 'checked' : ''}}>
-                            <img src="{{asset('assets/images/template/gallery/square.png')}}" class=" w-full" alt="">
+                            <input type="radio" name="gallery" value="potrait" class="hidden peer" {{isset($template) && $template->gallery_type === 'potrait' ? 'checked' : ''}}>
+                            <img src="{{asset('assets/images/template/gallery/potrait.png')}}" class=" w-full" alt="">
                             <div class=" absolute inset-0 peer-checked:bg-black/50 duration-300">
                             </div>
                         </label>

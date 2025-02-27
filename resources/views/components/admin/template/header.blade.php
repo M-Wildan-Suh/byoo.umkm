@@ -28,9 +28,27 @@
             </div>
             <div class="w-full px-4 sm:px-6 h-[309px] sm:h-[292px] overflow-auto">
                 <div class=" w-full grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    <label class="w-full rounded-md bg-white aspect-[3/2] overflow-hidden relative">
+                    <label class="w-full rounded-md bg-white aspect-[2/1] overflow-hidden relative">
                         <input type="radio" name="header" value="one" class="hidden peer" checked>
                         <img src="{{asset('/assets/images/template/header/one.jpg')}}" class=" w-full h-full object-cover object-center" alt="">
+                        <div class=" absolute inset-0 peer-checked:bg-black/50 duration-300">
+                        </div>
+                    </label>
+                    <label class="w-full rounded-md bg-white aspect-[2/1] overflow-hidden relative">
+                        <input type="radio" name="header" value="two" class="hidden peer" {{isset($template) && $template->head_type === 'two' ? 'checked' : ''}}>
+                        <img src="{{asset('/assets/images/template/header/two.jpg')}}" class=" w-full h-full object-cover object-center" alt="">
+                        <div class=" absolute inset-0 peer-checked:bg-black/50 duration-300">
+                        </div>
+                    </label>
+                    <label class="w-full rounded-md bg-white aspect-[2/1] overflow-hidden relative">
+                        <input type="radio" name="header" value="three" class="hidden peer" {{isset($template) && $template->head_type === 'three' ? 'checked' : ''}}>
+                        <img src="{{asset('/assets/images/template/header/three.jpg')}}" class=" w-full h-full object-cover object-center" alt="">
+                        <div class=" absolute inset-0 peer-checked:bg-black/50 duration-300">
+                        </div>
+                    </label>
+                    <label class="w-full rounded-md bg-white aspect-[2/1] overflow-hidden relative">
+                        <input type="radio" name="header" value="four" class="hidden peer" {{isset($template) && $template->head_type === 'four' ? 'checked' : ''}}>
+                        <img src="{{asset('/assets/images/template/header/four.jpg')}}" class=" w-full h-full object-cover object-center" alt="">
                         <div class=" absolute inset-0 peer-checked:bg-black/50 duration-300">
                         </div>
                     </label>

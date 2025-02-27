@@ -135,7 +135,7 @@
         <div class="w-full max-w-[1080px] mx-auto">
             <div class=" w-full space-y-8 pb-24">
                 <div class=" w-full flex flex-col items-center justify-center text-[#4b5d70]">
-                    <p class=" text-3xl font-black">Komunitas</p>
+                    <p class=" text-3xl font-black capitalize text-center">Member Yang Sudah Bergabung</p>
                     <p>~~~~~~</p>
                 </div>
                 <div class="grid grid-cols-2 gap-3 lg:gap-8">

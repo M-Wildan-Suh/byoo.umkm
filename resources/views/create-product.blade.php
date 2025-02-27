@@ -160,11 +160,11 @@
                                             <script>
                                                 function formManager() {
                                                     return {
-                                                        inputs: [{ image: '', title: '', description: '', saved: false }],
+                                                        inputs: [],
                                             
                                                         // Menghapus input
                                                         removeInput(index) {
-                                                            this.inputs.splice(index, 0);
+                                                            this.inputs.splice(index, 1);
                                                         },
                                             
                                                         // Menangani preview gambar

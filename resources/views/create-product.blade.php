@@ -164,7 +164,7 @@
                                             
                                                         // Menghapus input
                                                         removeInput(index) {
-                                                            this.inputs.splice(index, 1);
+                                                            this.inputs.splice(index, 0);
                                                         },
                                             
                                                         // Menangani preview gambar

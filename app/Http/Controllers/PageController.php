@@ -13,6 +13,8 @@ use App\Models\Template;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
@@ -196,17 +198,29 @@ class PageController extends Controller
     }
 
     public function storeproduct(Request $request) {
-       $newdata= new Product();
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'subtitle' => 'required|string|max:255',
+            'desc' => 'required|string',
+            'no_tlp' => 'required|string|max:20',
+            'thumbnail' => 'required|image',
+        ]);
+    
+        // Jika validasi gagal, kirim alert dan kembali
+        if ($validator->fails()) {
+            Session::flash('alert', 'Terjadi kesalahan validasi: ' . implode(', ', $validator->errors()->all()));
+            return redirect()->back();
+        }
+
+        $newdata= new Product();
 
         $newdata->name = $request->name;
         $newdata->slug = Str::slug($newdata->name);
         $newdata->subtitle = $request->subtitle;
-        $newdata->price = $request->price;
         $newdata->template_id = 1;
         $newdata->description = $request->desc;
-        $newdata->address = $request->address;
         $newdata->no_tlp = $request->no_tlp;
-        $newdata->youtube = $request->link; 
 
         if ($request->hasFile('thumbnail')) {
             $imageFile = $request->file('thumbnail');

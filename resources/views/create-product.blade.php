@@ -160,7 +160,7 @@
                                             <script>
                                                 function formManager() {
                                                     return {
-                                                        inputs: null,
+                                                        inputs: [''],
                                             
                                                         // Menghapus input
                                                         removeInput(index) {

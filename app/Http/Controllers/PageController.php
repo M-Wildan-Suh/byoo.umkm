@@ -209,8 +209,7 @@ class PageController extends Controller
     
         // Jika validasi gagal, kirim alert dan kembali
         if ($validator->fails()) {
-            Session::flash('alert', 'Terjadi kesalahan validasi: ' . implode(', ', $validator->errors()->all()));
-            return redirect()->back();
+            return redirect()->back()->with('alert', 'Terjadi kesalahan validasi: ' . implode(', ', $validator->errors()->all()));
         }
 
         $newdata= new Product();

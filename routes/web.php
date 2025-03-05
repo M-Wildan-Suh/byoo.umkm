@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 
-Route::get('/komunitas', [PageController::class, 'product'])->name('allproduct');
+Route::get('/Bisnis', [PageController::class, 'product'])->name('allproduct');
 
 Route::get('/template', [PageController::class, 'template'])->name('alltemplate');
 

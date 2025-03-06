@@ -72,8 +72,10 @@
                 </div>
                 <div class="grid grid-cols-2 gap-3 lg:gap-8">
                     @foreach ($data as $item)
-                        <div
-                        class=" w-full bg-[#F8FAFC] shadow-md shadow-black/20 rounded-xl grid grid-cols-1 md:grid-cols-8 gap-4 md:gap-0">
+                        <div x-data="{ show: false }" 
+                            x-intersect.once="show = true" 
+                            x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1/4'" 
+                            class=" w-full bg-[#F8FAFC] shadow-md shadow-black/20 rounded-xl grid grid-cols-1 md:grid-cols-8 gap-4 md:gap-0transition-all duration-1000 ease-out">
                             <div
                                 class=" md:col-span-3 flex items-center w-full aspect-square rounded-t-md md:rounded-xl md:rounded-r-none overflow-hidden">
                                 <img class=" w-full h-full object-cover"

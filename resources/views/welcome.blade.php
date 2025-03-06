@@ -62,7 +62,10 @@
                     <div class=" rounded-xl bg-black h-1 w-20"></div>
                 </div>
                 <div class=" w-full grid grid-cols-1 sm:grid-cols-3 gap-16 sm:gap-8 py-8">
-                    <div class=" w-full bg-[#F8FAFC] rounded-xl shadow-md shadow-[#4b5d70]/20 relative">
+                    <div x-data="{ show: false }" 
+                        x-intersect.once="show = true" 
+                        x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'" 
+                        class=" w-full bg-[#F8FAFC] rounded-xl shadow-md shadow-[#4b5d70]/20 relative transition-all duration-1000 ease-out">
                         <div
                             class=" w-16 h-16 p-3 bg-[#4b5d70] text-white rounded-xl absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2">
                             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +90,10 @@
                                 menarik, dan berkelas.</p>
                         </div>
                     </div>
-                    <div class=" w-full bg-[#F8FAFC] rounded-xl shadow-md shadow-[#4b5d70]/20 relative">
+                    <div x-data="{ show: false }" 
+                        x-intersect.once="setTimeout(() => { show = true }, 200)" 
+                        x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1/4'" 
+                        class=" w-full bg-[#F8FAFC] rounded-xl shadow-md shadow-[#4b5d70]/20 relative transition-all duration-1000 ease-out">
                         <div
                             class=" w-16 h-16 p-3 bg-[#4b5d70] text-white rounded-xl absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2">
                             <svg viewBox="0 0 16 16" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +109,10 @@
                                 tablet, dan komputer.</p>
                         </div>
                     </div>
-                    <div class=" w-full bg-[#F8FAFC] rounded-xl shadow-md shadow-[#4b5d70]/20 relative">
+                    <div x-data="{ show: false }" 
+                        x-intersect.once="setTimeout(() => { show = true }, 400)" 
+                        x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'" 
+                        class=" w-full bg-[#F8FAFC] rounded-xl shadow-md shadow-[#4b5d70]/20 relative transition-all duration-1000 ease-out">
                         <div
                             class=" w-16 h-16 p-3 bg-[#4b5d70] text-white rounded-xl absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2">
                             <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
@@ -129,16 +138,25 @@
         <div class=" w-full max-w-[1080px] mx-auto">
             <div class=" w-full grid sm:grid-cols-2 gap-6 sm:gap-0">
                 <div class=" w-full px-6 sm:pl-8 sm:pr-16 grid grid-cols-2 gap-4">
-                    <div class=" w-full rounded-3xl aspect-[3/5] border-4 border-[#F8FAFC] overflow-hidden">
-                        <img src="{{ asset('assets/images/template/six.png') }}" class=" w-full object-cover"
+                    <div x-data="{ show: false }" 
+                        x-intersect.once="show = true" 
+                        x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1/4'" 
+                        class=" w-full rounded-3xl aspect-[3/5] border-4 border-[#F8FAFC] overflow-hidden transition-all duration-1000 ease-out">
+                        <img src="{{ asset('assets/images/content/left.png') }}" class=" w-full object-cover"
                             alt="">
                     </div>
-                    <div class=" w-full rounded-3xl aspect-[3/5] border-4 border-[#F8FAFC] overflow-hidden mt-10">
-                        <img src="{{ asset('assets/images/template/ten.png') }}" class=" w-full object-cover"
+                    <div x-data="{ show: false }" 
+                        x-intersect.once="show = true" 
+                        x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1/4'"  
+                        class=" w-full rounded-3xl aspect-[3/5] border-4 border-[#F8FAFC] overflow-hidden mt-10 transition-all duration-1000 ease-out">
+                        <img src="{{ asset('assets/images/content/right.webp') }}" class=" w-full object-cover"
                             alt="">
                     </div>
                 </div>
-                <div class=" flex items-center">
+                <div x-data="{ show: false }" 
+                    x-intersect.once="show = true" 
+                    x-bind:class="show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-1/4'"  
+                    class=" flex items-center transition-all duration-1000 ease-out">
                     <div class=" space-y-3 text-left sm:pl-4 sm:pr-8">
                         <p class=" text-2xl font-black">Buat Usaha Anda Jadi Memiliki Website Profesional</p>
                         <p class=" text-[#4b5d70]">Tingkatkan citra usaha Anda dengan website profesional yang modern,
@@ -167,8 +185,10 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4 lg:gap-8">
                     @foreach ($data->take(4) as $item)
-                        <div
-                            class=" w-full bg-[#F8FAFC] shadow-md shadow-black/20 rounded-xl grid grid-cols-1 md:grid-cols-8 gap-4 md:gap-0">
+                        <div x-data="{ show: false }" 
+                            x-intersect.once="show = true" 
+                            x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1/4'" 
+                            class=" w-full bg-[#F8FAFC] shadow-md shadow-black/20 rounded-xl grid grid-cols-1 md:grid-cols-8 gap-4 md:gap-0 transition-all duration-1000 ease-out">
                             <div
                                 class=" md:col-span-3 flex items-center w-full aspect-square rounded-t-md md:rounded-xl md:rounded-r-none overflow-hidden">
                                 <img class=" w-full h-full object-cover"

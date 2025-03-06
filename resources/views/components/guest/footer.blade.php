@@ -21,19 +21,19 @@
             <div class=" grid grid-cols-1 sm:grid-cols-2 gap-4 pb-8">
                 <div class=" w-full space-y-4">
                     <div class=" flex gap-2 items-center text-white">
-                        <div class=" w-12 h-12">
+                        <div class=" w-8 sm:w-12 aspect-square">
                             <img src="{{ asset('assets/images/logo.png') }}" class=" w-full h-full object-contain"
                                 alt="">
                         </div>
-                        <p class=" text-4xl font-black">Byoo.link</p>
+                        <p class=" text-2xl sm:text-4xl font-black">Byoo.link</p>
                     </div>
-                    <p class=" text-neutral-200">Jadilah bagian dari era digital dan wujudkan visi bisnis Anda bersama
+                    <p class=" text-sm sm:text-base text-neutral-200">Jadilah bagian dari era digital dan wujudkan visi bisnis Anda bersama
                         kami. Hubungi kami sekarang untuk solusi terbaik!</p>
                 </div>
                 <div class=" w-full grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-2">
-                    <div class=" space-y-4">
-                        <p class=" text-xl font-semibold text-white">Kontak Kami</p>
-                        <div class=" space-y-2 text-neutral-200">
+                    <div class=" space-y-2 sm:space-y-4">
+                        <p class=" text-lg sm:text-xl font-semibold text-white">Kontak Kami</p>
+                        <div class=" space-y-2 text-sm sm:text-base text-neutral-200">
                             <div class=" flex flex-row gap-2 items-center">
                                 <div class=" w-4 h-4">
                                     <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -69,11 +69,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class=" space-y-4">
-                        <p class=" text-xl font-semibold text-white">Navigasi</p>
+                    <div class=" space-y-2 sm:space-y-4">
+                        <p class=" text-lg sm:text-xl font-semibold text-white">Navigasi</p>
                         <div class=" flex flex-row gap-2">
                             <div
-                                class=" w-12 h-12 flex items-center justify-center bg-[#d9eafd] rounded-full p-3 text-[#4b5d70]">
+                                class=" w-8 sm:w-12 aspect-square flex items-center justify-center bg-white rounded-full p-2 sm:p-3 text-[#4b5d70]">
                                 <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
                                     fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round"
                                     stroke-miterlimit="2">
@@ -83,7 +83,7 @@
                                 </svg>
                             </div>
                             <div
-                                class=" w-12 h-12 flex items-center justify-center bg-[#d9eafd] rounded-full p-3 text-[#4b5d70]">
+                                class=" w-8 sm:w-12 aspect-square flex items-center justify-center bg-white rounded-full p-2 sm:p-3 text-[#4b5d70]">
                                 <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0 0h24v24H0z" fill="none"></path>
                                     <path
@@ -92,7 +92,7 @@
                                 </svg>
                             </div>
                             <div
-                                class=" w-12 h-12 flex items-center justify-center bg-[#d9eafd] rounded-full p-3 text-[#4b5d70]">
+                                class=" w-8 sm:w-12 aspect-square flex items-center justify-center bg-white rounded-full p-2 sm:p-3 text-[#4b5d70]">
                                 <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
                                     <path fill="none" d="M0 0h256v256H0z"></path>
                                     <path

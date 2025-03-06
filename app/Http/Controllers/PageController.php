@@ -200,7 +200,7 @@ class PageController extends Controller
     public function storeproduct(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:'.Product::class,
             'subtitle' => 'required|string|max:255',
             'desc' => 'required|string',
             'no_tlp' => 'required|string|max:20',
@@ -271,7 +271,7 @@ class PageController extends Controller
 
                 $newhighlight->product_id = $newdata->id;
                 $newhighlight->title = $item['title'];
-                $newhighlight->description = $request['description'];
+                $newhighlight->description = $item['description'];
 
                 if ($request->hasFile('inputs.'.$index.'.image')) {
                     $image = $request->file('inputs.'.$index.'.image');

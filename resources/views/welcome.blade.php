@@ -4,7 +4,7 @@
         <div
             class=" w-full bg-[#4b5d70] h-[calc(100vh-44px)] text-white px-4 md:px-8 pt-0 pb-16 sm:pt-8 sm:pb-18 overflow-hidden relative">
             <div class=" absolute inset-0 overflow-hidden">
-                <img src="{{ asset('assets/images/bannerbg.png') }}" class=" w-full h-full object-cover" alt="">
+                <img src="{{ asset('assets/images/bannerbg.webp') }}" class=" w-full h-full object-cover" alt="">
                 <div class=" absolute w-full bottom-0 left-0 min-h-10 h-10">
                     <svg id="visual" viewBox="0 0 1200 40" class=" w-full h-full" preserveAspectRatio="none"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
@@ -46,7 +46,7 @@
                     </div>
                     <div class="flex items-center justify-center sm:justify-end order-1 sm:order-2">
                         <div class=" w-4/5 sm:w-11/12 aspect-square justify-end overflow-hidden">
-                            <img src="{{ asset('assets/images/banner.png') }}" class=" w-full object-contain"
+                            <img src="{{ asset('assets/images/banner.webp') }}" class=" w-full object-contain"
                                 alt="">
                         </div>
                     </div>

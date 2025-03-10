@@ -34,19 +34,16 @@ Route::get('/Bisnis', [PageController::class, 'product'])->name('allproduct');
 
 Route::get('/template', [PageController::class, 'template'])->name('alltemplate');
 
-Route::get('/create-product', [PageController::class, 'createproduct'])->name('create.product');
-
 Route::post('/store-product', [PageController::class, 'storeproduct'])->name('store.product');
 
 Route::post('/order', [PageController::class, 'order'])->name('order');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
-Route::get('/admin/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
+
+    Route::get('/create-product', [PageController::class, 'createproduct'])->name('create.product');
+
     Route::group(['middleware' => 'cekUser'], function () {
         Route::group(['middleware' => 'cekRole'], function () {
             Route::resource('/admin/user', UserController::class);
@@ -56,6 +53,10 @@ Route::middleware('auth')->group(function () {
         
             Route::resource('/admin/access', AccessController::class);
         });
+        
+        Route::get('/admin/dashboard', function () {
+            return view('dashboard');
+        })->middleware(['auth', 'verified'])->name('dashboard');
     
         Route::get('/admin/premium', [AdminController::class, 'premium'])->name('premium.index');
     

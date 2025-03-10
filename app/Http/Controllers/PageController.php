@@ -13,6 +13,7 @@ use App\Models\Template;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -321,7 +322,7 @@ class PageController extends Controller
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
 
-        $text = urlencode("Halo, saya sudah mendaftarkan usaha Saya dengan nama usaha".$newdata->name.". Saya tertarik dengan fitur-fitur yang ada dan ingin mengetahui lebih lanjut. Apakah bisa mendapatkan informasi lebih lengkap?");
+        $text = urlencode("Halo, saya sudah mendaftarkan usaha Saya dengan nama usaha ".$newdata->name." dan email saya ".Auth::user()->email.". Saya tertarik dengan fitur-fitur yang ada dan ingin mengetahui lebih lanjut. Apakah bisa mendapatkan informasi lebih lengkap?");
 
         return redirect()->away('https://wa.me/'.$no_tlp.'?text=' . $text);
     }

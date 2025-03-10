@@ -142,7 +142,7 @@
                         x-intersect.once="show = true" 
                         x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-1/4'" 
                         class=" w-full rounded-3xl aspect-[3/5] border-4 border-[#F8FAFC] overflow-hidden transition-all duration-1000 ease-out">
-                        <img src="{{ asset('assets/images/content/left.png') }}" class=" w-full object-cover"
+                        <img src="{{ asset('assets/images/content/left.webp') }}" class=" w-full object-cover"
                             alt="">
                     </div>
                     <div x-data="{ show: false }" 

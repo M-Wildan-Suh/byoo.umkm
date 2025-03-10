@@ -2,7 +2,7 @@
     <div class=" bg-[#F8FAFC] backdrop-blur fixed w-full top-0 left-0 p-4 text-right z-50">
         <div class=" flex justify-center items-center font-black text-2xl gap-2">
             <div class=" w-8 h-8">
-                <img src="{{asset('assets/images/logo.png')}}" alt="">
+                <img src="{{asset('assets/images/logo.webp')}}" alt="">
             </div>
             <a href="{{route('home')}}">Byoo.link</a>
         </div>

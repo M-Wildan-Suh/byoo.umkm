@@ -56,6 +56,7 @@
                                                 <button 
                                                     type="submit" 
                                                     name="filter" 
+                                                    aria-label="Filter"
                                                     value="{{ $item->id }}" 
                                                     class="block w-full text-left px-4 py-2 hover:bg-neutral-100"
                                                     :class="{ 'bg-neutral-100': '{{ request('filter') }}' == '{{ $item->id }}' }"

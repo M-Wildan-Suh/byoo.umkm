@@ -22,7 +22,7 @@
             <div>
                 <a href="/">
                     <div class=" w-20 h-20">
-                        <img src="{{asset('assets/images/logo.png')}}" alt="">
+                        <img src="{{asset('assets/images/logo.webp')}}" alt="">
                     </div>
                 </a>
             </div>

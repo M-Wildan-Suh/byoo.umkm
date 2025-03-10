@@ -22,7 +22,7 @@
                 <div class=" w-full space-y-4">
                     <div class=" flex gap-2 items-center text-white">
                         <div class=" w-8 sm:w-12 aspect-square">
-                            <img src="{{ asset('assets/images/logo.png') }}" class=" w-full h-full object-contain"
+                            <img src="{{ asset('assets/images/logo.webp') }}" class=" w-full h-full object-contain"
                                 alt="">
                         </div>
                         <p class=" text-2xl sm:text-4xl font-black">Byoo.link</p>

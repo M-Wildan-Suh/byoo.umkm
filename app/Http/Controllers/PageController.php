@@ -82,6 +82,11 @@ class PageController extends Controller
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
         $data = Product::where('slug', $slug)->first();
+        
+        if (!$data) {
+            return view('not-found');
+        }
+
         $template = Template::find($data->template_id);
 
         $role = Access::where('product_id', $data->id)->first();

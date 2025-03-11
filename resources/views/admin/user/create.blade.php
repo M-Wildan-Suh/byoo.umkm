@@ -13,21 +13,21 @@
                         @csrf
                         <div class="w-full space-y-6">
                             <!-- Name -->
-                            <div class="space-y-2">
+                            <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
                                 <label for="name">Nama User</label>
                                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" placeholder="Masukkan Username" :value="old('name')" required autofocus autocomplete="name" />
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
 
                             <!-- Email Address -->
-                            <div class="space-y-2">
+                            <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
                                 <label for="email">Email</label>
                                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" placeholder="Masukkan Email" :value="old('email')" required autocomplete="username" />
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
 
                             <!-- Password -->
-                            <div class="space-y-2">
+                            <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
                                 <label for="password">Password</label>
 
                                 <x-text-input id="password" class="block mt-1 w-full"
@@ -40,7 +40,7 @@
                             </div>
 
                             <!-- Confirm Password -->
-                            <div class="space-y-2">
+                            <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
                                 <label for="password_confirmation">Konfirmasi Password</label>
 
                                 <x-text-input id="password_confirmation" class="block mt-1 w-full"
@@ -56,9 +56,8 @@
                                     <label for="user_id">Role</label>
                                     <select 
                                         name="role" 
-                                        class="w-full border-gray-300 bg-transparent focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
-                                        id="user" 
-                                        x-bind:value="editData.role">
+                                        class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
+                                        id="user" >
                                         <option value="" selected disabled>Pilih Role</option>
                                         <option value="user">User</option>
                                         <option value="premium">Premium User</option>
@@ -70,9 +69,8 @@
                                     <label for="premium_type">Paket Premium</label>
                                     <select 
                                         name="premium_type" 
-                                        class="w-full border-gray-300 bg-transparent focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
+                                        class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
                                         id="premium_type"
-                                        x-bind:value="editData.premium_type"
                                         x-model="premiumType"
                                         @change="updateDate">
                                         <option value="" selected disabled>Pilih Paket Premium</option>
@@ -87,8 +85,7 @@
                                         type="date" 
                                         name="expired" 
                                         id="expired" 
-                                        class="w-full border-gray-300 bg-transparent focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm"
-                                        x-bind:value="editData.expired"
+                                        class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm"
                                         x-model="expiredDate"
                                         x-bind:disabled="premiumType === 'lifetime'">
                                     <span x-show="premiumType === 'lifetime'" class="text-sm italic text-gray-500">Unlimited</span>

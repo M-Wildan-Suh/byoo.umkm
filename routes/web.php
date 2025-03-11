@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccessController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\HighlightController;
 use App\Http\Controllers\NoHandphoneController;
 use App\Http\Controllers\PageController;
@@ -40,9 +41,12 @@ Route::post('/order', [PageController::class, 'order'])->name('order');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
-Route::middleware('auth')->group(function () {
+Route::get('/create-product', [PageController::class, 'createproduct'])->name('create.product');
 
-    Route::get('/create-product', [PageController::class, 'createproduct'])->name('create.product');
+Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
+
+Route::middleware('auth')->group(function () {
 
     Route::group(['middleware' => 'cekUser'], function () {
         Route::group(['middleware' => 'cekRole'], function () {

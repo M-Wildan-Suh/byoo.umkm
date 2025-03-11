@@ -38,7 +38,7 @@
                                 <tr :class="index % 2 === 0 ? 'bg-neutral-100' : 'bg-neutral-200'"
                                     class="h-10 text-neutral-600 divide-x-2 divide-white">
                                     <td class=" px-2 sm:px-4 py-2 text-center font-semibold" x-text="item.name"></td>
-                                    <td class=" px-2 sm:px-4 py-2 hidden sm:table-cell" x-text="item.product_name"></td>
+                                    <td class=" px-2 sm:px-4 py-2 " x-text="item.product_name"></td>
                                     <td class=" px-1 sm:px-2">
                                         <div class="flex gap-2 justify-center">
                                             <!-- Edit -->

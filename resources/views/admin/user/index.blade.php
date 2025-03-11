@@ -31,7 +31,7 @@
                                 <th class=" px-1 sm:px-2 py-1">Nama User</th>
                                 <th class=" px-1 sm:px-2 py-1 hidden sm:table-cell">Email</th>
                                 <th class=" px-1 sm:px-2 py-1">Role</th>
-                                <th class=" px-1 sm:px-2 py-1">Expired</th>
+                                <th class=" px-1 sm:px-2 py-1 hidden sm:table-cell">Expired</th>
                                 {{-- <th class=" px-1 sm:px-2 py-1">Role</th> --}}
                                 <th class=" px-1 sm:px-2 py-1">Opsi</th>
                             </tr>
@@ -48,7 +48,7 @@
 
                                     <td class="px-2 sm:px-4 py-2 text-nowrap" x-text="item.role"></td>
 
-                                    <td class="px-2 sm:px-4 py-2 text-nowrap" x-text="item.expired"></td>
+                                    <td class="px-2 sm:px-4 py-2 text-nowrap hidden sm:table-cell" x-text="item.expired"></td>
                             
                                     <!-- Kolom Role -->
                                     {{-- <td class="px-2 sm:px-4 py-2 text-nowrap">

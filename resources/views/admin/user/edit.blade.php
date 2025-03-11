@@ -27,7 +27,7 @@ x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
                         <label for="user_id">Role</label>
                         <select 
                             name="role" 
-                            class="w-full border-gray-300 bg-transparent focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
+                            class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
                             id="user" 
                             x-bind:value="editData.role">
                             <option value="user">User</option>
@@ -40,7 +40,7 @@ x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
                         <label for="premium_type">Premium Type</label>
                         <select 
                             name="premium_type" 
-                            class="w-full border-gray-300 bg-transparent focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
+                            class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
                             id="premium_type"
                             x-bind:value="editData.premium_type"
                             x-model="premiumType"
@@ -56,7 +56,8 @@ x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
                             type="date" 
                             name="expired" 
                             id="expired" 
-                            class="w-full border-gray-300 bg-transparent focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm"
+                            class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm"
+                            :class="{'opacity-50': premiumType === 'lifetime'}"
                             x-bind:value="editData.expired"
                             x-model="expiredDate"
                             x-bind:disabled="premiumType === 'lifetime'">

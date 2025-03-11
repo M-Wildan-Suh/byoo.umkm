@@ -12,17 +12,17 @@
                     <form action="{{route('access.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class=" w-full space-y-6">
-                            <div class=" space-y-2">
+                            <div class=" flex flex-col gap-2 text-sm sm:text-base font-medium">
                                 <label for="user">User</label>
-                                <select name="user" class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" id="user">
+                                <select name="user" class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" id="user">
                                     @foreach ($user as $item)
                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <div class=" space-y-2">
+                            <div class=" flex flex-col gap-2 text-sm sm:text-base font-medium">
                                 <label for="product">Usaha</label>
-                                <select name="product" class="w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" id="productr">
+                                <select name="product" class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" id="productr">
                                     @if (empty($product) || $product->isEmpty())
                                         <option value="" disabled selected>Data tidak tersedia</option>
                                     @endif
@@ -33,7 +33,7 @@
                             </div>
                             <div class="">
                                 @if (empty($product) || $product->isEmpty())
-                                    <button disabled class=" opacity-60 cursor-not-allowed font-bold w-full py-2 bg-[#ff7100] duration-300 text-white rounded-md text-center">Simpan</button>
+                                    <button disabled class=" opacity-60 cursor-not-allowed font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                                 @else
                                     <button class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
                                 @endif

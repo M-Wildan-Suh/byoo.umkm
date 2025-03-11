@@ -37,13 +37,13 @@ class CekUser
             $expiredDate = Carbon::parse($user->expired);
             if (Carbon::now()->greaterThan($expiredDate)) {
                 // Jika expired
-                return redirect()->route('home');
+                return redirect()->back();
             }
         } elseif ($user->role === 'premium') {
             return $next($request);
         }
 
         // Izinkan akses jika tidak ada masalah
-        return redirect()->route('home');
+        return redirect()->back();
     }
 }

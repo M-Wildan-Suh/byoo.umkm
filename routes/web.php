@@ -46,7 +46,12 @@ Route::get('/create-product', [PageController::class, 'createproduct'])->name('c
 Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 
+
 Route::middleware('auth')->group(function () {
+    
+    Route::get('/admin/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::group(['middleware' => 'cekUser'], function () {
         Route::group(['middleware' => 'cekRole'], function () {
@@ -58,9 +63,6 @@ Route::middleware('auth')->group(function () {
             Route::resource('/admin/access', AccessController::class);
         });
         
-        Route::get('/admin/dashboard', function () {
-            return view('dashboard');
-        })->middleware(['auth', 'verified'])->name('dashboard');
     
         Route::get('/admin/premium', [AdminController::class, 'premium'])->name('premium.index');
     

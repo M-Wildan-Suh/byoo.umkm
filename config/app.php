@@ -55,11 +55,6 @@ return [
     |
     */
 
-    'aliases' => [
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-    ],
-
-
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL'),
@@ -187,7 +182,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ])->toArray(),
 
 ];

@@ -16,6 +16,7 @@ use App\Http\Controllers\TemplateHighlightController;
 use App\Http\Controllers\UserController;
 use App\Models\Template;
 use App\Models\TemplateHighlight;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +29,17 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+Route::get('/clear-cache', function () {
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('config:cache');
+
+    return "Cache cleared successfully!";
+});
 
 Route::get('/', [PageController::class, 'home'])->name('home');
 
@@ -48,7 +60,7 @@ Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 
 
 Route::middleware('auth')->group(function () {
-    
+
     Route::get('/admin/dashboard', function () {
         return view('dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');

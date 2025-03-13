@@ -222,7 +222,6 @@ class ProductController extends Controller
 
         $product->save();
 
-        dd($request->category);
         if ($request->category) {
             $categoryIds = [];
             foreach ($request->category as $categoryName) {

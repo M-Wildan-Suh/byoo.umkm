@@ -24,4 +24,8 @@ class Product extends Model
     {
         return $this->hasMany(Access::class);
     }
+    public function category()
+    {
+        return $this->belongsToMany(Category::class, 'pivot_product_categories');
+    }
 }

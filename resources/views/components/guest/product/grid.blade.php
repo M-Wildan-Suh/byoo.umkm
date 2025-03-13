@@ -1,6 +1,6 @@
 <div class="w-full max-w-[600px] mx-auto px-4 md:px-0 relative">
     <div x-data="{ checkedItems: [] }" class=" w-full">
-        <form id="myForm" action="{{route('order')}}" method="post" enctype="multipart/form-data">
+        <form id="myForm" action="{{route('order', ['no_tlp' => $no_tlp])}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 @foreach ($data->productHighlight as $item)

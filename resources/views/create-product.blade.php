@@ -1,6 +1,6 @@
 <x-layout.guest>
     @include('components.guest.header')
-    <div class="py-20 px-4 sm:px-6 space-y-4 md:space-y-8">
+    <div class="pt-20 px-4 sm:px-6 space-y-4 md:space-y-8">
         <div x-data="{ activeTab: '{{ session('highlight', 'product') }}' }" class="w-full py-2">
             <div class=" w-full max-w-[1080px] mx-auto bg-[#F8FAFC] rounded-md">
                 <!-- Tabs -->

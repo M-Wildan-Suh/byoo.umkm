@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Access;
+use App\Models\Category;
 use App\Models\Highlight;
 use App\Models\NoHandphone;
 use App\Models\PivotProductTag;
@@ -33,34 +34,31 @@ class PageController extends Controller
         // dd($request->filter);
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
-        if ($request->filter === 'all' && $request->search) {
+        if ($request->search) {
             $data = Product::where('status', 'active')->where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
-        } elseif ($request->filter && $request->search) {
-            $pivot = PivotProductTag::where('tag_id', $request->filter)->inRandomOrder()->get();
-            $pivot->transform(function ($data) {
-                $data = $data->product;
-                return $data;
-            });
-            $data = $pivot->filter(function ($product) use ($request) {
-                return stripos($product->name, $request->search) !== false;
-            });
-        } elseif ($request->search) {
-            $data = Product::where('status', 'active')->where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
-        } elseif ($request->filter === 'all') {
-            $data = Product::where('status', 'active')->inRandomOrder()->get();
-        } elseif ($request->filter) {
-            $pivot = PivotProductTag::where('tag_id', $request->filter)->inRandomOrder()->get();
-            $pivot->transform(function ($data) {
-                $data = $data->product;
-                return $data;
-            });
-            $data = $pivot;
         } else {
             $data = Product::where('status', 'active')->inRandomOrder()->get();
         }
-        $tag = ProductTag::all();
+        $category = Category::all();
         $template = Template::inRandomOrder()->get();
-        return view('product', compact('data', 'no_tlp', 'template', 'tag'));
+        return view('product', compact('data', 'no_tlp', 'template', 'category'));
+    }
+
+    public function categorybusiness($category) {
+        $no_tlp = NoHandphone::first()->no_tlp;
+        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
+
+        $filter = $category;
+
+        $category = Category::where('category', $category)->first();
+
+        $data = Product::whereHas('category', function ($query) use ($category) {
+            $query->where('category_id', $category->id);
+        })->get();
+
+        $category = Category::all();
+        $template = Template::inRandomOrder()->get();
+        return view('product', compact('data', 'no_tlp', 'template', 'category', 'filter'));
     }
 
     public function template(Request $request) {
@@ -79,8 +77,6 @@ class PageController extends Controller
     }
 
     public function detail($slug) {
-        $no_tlp = NoHandphone::first()->no_tlp;
-        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
         $data = Product::where('slug', $slug)->first();
         
         if (!$data) {
@@ -91,9 +87,18 @@ class PageController extends Controller
 
         $role = Access::where('product_id', $data->id)->first();
 
+        // Role Validation
         if ($role) {
+            // No Telephone
+            if ($role->user->role === 'premium') {
+                $no_tlp = $data->no_tlp;
+            } else {
+                $no_tlp = NoHandphone::first()->no_tlp;
+            }
             $role = $role->user->role;
         } else {
+            $no_tlp = NoHandphone::first()->no_tlp;
+
             $role = 'admin';
         }
 
@@ -113,7 +118,9 @@ class PageController extends Controller
             return redirect()->route('home');
         }
 
-        // Parsing URL YouTube
+        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
+
+        // Url Youtube
         $url = $data->youtube;
         $parsedUrl = parse_url($url);
         $videoId = null;
@@ -140,61 +147,6 @@ class PageController extends Controller
 
         return view('detail', compact('data', 'no_tlp', 'role', 'template'));
 
-    }
-
-    public function templatedetail($slug) {
-        $no_tlp = NoHandphone::first()->no_tlp;
-        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
-        $data = Template::where('name', ucwords(str_replace('-', ' ', $slug)))->first();
-
-        $data->image = asset('storage/images/template/'. $data->image);
-
-        $role = 'admin';
-
-        $data->templateGallery = $data->templateGallery->map(function ($item) {
-            $item->image = asset('storage/images/template/gallery/'. $item->image);
-            return $item;
-        });
-        
-        $data->templateHighlight = $data->templateHighlight->map(function ($item) {
-            $item->image = asset('storage/images/template/highlight/'. $item->image);
-            return $item;
-        });
-
-
-        if (!$data) {
-            return redirect()->route('home');
-        }
-
-        // Parsing URL YouTube
-        $url = $data->youtube;
-        $parsedUrl = parse_url($url);
-        $videoId = null;
-
-        if (isset($parsedUrl['host'])) {
-            if ($parsedUrl['host'] === 'youtu.be') {
-                // Jika URL menggunakan youtu.be, ambil ID dari path
-                $videoId = ltrim($parsedUrl['path'], '/');
-            } elseif (strpos($parsedUrl['host'], 'youtube.com') !== false) {
-                // Jika URL menggunakan youtube.com, periksa path dan query
-                if (strpos($parsedUrl['path'], '/shorts/') === 0) {
-                    // Jika URL adalah Shorts, ambil ID dari path
-                    $videoId = ltrim(str_replace('/shorts/', '', $parsedUrl['path']), '/');
-                } elseif (isset($parsedUrl['query'])) {
-                    // Jika URL menggunakan query, ambil ID dari parameter 'v'
-                    parse_str($parsedUrl['query'], $query);
-                    $videoId = $query['v'] ?? null;
-                }
-            }
-        }
-
-        $data->productGallery = $data->templateGallery;
-        $data->productHighlight = $data->templateHighlight;
-
-        // Buat embed URL jika ID ditemukan
-        $data->embed = $videoId ? "https://www.youtube.com/embed/" . $videoId : $data->youtube;
-
-        return view('detail', compact('data', 'no_tlp', 'role'));
     }
 
     public function createproduct() {
@@ -332,12 +284,12 @@ class PageController extends Controller
         return redirect()->away('https://wa.me/'.$no_tlp.'?text=' . $text);
     }
 
-    public function order(Request $request) {
+    public function order(Request $request, $no_tlp) {
         $data = Highlight::whereIn('id', $request->order)->get();
 
         // dd($data);
-        $no_tlp = NoHandphone::first()->no_tlp;
-        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
+        // $no_tlp = NoHandphone::first()->no_tlp;
+        // $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
 
         $message = "Halo, saya ingin memesan produk/layanan Anda.";
 

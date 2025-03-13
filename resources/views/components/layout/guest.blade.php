@@ -29,7 +29,7 @@
         <link href="{{ asset('build/assets/app.css') }}" rel="stylesheet" />
     </head>
     <body class="antialiased">
-        <div class=" bg-[#D9EAFD] min-h-screen">
+        <div class=" min-h-screen">
             {{$slot}}
         </div>
     </body>

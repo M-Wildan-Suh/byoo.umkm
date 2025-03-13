@@ -44,12 +44,13 @@ Route::get('/clear-cache', function () {
 Route::get('/', [PageController::class, 'home'])->name('home');
 
 Route::get('/bisnis', [PageController::class, 'product'])->name('allproduct');
+Route::get('/bisnis/kategori/{category}', [PageController::class, 'categorybusiness'])->name('category.business');
 
 Route::get('/template', [PageController::class, 'template'])->name('alltemplate');
 
 Route::post('/store-product', [PageController::class, 'storeproduct'])->name('store.product');
 
-Route::post('/order', [PageController::class, 'order'])->name('order');
+Route::post('/order/{no_tlp}', [PageController::class, 'order'])->name('order');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 

@@ -155,7 +155,7 @@
                 </div>
                 <div x-data="{ show: false }" 
                     x-intersect.once="show = true" 
-                    x-bind:class="show ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-1/4'"  
+                    x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1/4'"  
                     class=" flex items-center transition-all duration-1000 ease-out">
                     <div class=" space-y-3 text-left sm:pl-4 sm:pr-8">
                         <p class=" text-2xl font-black">Buat Usaha Anda Jadi Memiliki Website Profesional</p>
@@ -178,7 +178,7 @@
             </div>
         </div>
         <div class="w-full max-w-[1080px] mx-auto">
-            <div class=" w-full space-y-8 pb-24">
+            <div class=" w-full space-y-8">
                 <div class=" w-full flex flex-col items-center justify-center gap-4 md:gap-6">
                     <p class=" text-3xl font-black capitalize text-center">Bisnis Terdaftar</p>
                     <div class=" rounded-xl bg-black h-1 w-20"></div>
@@ -206,9 +206,9 @@
                                 <div class=" pt-2 gap-2">
                                     <a href="{{ route('detail', ['slug' => $item->slug]) }}">
                                         <button
-                                            class="w-full flex items-center justify-center py-1 sm:py-2 border rounded-xl text-white bg-[#ff7100] border-[#ff7100] hover:text-white hover:bg-[#b95300] hover:border-[#b95300] font-black duration-300 relative text-sm gap-1 sm:gap-2">
+                                            class="w-full flex items-center justify-center py-1 sm:py-2 border rounded-xl text-white bg-[#ff7100] border-[#ff7100] hover:text-white hover:bg-[#b95300] hover:border-[#b95300] font-black duration-300 relative text-xs sm:text-sm gap-1 sm:gap-2">
                                             <div
-                                                class="w-4 h-4 aspect-square">
+                                                class=" w-[14px] h-[14px] aspect-square">
                                                 <svg viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><path d="M29.946 15.675C27.954 9.888 22.35 6 16 6S4.046 9.888 2.054 15.675c-.072.21-.072.44 0 .65C4.046 22.112 9.65 26 16 26s11.954-3.888 13.946-9.675c.072-.21.072-.44 0-.65zM16 22c-3.309 0-6-2.691-6-6s2.691-6 6-6 6 2.691 6 6-2.691 6-6 6z" fill="currentColor" class="fill-000000"></path></svg>
                                             </div>
                                             <p>Lihat Detail</p>
@@ -220,7 +220,7 @@
                     @endforeach
                 </div>
                 <div class=" w-full flex justify-center">
-                    <a href="{{ route('allproduct') }}" class=" text-sm">
+                    <a href="{{ route('allproduct') }}" class=" text-xs sm:text-sm">
                         <button
                             class="w-full flex justify-center py-2 px-4 border rounded-xl text-white bg-[#ff7100] border-[#ff7100] hover:text-white hover:bg-[#b95300] hover:border-[#b95300] font-black duration-300 relative">Lihat
                             Lainnya</button>

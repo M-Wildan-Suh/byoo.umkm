@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Access;
+use App\Models\Category;
 use App\Models\Highlight;
 use App\Models\NoHandphone;
 use App\Models\PivotProductTag;
@@ -43,9 +44,10 @@ class ProductController extends Controller
     public function create()
     {
         $tag = ProductTag::all();
+        $category = Category::all();
         $template = Template::all();
         $product = Product::all();
-        return view('admin.product.create', compact('tag', 'template', 'product'));
+        return view('admin.product.create', compact('tag', 'template', 'product', 'category'));
     }
 
     /**
@@ -82,6 +84,15 @@ class ProductController extends Controller
         }
 
         $newdata->save();
+
+        if ($request->category) {
+            $categoryIds = [];
+            foreach ($request->category as $categoryName) {
+                $category = Category::firstOrCreate(['category' => $categoryName]);
+                $categoryIds[] = $category->id;
+            }
+            $newdata->category()->attach($categoryIds);
+        }
 
         if ($request->tag) {
             foreach ($request->tag as $item) {
@@ -133,16 +144,18 @@ class ProductController extends Controller
         });
         
         // Mengambil semua ID dari productTags yang harus dikecualikan
-        $excludedIds = $product->productTags->pluck('productTag.id');
+        $tagexist = $product->productTags->pluck('productTag.id');
+        $categoryexist = $product->category->pluck('id');
         
-        // Memfilter tag berdasarkan ID yang tidak ada di excludedIds
-        $tag = ProductTag::whereNotIn('id', $excludedIds)->get();
+        // Memfilter tag berdasarkan ID yang tidak ada di tagexist
+        $tag = ProductTag::whereNotIn('id', $tagexist)->get();
+        $category = Category::whereNotIn('id', $categoryexist)->get();
         // dd($tag);
 
         $template = Template::all();
         $data = Product::whereNotIn('id', [$product->id])->get();
         
-        return view('admin.product.edit', compact('product', 'tag', 'template', 'data'));
+        return view('admin.product.edit', compact('product', 'tag', 'template', 'category', 'data'));
         
     }
 
@@ -208,6 +221,17 @@ class ProductController extends Controller
         }
 
         $product->save();
+
+        dd($request->category);
+        if ($request->category) {
+            $categoryIds = [];
+            foreach ($request->category as $categoryName) {
+                $category = Category::firstOrCreate(['category' => $categoryName]);
+                $categoryIds[] = $category->id;
+            }
+
+            $product->category()->sync($categoryIds);
+        }
 
         PivotProductTag::where('product_id', $product->id)->delete();
         

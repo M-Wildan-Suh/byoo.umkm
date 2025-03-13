@@ -65,8 +65,11 @@
                             <x-admin.component.linkinput title="Youtube (Optional)" placeholder="Masukkan link..." value="" name="link" link="Url" />
 
                             <x-admin.component.textareainput title="Tentang Usaha Anda" placeholder="Jelaskan Usaha Anda..." :value="''" name="description" />
-
-                            <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]"></x-admin.component.taginput>
+                            
+                            <div class=" w-full grid grid-cols-2 gap-4">
+                                <x-admin.component.categoryinput title="Category" :value="null" :tag="$category" name="category[]" />
+                                <x-admin.component.taginput title="Tag" :value="null" :tag="$tag" name="tag[]" />
+                            </div>
 
                             <x-admin.component.radioinput title="Tombol Home" :value="[['label'=>'On', 'value'=>'on'], ['label'=>'Off', 'value'=>'off']]" :defaultvalue="$tagposition ?? ''" name="home_button" />
 

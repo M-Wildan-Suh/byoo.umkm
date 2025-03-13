@@ -10,7 +10,7 @@
                     <div class="w-full flex items-center flex-wrap gap-2">
                         @foreach ($category as $item)
                             <a href="{{route('category.business', ['category' => Str::lower($item->category)])}}">
-                                <button class=" py-1 px-2 border-2 text-[#ff7100] border-[#ff7100] text-xs sm:text-sm rounded-full hover:bg-[#ff7100] hover:text-white duration-300">{{ $item->category }} - {{ $item->products->count() }}
+                                <button class=" py-1 px-2 border-2 {{ ($filter ?? '') === Str::lower($item->category) ? 'bg-[#ff7100] text-white' : 'text-[#ff7100]  hover:bg-[#ff7100] hover:text-white' }} border-[#ff7100] text-xs sm:text-sm rounded-full duration-300">{{ $item->category }} - {{ $item->products->count() }}
                                 </button>
                             </a>
                         @endforeach

@@ -1,5 +1,5 @@
 <div x-data="{ open: false }" class="">
-    <button @click="open = true" class=" text-sm hover:text-blue-500 duration-300 underline">
+    <button @click="open = true" class=" text-sm hover:underline duration-300">
         Syarat dan Ketentuan
     </button>
 

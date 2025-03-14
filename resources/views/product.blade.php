@@ -1,6 +1,6 @@
 <x-layout.guest>
     @include('components.guest.header')
-    <div class="pt-28 px-4 sm:px-6 space-y-8">  
+    <div class="pt-28 pb-8 px-4 sm:px-6 space-y-8 min-h-[calc(100vh-140px)]">  
         <div class="w-full max-w-xl mx-auto">
             <div class=" w-full space-y-8">
                 <div class=" w-full space-y-2 sm:space-y-6">
@@ -51,10 +51,13 @@
                             </div>
                         </div>
                     @endforeach
+                    @if ($data->isEmpty())
+                        <div class=" col-span-2 text-sm sm:text-base text-gray-500">Bisnis tidak ditemukan</div>
+                    @endif
                 </div>
             </div>
         </div>
-        @include('components.guest.footer')
     </div>
+    @include('components.guest.footer')
     @include('components.admin.mobile-navbar')
 </x-layout.guest>

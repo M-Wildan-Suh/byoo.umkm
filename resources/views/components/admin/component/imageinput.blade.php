@@ -22,6 +22,7 @@
     </div>
 </div>
 
+
 <script>
     function handleImagePreview(input, previewId) {
         const previewImage = document.getElementById(previewId);

@@ -1,8 +1,8 @@
 <x-layout.guest>
     @include('components.guest.header')
-    <div class="pt-20 px-4 sm:px-6 space-y-4 md:space-y-8">
+    <div class="pt-20 min-h-[calc(100vh-140px)] px-4 sm:px-6 space-y-4 md:space-y-8">
         <div x-data="{ activeTab: '{{ session('highlight', 'product') }}' }" class="w-full py-2">
-            <div class=" w-full max-w-[1080px] mx-auto bg-[#F8FAFC] rounded-md">
+            <div class=" w-full max-w-xl mx-auto bg-white rounded-xl overflow-hidden shadow-md shadow-black/20">
                 <!-- Tabs -->
                 <div class="w-full mx-auto pt-4 px-4 md:px-6 pb-0">
                     <div class=" grid grid-cols-3 gap-2 sm:gap-4 font-bold">
@@ -34,16 +34,16 @@
                         {{-- Bussiness --}}
                         <div x-show="activeTab === 'product'" class="">
                             <div class=" w-full mx-auto">
-                                <div class="bg-[#F8FAFC] overflow-hidden shadow-sm sm:rounded-lg">
+                                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                     <div class=" p-4 md:p-6 text-gray-900">
                                         <div class=" w-full space-y-6">
-                                            <div class=" grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            <div class=" grid grid-cols-1 gap-6">
                                                 <div class=" flex flex-col gap-2">
-                                                    <div class=" w-full h-full aspect-[3/2] sm:aspect-auto max-h-[268.8px] overflow-hidden relative rounded-md">
+                                                    <div class=" w-1/2 aspect-square overflow-hidden relative rounded-md mx-auto">
                                                         <x-admin.component.imageinput :value="null" name="thumbnail" />
                                                     </div>
                                                 </div>
-                                                <div class=" w-full md:col-span-2 space-y-6">
+                                                <div class=" w-full space-y-6">
                                                     <div x-data="productChecker()">
                                                         <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
                                                             <div class=" flex gap-2">
@@ -99,7 +99,7 @@
                         {{-- Product / Service --}}
                         <div x-show="activeTab === 'highlight'" class="">
                             <div class=" w-full mx-auto">
-                                <div class="bg-[#F8FAFC] overflow-hidden shadow-sm sm:rounded-lg">
+                                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                     <div class=" p-4 md:p-6 text-gray-900 space-y-6">
                                         <div x-data="formManager()" class=" space-y-2">
                                             <div class=" flex items-center gap-2">
@@ -108,11 +108,11 @@
                                                     <svg viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"><path d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1zm5 13h-3v3c0 1.1-.9 2-2 2s-2-.9-2-2v-3H7c-1.1 0-2-.9-2-2s.9-2 2-2h3V7c0-1.1.9-2 2-2s2 .9 2 2v3h3c1.1 0 2 .9 2 2s-.9 2-2 2z" fill="currentColor" class="fill-000000"></path></svg>
                                                 </button>
                                             </div>
-                                            <div class="w-full grid lg:grid-cols-2 gap-4">
+                                            <div class="w-full grid gap-4">
                                                 <!-- Template untuk input -->
                                                 <template x-for="(input, index) in inputs" :key="index">
-                                                    <div class="input-group w-full max-w-full rounded-xl flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4 bg-[#F8FAFC]">
-                                                        <div class=" w-24 min-w-24 sm:h-24 aspect-square rounded-md overflow-hidden">
+                                                    <div class="input-group w-full max-w-full rounded-xl flex flex-col justify-between items-center gap-2 bg-white">
+                                                        <div class=" w-24 min-w-24 aspect-square rounded-md overflow-hidden">
                                                             <div class="w-full h-full flex flex-col text-sm font-medium gap-2 justify-center items-center">
                                                                 <div class="w-full h-full relative flex justify-center overflow-hidden">
                                                                     <img :id="'highlightimage-preview-' + index" class="object-cover w-full"
@@ -137,12 +137,12 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class=" w-full sm:w-auto sm:h-24 flex flex-col flex-grow justify-between gap-2">
+                                                        <div class=" w-full flex flex-col flex-grow justify-between gap-2">
                                                             <div class=" flex items-center justify-between gap-2">
                                                                 <input type="text" 
                                                                     x-model="input.title" 
                                                                     :name="'inputs[' + index + '][title]'" 
-                                                                    class="min-w-0 p-0 resize-none w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm sm:text-base" 
+                                                                    class="min-w-0 p-0 resize-none w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm" 
                                                                     placeholder="Produk / Layanan" maxlength="27" required>
                                                                 <button class=" w-6 h-6 text-red-500 hover:scale-110 duration-300" type="button" @click="removeInput(index)">
                                                                     <svg viewBox="0 0 24 24" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"><path d="M18.9 8H5.1c-.6 0-1.1.5-1 1.1l1.6 13.1c.1 1 1 1.7 2 1.7h8.5c1 0 1.9-.7 2-1.7l1.6-13.1c.1-.6-.3-1.1-.9-1.1zM20 2h-5c0-1.1-.9-2-2-2h-2C9.9 0 9 .9 9 2H4c-1.1 0-2 .9-2 2v1c0 .6.4 1 1 1h18c.6 0 1-.4 1-1V4c0-1.1-.9-2-2-2z" fill="currentColor" class="fill-000000"></path></svg>
@@ -150,7 +150,7 @@
                                                             </div>
                                                             <textarea x-model="input.description" 
                                                                 :name="'inputs[' + index + '][description]'" 
-                                                                class="min-w-0 w-full p-0 resize-none border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm" 
+                                                                class="min-w-0 w-full p-0 resize-none border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs" 
                                                                 placeholder="Deskripsi" maxlength="64" cols="40" required></textarea>
                                                         </div>
                                                     </div>
@@ -196,14 +196,14 @@
                         {{-- Gallery --}}
                         <div x-show="activeTab === 'gallery'" class="">
                             <div class=" w-full mx-auto">
-                                <div class="bg-[#F8FAFC] overflow-hidden shadow-sm sm:rounded-lg">
+                                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                     <div class=" p-4 md:p-6 text-gray-900 space-y-4">
                                         <div x-data="imageGallery" class="flex flex-col gap-2">
                                             <label for="image_gallery" class=" text-sm sm:text-base font-semibold">Galeri ( Max 9 )</label>
                                             <input type="file" class="hidden" id="image_gallery" name="image_gallery[]" multiple @input="previewImages" accept="image/*">
                                             
                                             <!-- Pratinjau Gambar -->
-                                            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
+                                            <div class="grid grid-cols-2 sm:grid-cols-3 sm:gap-4">
                                                 <!-- Loop Gambar -->
                                                 <template x-for="(image, index) in images" :key="index">
                                                     <div class="w-full aspect-[3/2] rounded-md relative overflow-hidden shadow-md shadow-black/20">

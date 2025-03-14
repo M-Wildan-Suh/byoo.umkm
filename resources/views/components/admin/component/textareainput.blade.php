@@ -8,7 +8,7 @@
             {{ $xModel ? 'x-model='.$xModel : '' }} 
             x-bind:textContent="{{ $xModel ? '' : $value }}" 
         @endif 
-        class=" min-h-32 text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" cols="30" rows="4">{{$value}}</textarea>
+        class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] resize-none rounded-md shadow-sm overflow-hidden" cols="30" rows="2">{{$value}}</textarea>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {

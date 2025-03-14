@@ -21,6 +21,15 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function check() 
+    {
+        if (Auth::user()) {
+            return redirect()->route('profile.edit');
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
     /**
      * Update the user's profile information.
      */

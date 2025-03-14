@@ -163,11 +163,31 @@ class PageController extends Controller
             'desc' => 'required|string',
             'no_tlp' => 'required|string|max:20',
             'thumbnail' => 'required|image',
+
+            'inputs' => 'required|array|max:3',
+            'inputs.*.image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'inputs.*.title' => 'required|string|max:27',
+            'inputs.*.description' => 'required|string|max:64',
+        ], [
+            'inputs.max' => 'Maksimal hanya boleh 3 produk/layanan.',
+            'inputs.*.image.required' => 'Gambar produk/layanan wajib diunggah.',
+            'inputs.*.image.image' => 'File harus berupa gambar.',
+            'inputs.*.image.mimes' => 'Format gambar harus jpeg, png, jpg, gif, atau svg.',
+            'inputs.*.title.required' => 'Nama produk/layanan wajib diisi.',
+            'inputs.*.title.max' => 'Nama produk/layanan maksimal 27 karakter.',
+            'inputs.*.description.required' => 'Deskripsi produk/layanan wajib diisi.',
+            'inputs.*.description.max' => 'Deskripsi maksimal 64 karakter.',
         ]);
     
         // Jika validasi gagal, kirim alert dan kembali
         if ($validator->fails()) {
-            return redirect()->back()->with('alert', 'Terjadi kesalahan validasi: ' . implode(', ', $validator->errors()->all()));
+            if ($request->ajax()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+    
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $newdata= new Product();

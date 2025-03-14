@@ -164,7 +164,7 @@ class PageController extends Controller
             'no_tlp' => 'required|string|max:20',
             'thumbnail' => 'required|image',
 
-            'inputs' => 'required|array|max:3',
+            'inputs' => 'array|max:3',
             'inputs.*.image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
             'inputs.*.title' => 'required|string|max:27',
             'inputs.*.description' => 'required|string|max:64',

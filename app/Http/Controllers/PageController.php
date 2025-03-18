@@ -11,6 +11,7 @@ use App\Models\Product;
 use App\Models\ProductGallery;
 use App\Models\ProductTag;
 use App\Models\Template;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -90,12 +91,13 @@ class PageController extends Controller
         // Role Validation
         if ($role) {
             // No Telephone
-            if ($role->user->role === 'premium') {
+            if ($role->user->role === 'premium' && ($role->user->premium_type === 'lifetime' || Carbon::parse($role->user->expired)->isFuture())) {
                 $no_tlp = $data->no_tlp;
+                $role = $role->user->role;
             } else {
+                $role = 'user';
                 $no_tlp = NoHandphone::first()->no_tlp;
             }
-            $role = $role->user->role;
         } else {
             $no_tlp = NoHandphone::first()->no_tlp;
 
@@ -249,6 +251,7 @@ class PageController extends Controller
 
                 $newhighlight->product_id = $newdata->id;
                 $newhighlight->title = $item['title'];
+                $newhighlight->price = $item['price'];
                 $newhighlight->description = $item['description'];
 
                 if ($request->hasFile('inputs.'.$index.'.image')) {
@@ -305,16 +308,20 @@ class PageController extends Controller
     }
 
     public function order(Request $request, $no_tlp) {
-        $data = Highlight::whereIn('id', $request->order)->get();
+        // dd($request);
+        // $data = Highlight::whereIn('id', $request->order)->get();
 
-        // dd($data);
         // $no_tlp = NoHandphone::first()->no_tlp;
         // $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
 
         $message = "Halo, saya ingin memesan produk/layanan Anda.";
 
-        foreach ($data as $item) {
-            $message .= "\n- ". $item->title;
+        foreach ($request->order as $item) {
+            // dd($item['id']);
+            if (isset($item['id'])) {
+                $data = Highlight::find($item['id']);
+                $message .= "\n- ". $data->title ." : ". $data->price. " x " . $item['quantity'];
+            }
         }
 
         $message .= "\nUntuk produk/layanan diatas apakah masih tersedia?";

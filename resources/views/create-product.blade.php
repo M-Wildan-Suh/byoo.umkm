@@ -3,7 +3,7 @@
     <div class="pt-28 pb-8 min-h-[calc(100vh-140px)] px-4 sm:px-6 space-y-4 md:space-y-8">
         <div class=" w-full max-w-xl mx-auto space-y-2 sm:space-y-6">
             <div class=" w-full flex items-center gap-4 md:gap-6">
-                <p class=" text-[28px] font-black capitalize text-left">Masukkan Data Usaha</p>
+                <p class=" text-lg sm:text-[28px] font-black capitalize text-left">Masukkan Data Usaha</p>
             </div>
         </div>
         <div x-data="{ activeTab: '{{ session('highlight', 'product') }}' }" class="w-full">
@@ -42,63 +42,59 @@
                                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                                     <div class=" p-4 md:p-6 text-gray-900">
                                         <div class=" w-full space-y-6">
-                                            <div class=" grid grid-cols-1 gap-6">
-                                                <div class=" flex flex-col gap-2">
-                                                    <div
-                                                        class=" w-1/2 aspect-square overflow-hidden relative rounded-md mx-auto">
-                                                        <x-admin.component.imageinput :value="null"
-                                                            name="thumbnail" />
-                                                    </div>
-                                                </div>
-                                                <div class=" w-full space-y-6">
-                                                    <div x-data="productChecker()">
-                                                        <div
-                                                            class="flex flex-col gap-2 text-sm sm:text-base font-medium">
-                                                            <div class=" flex gap-2">
-                                                                <label for="name" class=" font-semibold">Nama Usaha
-                                                                    Kamu</label>
-                                                                <div x-show="isDuplicate" class="relative group pt-1">
-                                                                    <div
-                                                                        class=" w-2 h-2 bg-red-500 rounded-full text-sm cursor-pointer">
-                                                                    </div>
-                                                                    <span
-                                                                        class="absolute top-0 left-5 hidden group-hover:block w-max bg-gray-800 text-white text-xs rounded px-2 py-1">
-                                                                        Nama sudah digunakan
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <input
-                                                                class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm"
-                                                                type="text" placeholder="Masukkan Nama Usaha..."
-                                                                name="name" id="name" x-model="inputName"
-                                                                @input="checkProductName">
-                                                        </div>
-                                                        <script>
-                                                            function productChecker() {
-                                                                return {
-                                                                    // Data produk dari backend (menggunakan Blade untuk memasukkan data)
-                                                                    products: @json($product->pluck('name')).map(name => name
-                                                                        .toLowerCase()), // Konversi nama produk menjadi huruf kecil
-                                                                    inputName: '', // Nilai input
-                                                                    isDuplicate: false, // Status duplikasi
-
-                                                                    // Fungsi pengecekan
-                                                                    checkProductName() {
-                                                                        // Perbandingan tanpa memperhatikan kapitalisasi
-                                                                        this.isDuplicate = this.products.includes(this.inputName.trim().toLowerCase());
-                                                                    }
-                                                                };
-                                                            }
-                                                        </script>
-                                                    </div>
-                                                    <x-admin.component.textinput title="Tagline"
-                                                        placeholder="Masukkan Tagline..." :value="''"
-                                                        name="subtitle" />
-                                                    <x-admin.component.numberinput title="No. Whatsapp"
-                                                        placeholder="Masukkan Nomor..." :value="''"
-                                                        name="no_tlp" />
+                                            <div class=" flex flex-col gap-2">
+                                                <div
+                                                    class=" w-1/2 aspect-square overflow-hidden relative rounded-md mx-auto">
+                                                    <x-admin.component.imageinput :value="null"
+                                                        name="thumbnail" />
                                                 </div>
                                             </div>
+                                            <div x-data="productChecker()">
+                                                <div
+                                                    class="flex flex-col gap-2 text-sm sm:text-base font-medium">
+                                                    <div class=" flex gap-2">
+                                                        <label for="name" class=" font-semibold">Nama Usaha
+                                                            Kamu</label>
+                                                        <div x-show="isDuplicate" class="relative group pt-1">
+                                                            <div
+                                                                class=" w-2 h-2 bg-red-500 rounded-full text-sm cursor-pointer">
+                                                            </div>
+                                                            <span
+                                                                class="absolute top-0 left-5 hidden group-hover:block w-max bg-gray-800 text-white text-xs rounded px-2 py-1">
+                                                                Nama sudah digunakan
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <input
+                                                        class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm"
+                                                        type="text" placeholder="Masukkan Nama Usaha..."
+                                                        name="name" id="name" x-model="inputName"
+                                                        @input="checkProductName">
+                                                </div>
+                                                <script>
+                                                    function productChecker() {
+                                                        return {
+                                                            // Data produk dari backend (menggunakan Blade untuk memasukkan data)
+                                                            products: @json($product->pluck('name')).map(name => name
+                                                                .toLowerCase()), // Konversi nama produk menjadi huruf kecil
+                                                            inputName: '', // Nilai input
+                                                            isDuplicate: false, // Status duplikasi
+
+                                                            // Fungsi pengecekan
+                                                            checkProductName() {
+                                                                // Perbandingan tanpa memperhatikan kapitalisasi
+                                                                this.isDuplicate = this.products.includes(this.inputName.trim().toLowerCase());
+                                                            }
+                                                        };
+                                                    }
+                                                </script>
+                                            </div>
+                                            <x-admin.component.textinput title="Tagline"
+                                                placeholder="Masukkan Tagline..." :value="''"
+                                                name="subtitle" />
+                                            <x-admin.component.numberinput title="No. Whatsapp"
+                                                placeholder="Masukkan Nomor..." :value="''"
+                                                name="no_tlp" />
                                             <x-admin.component.textareainput title="Tentang Usaha Anda"
                                                 placeholder="Jelaskan Usaha Anda..." :value="''" name="desc" />
                                             <div class="">
@@ -179,7 +175,7 @@
                                                             <div class=" flex items-center justify-between gap-2">
                                                                 <input type="text" x-model="input.title"
                                                                     :name="'inputs[' + index + '][title]'"
-                                                                    class="min-w-0 p-0 resize-none w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm"
+                                                                    class="min-w-0 p-0 resize-none w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm sm:text-base"
                                                                     placeholder="Produk / Layanan" maxlength="27">
                                                                 <button
                                                                     class=" w-6 h-6 text-red-500 hover:scale-110 duration-300"
@@ -194,8 +190,12 @@
                                                                     </svg>
                                                                 </button>
                                                             </div>
+                                                            <input type="number" x-model="input.price"
+                                                                    :name="'inputs[' + index + '][price]'"
+                                                                    class="min-w-0 p-0 resize-none w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm"
+                                                                    placeholder="Harga (opsional)">
                                                             <textarea x-model="input.description" :name="'inputs[' + index + '][description]'"
-                                                                class="min-w-0 w-full p-0 resize-none border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs"
+                                                                class="min-w-0 w-full p-0 resize-none border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm"
                                                                 placeholder="Deskripsi" maxlength="64" cols="40"></textarea>
                                                         </div>
                                                     </div>

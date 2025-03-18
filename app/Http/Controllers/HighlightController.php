@@ -35,6 +35,7 @@ class HighlightController extends Controller
 
         $newdata->product_id = $request->product_id;
         $newdata->title = $request->title;
+        $newdata->price = $request->price;
         $newdata->description = $request->description;
 
         if ($request->hasFile('highlightimage')) {
@@ -89,6 +90,7 @@ class HighlightController extends Controller
         // dd($request);
 
         $highlight->title = $request->title;
+        $highlight->price = $request->price;
         $highlight->description = $request->description;
 
         if ($request->hasFile('highlightimage')) {

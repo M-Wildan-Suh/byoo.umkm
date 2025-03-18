@@ -1,4 +1,4 @@
-<div x-data="highlightManager({{ json_encode($product->productHighlight) }}, '{{ Auth::user()->role }}')" class="w-full grid lg:grid-cols-2 gap-4">
+<div x-data="highlightManager({{ json_encode($product->productHighlight) }}, '{{ Auth::user()->role }}')" class="w-full grid gap-4">
     <template x-for="item in highlights" :key="item.id">
         <div class="w-full rounded-xl flex justify-between gap-4" x-data="highlightEditForm(item)">
 
@@ -7,7 +7,7 @@
                 @csrf
                 @method('PUT')
 
-                <div class="rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 bg-white">
+                <div class="rounded-xl flex flex-col items-center justify-between gap-4 bg-white">
                     <!-- Upload Image -->
                     <div class=" w-24 min-w-24 h-24 aspect-square rounded-md border-2 overflow-hidden">
                         <div class="w-full h-full flex flex-col text-sm font-medium gap-2 justify-center items-center">
@@ -41,9 +41,12 @@
                             <input type="text" x-model="form.title"
                                 class=" text-sm sm:text-base min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0"
                                 placeholder="Nama Product" maxlength="27">
+                            <input type="number" x-model="form.price"
+                                class="min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm"
+                                placeholder="Harga (opsional)" required>
                             <textarea x-model="form.description"
-                                class="min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm" placeholder="Deskripsi"
-                                maxlength="64"></textarea>
+                                class="min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm"
+                                placeholder="Deskripsi" maxlength="64"></textarea>
                         </div>
                         <!-- Tombol Aksi -->
                         <div class="min-w-[50px] grid grid-cols-1 grid-rows-2 gap-1">
@@ -68,7 +71,7 @@
         <form x-data="highlightCreateForm()" @submit.prevent="submitForm">
             @csrf
 
-            <div class="w-full max-w-full rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 bg-white">
+            <div class="w-full max-w-full rounded-xl flex flex-col items-center justify-between gap-4 bg-white">
                 <!-- Image Upload -->
                 <div class=" w-24 min-w-24 h-24 aspect-square rounded-md overflow-hidden relative">
                     <img :src="previewImage || '{{ asset('assets/images/placeholder.webp') }}'"
@@ -90,20 +93,24 @@
                         </label>
                     </div>
                 </div>
-    
+
                 <div class=" w-full sm:h-2/4 flex gap-2">
                     <!-- Input Fields -->
                     <div class="flex flex-col flex-grow justify-between gap-2">
                         <input type="text" x-model="form.title"
                             class="min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-sm sm:text-base"
                             placeholder="Nama Product" maxlength="27" required>
+                        <input type="number" x-model="form.price"
+                            class="min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm"
+                            placeholder="Harga (opsional)" required>
                         <textarea x-model="form.description"
-                            class="min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm" placeholder="Deskripsi"
-                            maxlength="64" required></textarea>
+                            class="min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm"
+                            placeholder="Deskripsi" maxlength="64" required></textarea>
                     </div>
-        
+
                     <!-- Submit Button -->
-                    <button type="submit" class=" min-w-[50px] bg-[#ff7100] text-white rounded-md py-2 text-sm font-semibold"
+                    <button type="submit"
+                        class=" min-w-[50px] bg-[#ff7100] text-white rounded-md py-2 text-sm font-semibold"
                         :disabled="loading">
                         <span x-show="!loading">Save</span>
                         <span x-show="loading">...</span>
@@ -168,6 +175,7 @@
                 loading: false,
                 form: {
                     title: item.title,
+                    price: item.price,
                     description: item.description,
                     highlightimage: null
                 },
@@ -184,6 +192,7 @@
                     formData.append('_token', document.querySelector('input[name="_token"]').value);
                     formData.append('_method', 'PUT');
                     formData.append('title', this.form.title);
+                    formData.append('price', this.form.price);
                     formData.append('description', this.form.description);
                     if (this.form.highlightimage) {
                         formData.append('highlightimage', this.form.highlightimage);
@@ -206,6 +215,7 @@
                 form: {
                     product_id: "{{ $product->id }}",
                     title: '',
+                    price: '',
                     description: '',
                     highlightimage: null
                 },
@@ -228,6 +238,7 @@
                     formData.append('_token', document.querySelector('input[name="_token"]').value);
                     formData.append('product_id', this.form.product_id);
                     formData.append('title', this.form.title);
+                    formData.append('price', this.form.price);
                     formData.append('description', this.form.description);
                     if (this.form.highlightimage) {
                         formData.append('highlightimage', this.form.highlightimage);
@@ -253,6 +264,7 @@
 
                         // Reset form
                         this.form.title = '';
+                        this.form.price = '';
                         this.form.description = '';
                         this.form.highlightimage = null;
                         this.previewImage = '';

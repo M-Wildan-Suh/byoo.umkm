@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
             $table->string('image');
             $table->string('title');
+            $table->integer('price')->nullable();
             $table->string('description');
             $table->string('rating')->nullable();
             $table->timestamps();

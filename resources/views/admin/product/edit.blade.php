@@ -7,7 +7,7 @@
     <!-- Tab Contents -->
     <div class="mt-4">
         <div class="py-4 px-4">
-            <div class="max-w-[1080px] mx-auto">
+            <div class="max-w-xl mx-auto">
                 <div x-data="{ activeTab: '{{ session('highlight', 'product') }}' }" class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <!-- Tabs -->
                     <div class="w-full mx-auto pt-4 px-4 md:px-6 pb-0">
@@ -38,55 +38,51 @@
                             @csrf
                             @method('PUT')
                             <div class=" w-full space-y-6">
-                                <div class=" grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div class=" flex flex-col gap-2">
-                                        <div class=" w-full h-full aspect-[3/2] sm:aspect-auto max-h-[268.8px] overflow-hidden relative rounded-md">
-                                            <x-admin.component.imageinput :value="asset('storage/images/product/' . $product->image . '')" name="thumbnail" />
-                                        </div>
-                                    </div>
-                                    <div class=" w-full md:col-span-2 space-y-6">
-                                        <div x-data="productChecker({{ json_encode($product->name) }})">
-                                            <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
-                                                <div class=" flex gap-2">
-                                                    <label for="name" class=" font-semibold">Nama Usaha Kamu</label>
-                                                    <div x-show="isDuplicate" class="relative group pt-1">
-                                                        <div class=" w-2 h-2 bg-red-500 rounded-full text-sm cursor-pointer"></div>
-                                                        <span class="absolute top-0 left-5 hidden group-hover:block w-max bg-gray-800 text-white text-xs rounded px-2 py-1">
-                                                            Nama sudah digunakan
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <input 
-                                                    class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
-                                                    type="text" 
-                                                    placeholder="Masukkan Nama Usaha..."
-                                                    name="name" 
-                                                    id="name"
-                                                    x-model="inputName"
-                                                    @input="checkProductName"
-                                                >
-                                            </div>
-                                            <script>
-                                                function productChecker(input) {
-                                                    return {
-                                                        // Data produk dari backend (menggunakan Blade untuk memasukkan data)
-                                                        products: @json($data->pluck('name')).map(name => name.toLowerCase()), // Konversi nama produk menjadi huruf kecil
-                                                        inputName: input, // Nilai input
-                                                        isDuplicate: false, // Status duplikasi
-                                                        
-                                                        // Fungsi pengecekan
-                                                        checkProductName() {
-                                                            // Perbandingan tanpa memperhatikan kapitalisasi
-                                                            this.isDuplicate = this.products.includes(this.inputName.trim().toLowerCase());
-                                                        }
-                                                    };
-                                                }
-                                            </script>
-                                        </div>
-                                        <x-admin.component.textinput title="Tagline" placeholder="Masukkan Tagline..." :value="$product->subtitle" name="subtitle" />
-                                        <x-admin.component.numberinput title="No. Whatsapp" placeholder="Masukkan Nomor..." :value="$product->no_tlp" name="no_tlp" />
+                                <div class=" flex flex-col gap-2">
+                                    <div class=" w-1/2 aspect-square overflow-hidden relative rounded-md mx-auto">
+                                        <x-admin.component.imageinput :value="asset('storage/images/product/' . $product->image . '')" name="thumbnail" />
                                     </div>
                                 </div>
+                                <div x-data="productChecker({{ json_encode($product->name) }})">
+                                    <div class="flex flex-col gap-2 text-sm sm:text-base font-medium">
+                                        <div class=" flex gap-2">
+                                            <label for="name" class=" font-semibold">Nama Usaha Kamu</label>
+                                            <div x-show="isDuplicate" class="relative group pt-1">
+                                                <div class=" w-2 h-2 bg-red-500 rounded-full text-sm cursor-pointer"></div>
+                                                <span class="absolute top-0 left-5 hidden group-hover:block w-max bg-gray-800 text-white text-xs rounded px-2 py-1">
+                                                    Nama sudah digunakan
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <input 
+                                            class="text-sm sm:text-base w-full border-gray-300 focus:border-[#ff7100] focus:ring-[#ff7100] rounded-md shadow-sm" 
+                                            type="text" 
+                                            placeholder="Masukkan Nama Usaha..."
+                                            name="name" 
+                                            id="name"
+                                            x-model="inputName"
+                                            @input="checkProductName"
+                                        >
+                                    </div>
+                                    <script>
+                                        function productChecker(input) {
+                                            return {
+                                                // Data produk dari backend (menggunakan Blade untuk memasukkan data)
+                                                products: @json($data->pluck('name')).map(name => name.toLowerCase()), // Konversi nama produk menjadi huruf kecil
+                                                inputName: input, // Nilai input
+                                                isDuplicate: false, // Status duplikasi
+                                                
+                                                // Fungsi pengecekan
+                                                checkProductName() {
+                                                    // Perbandingan tanpa memperhatikan kapitalisasi
+                                                    this.isDuplicate = this.products.includes(this.inputName.trim().toLowerCase());
+                                                }
+                                            };
+                                        }
+                                    </script>
+                                </div>
+                                <x-admin.component.textinput title="Tagline" placeholder="Masukkan Tagline..." :value="$product->subtitle" name="subtitle" />
+                                <x-admin.component.numberinput title="No. Whatsapp" placeholder="Masukkan Nomor..." :value="$product->no_tlp" name="no_tlp" />
                                 <x-admin.component.linkinput title="Youtube (Optional)" placeholder="Masukkan link..." :value="$product->youtube" name="link" link="Url" />
 
                                 <x-admin.component.textareainput title="Tentang Usaha Anda" placeholder="Jelaskan Usaha Anda..." :value="$product->description" name="description" />
@@ -103,7 +99,7 @@
                                 @endif
                                 <div class=" space-y-2">
                                     <label for="template">Template</label>
-                                    <div class=" w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                    <div class=" w-full grid grid-cols-2 sm:grid-cols-3 gap-4">
                                         @foreach ($template as $item)
                                             <label class="w-full rounded-md bg-white aspect-[2/3] overflow-hidden relative">
                                                 <input type="radio" name="template_id" value="{{$item->id}}" class="hidden peer" {{ $product->template_id === $item->id ? 'checked' : '' }}>
@@ -146,7 +142,7 @@
                         <div x-data="galleryComponent({{ $product->productGallery }}, {{ $product->id }})" class="flex flex-col gap-2">
                             <label class="font-semibold" for="image_gallery">Galeri ( Max 9 )</label>
                             <input type="file" class="hidden" id="image_gallery" name="image_gallery[]" multiple accept="image/*" @change="addImages($event)">
-                            <div class="w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4">
+                            <div class="w-full grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
                                 <template x-for="(image, index) in images" :key="index">
                                     <div class="w-full aspect-[3/2] rounded-md relative overflow-hidden">
                                         <img :src="image.url" class="w-full h-full object-cover" alt="Gallery Image Preview">

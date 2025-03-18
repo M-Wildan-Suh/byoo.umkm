@@ -5,7 +5,7 @@
             <div class=" w-full space-y-8">
                 <div class=" w-full space-y-2 sm:space-y-6">
                     <div class=" w-full flex items-center gap-4 md:gap-6">
-                        <p class=" text-[28px] font-black capitalize text-left">Bisnis Terdaftar{{ ($filter ?? null) ? ' - '.$filter : ''}}</p>
+                        <p class=" text-lg sm:text-[28px] font-black capitalize text-left">Bisnis Terdaftar{{ ($filter ?? null) ? ' - '.$filter : ''}}</p>
                     </div>
                     <div class="w-full flex items-center flex-wrap gap-2">
                         @foreach ($category as $item)

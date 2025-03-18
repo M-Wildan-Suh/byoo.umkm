@@ -92,7 +92,11 @@ class PageController extends Controller
         if ($role) {
             // No Telephone
             if ($role->user->role === 'premium' && ($role->user->premium_type === 'lifetime' || Carbon::parse($role->user->expired)->isFuture())) {
-                $no_tlp = $data->no_tlp;
+                if ($data->no_tlp) {
+                    $no_tlp = $data->no_tlp;
+                } else {
+                    $no_tlp = NoHandphone::first()->no_tlp;
+                }
                 $role = $role->user->role;
             } else {
                 $role = 'user';

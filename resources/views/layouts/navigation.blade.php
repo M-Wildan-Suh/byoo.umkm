@@ -22,9 +22,9 @@
                             {{ __('User') }}
                         </x-nav-link>
                     @endif
-                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index', 'product.create', 'product.show')">
+                    {{-- <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index', 'product.create', 'product.show')">
                         {{ __('Usaha') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     @if (Auth::user()->role === 'admin')
                         <x-nav-link :href="route('template.index')" :active="request()->routeIs('template.index', 'template.create', 'template.show')">
                             {{ __('Template') }}
@@ -33,9 +33,9 @@
                             {{ __('Akses') }}
                         </x-nav-link>
                     @endif
-                    <x-nav-link :href="route('premium.index')" :active="request()->routeIs('premium.index')">
+                    {{-- <x-nav-link :href="route('premium.index')" :active="request()->routeIs('premium.index')">
                         {{ __('Premium') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                 </div>
             </div>
 
@@ -96,9 +96,9 @@
                     {{ __('User') }}
                 </x-responsive-nav-link>
             @endif
-            <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product.index', 'product.create', 'product.show')">
+            {{-- <x-responsive-nav-link :href="route('product.index')" :active="request()->routeIs('product.index', 'product.create', 'product.show')">
                 {{ __('Usaha') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
             @if (Auth::user()->role === 'admin')
                 <x-responsive-nav-link :href="route('template.index')" :active="request()->routeIs('template.index', 'template.create', 'template.show')">
                     {{ __('Template') }}
@@ -107,9 +107,9 @@
                     {{ __('Akses') }}
                 </x-responsive-nav-link>
             @endif
-            <x-responsive-nav-link :href="route('premium.index')" :active="request()->routeIs('premium.index')">
+            {{-- <x-responsive-nav-link :href="route('premium.index')" :active="request()->routeIs('premium.index')">
                 {{ __('Premium') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> --}}
         </div>
 
         <!-- Responsive Settings Options -->

@@ -6,12 +6,14 @@
     
                 @include('components.guest.gallery.'.$template->gallery_type)
     
+                @include('components.guest.youtube')
+
                 {{-- <x-guest.description color="#81BFDA" :data="$data" /> --}}
                 @include('components.guest.description')
     
                 @include('components.guest.product.'.$template->product_type)
-    
-                @include('components.guest.youtube')
+
+                @include('components.guest.tags')
     
                 @include('components.guest.contact')
             </div>

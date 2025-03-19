@@ -1,4 +1,8 @@
-<div class="w-full max-w-[600px] mx-auto px-4 md:px-0 relative">
+<div class="w-full max-w-[600px] mx-auto px-4 md:px-0 relative space-y-6">
+    <div style="background-color: {{ $template->desc_main_color }}"
+        class=" p-4 w-full text-white rounded-md overflow-hidden">
+        <p class=" w-full font-bold tracking-wide text-lg sm:text-xl">Produk Kami</p>
+    </div>
     <div x-data="{ checkedItems: [] }" class=" w-full">
         <form id="myForm" action="{{ route('order', ['no_tlp' => $no_tlp]) }}" method="post"
             enctype="multipart/form-data" target="_blank">
@@ -21,6 +25,7 @@
                             <div class="w-full flex items-end justify-center">
                                 @if ($role === 'admin' || $role === 'premium')
                                     <div class="rounded-md">
+                                        <input type="text" class="hidden" name="product_id" value="{{$data->id}}">
                                         <input type="checkbox" class="hidden" name="order[{{ $item->id }}][id]"
                                             value="{{ $item->id }}" id="order-{{ $item->id }}"
                                             @input="checkedItems.some(data => data.id === {{ $item->id }}) 
@@ -83,7 +88,7 @@
                                 <path d="M40.185 33.281c-.615-.308-3.642-1.797-4.206-2.003-.564-.205-.975-.308-1.385.308-.41.617-1.59 2.003-1.949 2.414-.359.41-.718.462-1.334.154-.615-.308-2.599-.958-4.95-3.055-1.83-1.632-3.065-3.648-3.424-4.264-.36-.617-.038-.95.27-1.257.277-.276.615-.719.923-1.078.308-.36.41-.616.616-1.027.205-.41.102-.77-.052-1.078-.153-.308-1.384-3.338-1.897-4.57-.5-1.2-1.008-1.038-1.385-1.057-.359-.018-.77-.022-1.18-.022s-1.077.154-1.642.77c-.564.616-2.154 2.106-2.154 5.135 0 3.03 2.206 5.957 2.513 6.368.308.41 4.341 6.628 10.516 9.294a35.341 35.341 0 0 0 3.509 1.297c1.474.469 2.816.402 3.877.244 1.183-.177 3.642-1.49 4.155-2.927.513-1.438.513-2.67.359-2.927-.154-.257-.564-.41-1.18-.719z" fill-rule="evenodd" clip-rule="evenodd" fill="currentColor"></path>
                             </svg>
                         </div>
-                        <p>{{ $data->order_title }}</p>
+                        <p>Order via WhatsApp</p>
                     </button>
                 </div>
             </div>

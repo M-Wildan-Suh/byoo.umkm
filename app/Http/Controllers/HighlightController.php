@@ -88,42 +88,46 @@ class HighlightController extends Controller
     public function update(Request $request, Highlight $highlight)
     {
         // dd($request);
-
-        $highlight->title = $request->title;
-        $highlight->price = $request->price;
-        $highlight->description = $request->description;
-
-        if ($request->hasFile('highlightimage')) {
-            if ($highlight->image) {
-                $path = public_path('storage/images/product/highlight/' . $highlight->image);
-
-                if (file_exists($path)) {
-                    unlink($path);
+        if ($highlight) {
+            $highlight->title = $request->title;
+            $highlight->price = $request->price;
+            $highlight->description = $request->description;
+    
+            if ($request->hasFile('highlightimage')) {
+                if ($highlight->image) {
+                    $path = public_path('storage/images/product/highlight/' . $highlight->image);
+    
+                    if (file_exists($path)) {
+                        unlink($path);
+                    }
                 }
+                $image = $request->file('highlightimage');
+                // Get the original filename without the extension
+                $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                
+                // Add the current date to the filename
+                $currentDate = now()->format('YmdHis');
+                
+                // Create a new image name
+                $imageName = $originalName . '_' . $currentDate;
+                
+                // Define the image storage path
+                $imagePath = public_path('storage/images/product/highlight/');
+                
+                $manager = new ImageManager(new Driver());
+                $imageOptimized = $manager->read($image->getPathname());
+                $imageFullPath = $imagePath . $imageName . '.webp';
+                $imageOptimized->save($imageFullPath);
+    
+                $highlight->image = $imageName . '.webp';
             }
-            $image = $request->file('highlightimage');
-            // Get the original filename without the extension
-            $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-            
-            // Add the current date to the filename
-            $currentDate = now()->format('YmdHis');
-            
-            // Create a new image name
-            $imageName = $originalName . '_' . $currentDate;
-            
-            // Define the image storage path
-            $imagePath = public_path('storage/images/product/highlight/');
-            
-            $manager = new ImageManager(new Driver());
-            $imageOptimized = $manager->read($image->getPathname());
-            $imageFullPath = $imagePath . $imageName . '.webp';
-            $imageOptimized->save($imageFullPath);
+            $highlight->save();
 
-            $highlight->image = $imageName . '.webp';
+        } else {
+            return response()->json([
+                'message' => 'Data tidak bisa di update.'.$highlight
+            ], 404);
         }
-        $highlight->save();
-
-        return redirect()->back()->with('highlight', 'highlight');
     }
 
     /**

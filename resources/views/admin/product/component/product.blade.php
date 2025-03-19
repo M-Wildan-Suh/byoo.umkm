@@ -40,13 +40,13 @@
                         <div class=" w-full sm:w-auto flex flex-col flex-grow justify-between gap-2">
                             <input type="text" x-model="form.title"
                                 class=" text-sm sm:text-base min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0"
-                                placeholder="Nama Product" maxlength="27">
+                                placeholder="Nama Product" maxlength="27" required>
                             <input type="number" x-model="form.price"
                                 class="min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm"
-                                placeholder="Harga (opsional)" required>
+                                placeholder="Harga (opsional)" >
                             <textarea x-model="form.description"
                                 class="min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm"
-                                placeholder="Deskripsi" maxlength="64"></textarea>
+                                placeholder="Deskripsi (opsional)" maxlength="64"></textarea>
                         </div>
                         <!-- Tombol Aksi -->
                         <div class="min-w-[50px] grid grid-cols-1 grid-rows-2 gap-1">

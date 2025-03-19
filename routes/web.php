@@ -4,6 +4,7 @@ use App\Http\Controllers\AccessController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\HighlightController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\NoHandphoneController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\TemplateGalleryController;
 use App\Http\Controllers\TemplateHighlightController;
 use App\Http\Controllers\UserController;
+use App\Models\Invoice;
 use App\Models\Template;
 use App\Models\TemplateHighlight;
 use Illuminate\Support\Facades\Artisan;
@@ -59,12 +61,12 @@ Route::get('/create-product', [PageController::class, 'createproduct'])->name('c
 Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 
+Route::get('/invoice/{code}', [InvoiceController::class, 'invoice'])->name('invoice.show');
+
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/admin/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/admin/dashboard', [ProductController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::group(['middleware' => 'cekUser'], function () {
         Route::group(['middleware' => 'cekRole'], function () {

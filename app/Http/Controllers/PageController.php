@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Access;
 use App\Models\Category;
 use App\Models\Highlight;
+use App\Models\Invoice;
 use App\Models\NoHandphone;
 use App\Models\PivotProductTag;
 use App\Models\Product;
@@ -312,22 +313,44 @@ class PageController extends Controller
     }
 
     public function order(Request $request, $no_tlp) {
-        // dd($request);
+        $invoice = new Invoice;
+
+        $invoice->business_id = $request->product_id;
+        $invoice->invoice_code = Str::random(10);
+        $invoice->invoice_text = '';
         // $data = Highlight::whereIn('id', $request->order)->get();
 
         // $no_tlp = NoHandphone::first()->no_tlp;
         // $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
 
-        $message = "Halo, saya ingin memesan produk/layanan Anda.";
+        $message = "Halo, saya ingin memesan produk/layanan Anda.\n";
+        $invoiceText = "===== INVOICE =====\n\n";
+        $total = 0;
 
         foreach ($request->order as $item) {
             // dd($item['id']);
             if (isset($item['id'])) {
                 $data = Highlight::find($item['id']);
-                $message .= "\n- ". $data->title ." : ". $data->price. " x " . $item['quantity'];
+                if ($data) {
+                    $subtotal = $data->price * $item['quantity'];
+                    $total += $subtotal;
+                    
+                    $message .= "\n- " . $data->title . ", Jumlah: " . $item['quantity'];
+                    
+                    $invoiceText .= "{$data->title}\n";
+                    $invoiceText .= "Jumlah: {$item['quantity']} x " . number_format($data->price, 0, ',', '.') . "\n";
+                    $invoiceText .= "Subtotal: " . number_format($subtotal, 0, ',', '.') . "\n";
+                    $invoiceText .= "----------------------\n";
+                }
             }
         }
+        $invoiceText .= "TOTAL: " . number_format($total, 0, ',', '.') . "\n";
+        $invoiceText .= "===================\n";
+        $invoice->invoice_text = $invoiceText;
+        $invoice->save();
 
+        $invoiceUrl = url("/invoice/{$invoice->invoice_code}");
+        $message .= "\n\nDetail Invoice: {$invoiceUrl}";
         $message .= "\nUntuk produk/layanan diatas apakah masih tersedia?";
         $whatsappUrl = "https://wa.me/{$no_tlp}?text=" . urlencode($message);
 

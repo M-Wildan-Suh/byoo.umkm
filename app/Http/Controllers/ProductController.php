@@ -19,6 +19,20 @@ use Intervention\Image\ImageManager;
 
 class ProductController extends Controller
 {
+    public function dashboard ()
+    {
+        if (Auth::user()->role === 'admin') {
+            $no_tlp = NoHandphone::first()->no_tlp;
+            $data = Product::all();
+            $tag = ProductTag::all();
+        } else {
+            $productIds = Access::where('user_id', Auth::id())->pluck('product_id');
+            $no_tlp = NoHandphone::first()->no_tlp;
+            $data = Product::whereIn('id', $productIds)->get();
+            $tag = ProductTag::all();
+        }
+        return view('dashboard', compact('data', 'no_tlp'));
+    }
     /**
      * Display a listing of the resource.
      */

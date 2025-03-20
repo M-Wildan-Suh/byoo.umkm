@@ -3,24 +3,7 @@
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             @foreach ($data->productGallery as $item)
-                <div x-data="{ loading: true }" x-intersect="$el.querySelector('img').src = '{{ $item->image }}'"
-                    class="swiper-slide w-full aspect-square rounded-md overflow-hidden relative bg-gray-200 flex items-center justify-center">
-                    <!-- Gambar -->
-                    <img class="w-full h-full object-cover object-center absolute inset-0 opacity-0 transition-opacity duration-500"
-                        alt="Raja Ampat" @load="loading = false; $el.classList.add('opacity-100')">
-
-                    <!-- Overlay -->
-                    <div class="w-full absolute inset-0 bg-black/20"></div>
-
-                    <!-- Loading Spinner -->
-                    <div x-show="loading" class="absolute inset-0 flex items-center justify-center">
-                        <svg class="animate-spin h-10 w-10 text-white opacity-50" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4 24c0 11.046 8.954 20 20 20s20-8.954 20-20S35.046 4 24 4" stroke="#ffffff"
-                                stroke-linecap="round" stroke-linejoin="round" stroke-width="4" class="stroke-000000">
-                            </path>
-                        </svg>
-                    </div>
-                </div>
+                <x-guest.lazyfancy-image class="swiper-slide w-full aspect-square rounded-md overflow-hidden relative bg-gray-200 flex items-center justify-center" :image="$item->image" />
             @endforeach
         </div>
         <div

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('youtube')->nullable();
             $table->string('template')->default('one');
+            $table->string('product_title')->default('Produk Kami');
             $table->string('order_title')->default('beli');
             $table->integer('price')->nullable();
             $table->string('address')->nullable();

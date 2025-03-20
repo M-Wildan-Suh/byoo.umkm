@@ -1,7 +1,20 @@
 <div x-data="highlightManager({{ json_encode($product->productHighlight) }}, '{{ Auth::user()->role }}')" class="w-full grid gap-4">
     <template x-for="item in highlights" :key="item.id">
-        <div class="w-full rounded-xl flex justify-between gap-4" x-data="highlightEditForm(item)">
-
+        <div class="w-full rounded-xl relative" x-data="highlightEditForm(item)">
+            <form @submit.prevent="availableForm">
+                @csrf
+                @method('PUT')
+                <div class=" absolute top-0 left-0 flex flex-row gap-2 items-center">
+                    <p>Tersedia</p>
+                    <button @click="availableForm; item.available=!item.available" :disabled="loading"
+                        :class="item.available ? 'justify-end border-[#ff7100]' : 'justify-start'"
+                        class=" w-10 flex rounded-full p-1 border duration-300">
+                        <div
+                            :class="item.available ? 'bg-[#ff7100]' : 'bg-gray-300'"
+                            class=" w-4 aspect-square rounded-full duration-300"></div>
+                    </button>
+                </div>
+            </form>
             <!-- Form Update -->
             <form @submit.prevent="submitForm" class="flex-grow" enctype="multipart/form-data">
                 @csrf
@@ -45,7 +58,7 @@
                                 class="min-w-0 p-0 w-full border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm"
                                 placeholder="Harga (opsional)" >
                             <textarea x-model="form.description"
-                                class="min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm"
+                                class="min-w-0 w-full p-0 border-t-0 border-l-0 border-r-0 ring-0 focus:ring-0 text-xs sm:text-sm resize-none"
                                 placeholder="Deskripsi (opsional)" maxlength="64"></textarea>
                         </div>
                         <!-- Tombol Aksi -->
@@ -200,6 +213,25 @@
                     try {
                         const response = await fetch(
                             `{{ route('highlight.update', '') }}/${item.id}`, {
+                                method: "POST",
+                                body: formData
+                            });
+                        if (!response.ok) throw new Error("Gagal memperbarui data");
+                    } catch (error) {
+                        console.log("Terjadi kesalahan: " + error.message);
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                async availableForm() {
+                    this.loading = true;
+                    const formData = new FormData();
+                    formData.append('_token', document.querySelector('input[name="_token"]').value);
+                    formData.append('_method', 'PUT');
+                    
+                    try {
+                        const response = await fetch(
+                            `{{ route('highlight.available', '') }}/${item.id}`, {
                                 method: "POST",
                                 body: formData
                             });

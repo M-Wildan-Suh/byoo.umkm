@@ -1,7 +1,7 @@
 <div class="w-full max-w-[600px] mx-auto px-4 md:px-0 relative space-y-6">
     <div style="background-color: {{ $template->desc_main_color }}"
         class=" p-4 w-full text-white rounded-md overflow-hidden">
-        <p class=" w-full font-bold tracking-wide text-lg sm:text-xl">Produk Kami</p>
+        <p class=" w-full font-bold tracking-wide text-lg sm:text-xl">{{$data->product_title}}</p>
     </div>
     <div x-data="{ checkedItems: [] }" class=" w-full">
         <form id="myForm" action="{{ route('order', ['no_tlp' => $no_tlp]) }}" method="post"
@@ -10,10 +10,11 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 @foreach ($data->productHighlight as $item)
                     <div style="background-color: {{ $template->product_main_color }}"
-                        class=" flex flex-col w-full text-white rounded-md overflow-hidden shadow-md shadow-black/20">
-                        <div class=" w-full aspect-square bg-white overflow-hidden">
-                            <img src="{{ $item->image }}" class="w-full h-full object-cover" alt="">
-                        </div>
+                        class=" flex flex-col w-full text-white rounded-md overflow-hidden shadow-md shadow-black/20 relative">
+                        <x-guest.lazyfancy-image class="w-full aspect-square bg-white overflow-hidden relative" :image="$item->image" />
+                        @if (!$item->available)
+                            <div style="background-color: {{ $template->product_second_color }}" class=" absolute top-2 font-bold right-0 py-1 px-2 text-sm rounded-l-md">Kosong</div>
+                        @endif
                         <div class=" flex-grow w-full p-3 flex flex-col justify-between gap-2 text-center">
                             <div class=" flex flex-col items-center">
                                 <p class="line-clamp-2 text-sm sm:text-base font-semibold">{{ $item->title }}</p>

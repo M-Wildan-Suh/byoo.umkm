@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Highlight;
 use Illuminate\Http\Request;
+use Intervention\Image\Colors\Rgb\Channels\Red;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 
@@ -80,6 +81,14 @@ class HighlightController extends Controller
     public function edit(Highlight $highlight)
     {
         //
+    }
+
+    public function available(Request $request, $id) {
+        $highlight = Highlight::find($id);
+
+        $highlight->available = !$highlight->available;
+
+        $highlight->save();
     }
 
     /**

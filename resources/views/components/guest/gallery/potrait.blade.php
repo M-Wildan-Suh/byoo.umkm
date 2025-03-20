@@ -3,10 +3,7 @@
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             @foreach ($data->productGallery as $item)
-                <div class="swiper-slide w-full aspect-[3/4] rounded-md overflow-hidden relative">
-                    <img src="{{ $item->image }}" class="w-full h-full object-cover object-center" alt="Raja Ampat">
-                    <div class=" w-full absolute inset-0 bg-black/20"></div>
-                </div>
+                <x-guest.lazyfancy-image class="swiper-slide w-full aspect-[3/4] rounded-md overflow-hidden relative bg-gray-200 flex items-center justify-center" :image="$item->image" />
             @endforeach
         </div>
         <div class="prev absolute top-1/2 -translate-y-1/2 flex items-center px-2 left-0 z-10 py-3 bg-black/50 rounded-r-md">

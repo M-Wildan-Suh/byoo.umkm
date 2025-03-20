@@ -15,6 +15,7 @@ use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\TemplateGalleryController;
 use App\Http\Controllers\TemplateHighlightController;
 use App\Http\Controllers\UserController;
+use App\Models\Highlight;
 use App\Models\Invoice;
 use App\Models\Template;
 use App\Models\TemplateHighlight;
@@ -63,7 +64,6 @@ Route::get('/auth/google/callback', [GoogleController::class, 'callback']);
 
 Route::get('/invoice/{code}', [InvoiceController::class, 'invoice'])->name('invoice.show');
 
-
 Route::middleware('auth')->group(function () {
 
     Route::get('/admin/dashboard', [ProductController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
@@ -85,10 +85,12 @@ Route::middleware('auth')->group(function () {
     
         Route::resource('/admin/product', ProductController::class);
         Route::put('/admin/product-order/{id}', [ProductController::class, 'productorder'])->name('product.order');
+        Route::put('/admin/product-title/{id}', [ProductController::class, 'producttitle'])->name('product.title');
     
         Route::resource('/admin/product-gallery', ProductGalleryController::class);
     
         Route::resource('/admin/highlight', HighlightController::class);
+        Route::put('/admin/highlight-available/{id}', [HighlightController::class, 'available'])->name('highlight.available');
     
         Route::resource('/admin/template-highlight', TemplateHighlightController::class);
     

@@ -38,6 +38,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        return redirect()->route('dashboard');
         // dd(Auth::user()->role);
         if (Auth::user()->role === 'admin') {
             $no_tlp = NoHandphone::first()->no_tlp;
@@ -187,6 +188,19 @@ class ProductController extends Controller
         $data = Product::find($id);
 
         $data->order_title = $request->order_title;
+
+        $data->save();
+
+        return redirect()->back()->with('highlight', 'highlight');
+    }
+    
+    
+    public function producttitle($id, Request $request)
+    {
+        // dd($request);
+        $data = Product::find($id);
+
+        $data->product_title = $request->product_title;
 
         $data->save();
 

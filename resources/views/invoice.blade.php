@@ -1,5 +1,5 @@
 <x-layout.guest>
-    <div class=" w-full max-w-[600px] mx-auto bg-white p-6 rounded-lg h-screen flex flex-col justify-center items-center">
+    <div class=" w-full max-w-[600px] mx-auto bg-white p-6 rounded-lg min-h-screen flex flex-col justify-center items-center">
         <h1 class="text-2xl font-bold text-center mb-4 uppercase">Rekap Orderan</h1>
 
         <hr class="my-2">

@@ -51,6 +51,7 @@ Route::get('/bisnis/kategori/{category}', [PageController::class, 'categorybusin
 
 Route::get('/template', [PageController::class, 'template'])->name('alltemplate');
 
+Route::get('/join', [PageController::class, 'join'])->name('join');
 Route::post('/store-product', [PageController::class, 'storeproduct'])->name('store.product');
 
 Route::post('/order/{no_tlp}', [PageController::class, 'order'])->name('order');

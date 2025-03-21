@@ -307,7 +307,16 @@ class PageController extends Controller
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
 
-        $text = urlencode("Halo, saya sudah mendaftarkan usaha Saya dengan nama usaha ".$newdata->name." dan email saya ". (Auth::user()->email ?? '').". Saya tertarik dengan fitur-fitur yang ada dan ingin mengetahui lebih lanjut. Apakah bisa mendapatkan informasi lebih lengkap?");
+        $text = urlencode("Halo, saya sudah mendaftarkan usaha Saya dengan nama usaha ".$newdata->name.". Saya tertarik dengan fitur-fitur yang ada dan ingin mengetahui lebih lanjut. Apakah bisa mendapatkan informasi lebih lengkap?");
+
+        return redirect()->away('https://wa.me/'.$no_tlp.'?text=' . $text);
+    }
+
+    public function join() {
+        $no_tlp = NoHandphone::first()->no_tlp;
+        $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
+
+        $text = urlencode("Halo, Saya tertarik dengan fitur-fitur yang ada di byoo.link dan ingin mengetahui lebih lanjut.\n Apakah saya bisa mendapatkan informasi lebih lengkap?");
 
         return redirect()->away('https://wa.me/'.$no_tlp.'?text=' . $text);
     }

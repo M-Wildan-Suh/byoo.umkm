@@ -25,7 +25,7 @@
         <link rel="icon" href="{{ asset('/assets/images/logo.webp') }}" type="image/x-icon">
 
         <!-- Styles -->
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
         <link href="{{ asset('build/assets/app.css') }}" rel="stylesheet" />
     </head>
     <body class="antialiased">

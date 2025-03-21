@@ -324,7 +324,7 @@ class PageController extends Controller
         // $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
 
         $message = "Halo, saya ingin memesan produk/layanan Anda.\n";
-        $invoiceText = "===== INVOICE =====\n\n";
+        $invoiceText = "\n";
         $total = 0;
 
         foreach ($request->order as $item) {
@@ -344,8 +344,8 @@ class PageController extends Controller
                 }
             }
         }
-        $invoiceText .= "TOTAL: " . number_format($total, 0, ',', '.') . "\n";
-        $invoiceText .= "===================\n";
+        $invoiceText .= "<b>TOTAL: " . number_format($total, 0, ',', '.') . "</b>\n";
+        $invoiceText .= "*Belum termasuk ongkir\n";
         $invoice->invoice_text = $invoiceText;
         $invoice->save();
 

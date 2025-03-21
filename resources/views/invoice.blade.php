@@ -1,12 +1,12 @@
 <x-layout.guest>
     <div class=" w-full max-w-[600px] mx-auto bg-white p-6 rounded-lg min-h-screen flex flex-col justify-center items-center">
-        <h1 class="text-2xl font-bold text-center mb-4 uppercase">Rekap Orderan</h1>
+        <h1 class=" text-xl sm:text-2xl font-bold text-center mb-4 uppercase">Rekap Orderan</h1>
 
         <hr class="my-2">
 
         <div class=" bg-gray-100 p-4 rounded w-full space-y-4">
             <pre class=" w-full text-center">===== Rekap orderan =====</pre>
-            <pre class=" w-full">{!! $invoice->invoice_text !!}</pre>
+            <pre class=" w-full text-sm sm:text-base">{!! $invoice->invoice_text !!}</pre>
             <pre class=" w-full text-center">===================</pre>
         </div>
 

@@ -37,7 +37,7 @@
                                             :value="checkedItems.find(item => item.id === {{ $item->id }})?.quantity || 1"
                                             x-model="checkedItems.find(item => item.id === {{ $item->id }})?.quantity"
                                             id="order-quantity-{{ $item->id }}">
-                                        <label for="order-{{ $item->id }}"
+                                        <label @if($item->available) for="order-{{ $item->id }}" @endif
                                             style="background-color: {{ $template->product_second_color }}"
                                             :class="checkedItems.some(data => data.id === {{ $item->id }}) ?
                                                 ' opacity-50' : ''"

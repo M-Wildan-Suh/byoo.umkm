@@ -37,6 +37,7 @@ class HighlightController extends Controller
         $newdata->product_id = $request->product_id;
         $newdata->title = $request->title;
         $newdata->price = $request->price;
+        $newdata->available = false;
         $newdata->description = $request->description;
 
         if ($request->hasFile('highlightimage')) {

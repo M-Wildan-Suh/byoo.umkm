@@ -25,8 +25,8 @@
         <link rel="icon" href="{{ asset('/assets/images/logo.webp') }}" type="image/x-icon">
 
         <!-- Styles -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        {{-- <link href="{{ asset('build/assets/app.css') }}" rel="stylesheet" /> --}}
+        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+        <link href="{{ asset('build/assets/app.css') }}" rel="stylesheet" />
     </head>
     <body class="antialiased">
         <div class=" min-h-screen">
@@ -35,7 +35,7 @@
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
-    {{-- <script src="{{ asset('build/assets/app.js') }}"></script> --}}
+    <script src="{{ asset('build/assets/app.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 

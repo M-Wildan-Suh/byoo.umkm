@@ -23,9 +23,14 @@
                             x-bind:class="show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1/4'" 
                             class=" w-full bg-[#F8FAFC] shadow-md shadow-black/20 rounded-xl grid grid-cols-1 gap-2 transition-all duration-1000 ease-out">
                             <div
-                                class=" flex items-center w-full aspect-square rounded-t-md overflow-hidden">
+                                class=" flex items-center w-full aspect-square rounded-t-md overflow-hidden relative">
                                 <img class=" w-full h-full object-cover"
                                     src="{{ asset('storage/images/product/' . $item->image) }}" alt="">
+                                <div class=" absolute bottom-4 left-4 z-20 flex flex-wrap gap-2">
+                                    @foreach ($item->category as $category)
+                                        <div class=" text-xs sm:text-sm backdrop-blur bg-black/50 cursor-default rounded-full border-2 border-[#ff7100] text-[#ff7100] px-2 py-1">Test</div>
+                                    @endforeach
+                                </div>
                             </div>
                             <div
                                 class=" flex flex-col justify-between gap-1 p-2 pt-0 text-sm">

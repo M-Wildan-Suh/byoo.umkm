@@ -37,7 +37,22 @@ class PageController extends Controller
         $no_tlp = NoHandphone::first()->no_tlp;
         $no_tlp = preg_replace('/^0/', '+62', $no_tlp);
         if ($request->search) {
-            $data = Product::where('status', 'active')->where('name', 'like', '%' . $request->search . '%')->inRandomOrder()->get();
+            $search = $request->search;
+            
+            $data = Product::where('status', 'active')
+                ->where(function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%')
+                        ->orWhereHas('productTags', function ($q) use ($search) {
+                            $q->whereHas('productTag', function ($q2) use ($search) {
+                                $q2->where('tag', 'like', '%' . $search . '%');
+                            });
+                        })
+                        ->orWhereHas('category', function ($q) use ($search) {
+                            $q->where('category', 'like', '%' . $search . '%');
+                        });
+                })
+                ->inRandomOrder()
+                ->get();
         } else {
             $data = Product::where('status', 'active')->inRandomOrder()->get();
         }

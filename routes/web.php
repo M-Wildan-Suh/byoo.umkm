@@ -56,7 +56,7 @@ Route::post('/store-product', [PageController::class, 'storeproduct'])->name('st
 
 Route::post('/order/{no_tlp}', [PageController::class, 'order'])->name('order');
 
-Route::get('/sitemap.xml', [SitemapController::class, 'index']);
+Route::get('/sitemap', [SitemapController::class, 'index']);
 
 Route::get('/create-product', [PageController::class, 'createproduct'])->name('create.product');
 
@@ -91,6 +91,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('/admin/product-gallery', ProductGalleryController::class);
     
         Route::resource('/admin/highlight', HighlightController::class);
+        Route::post('/admin/highlight/multiple', [HighlightController::class, 'multiple'])->name('highlight.multiple');
         Route::put('/admin/highlight-available/{id}', [HighlightController::class, 'available'])->name('highlight.available');
     
         Route::resource('/admin/template-highlight', TemplateHighlightController::class);

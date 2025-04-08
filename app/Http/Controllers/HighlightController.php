@@ -68,6 +68,43 @@ class HighlightController extends Controller
         // return redirect()->back()->with('highlight', 'highlight');
     }
 
+    public function multiple(Request $request)
+    {
+        $savedHighlights = [];
+        $imageFiles = $request->file('images');
+
+        foreach ($imageFiles as $index => $image) {
+            $highlight = new Highlight;
+
+            $highlight->product_id = $request->product_id;
+            $highlight->title = 'Produk ' . ($index + 1); // Set title wajib
+            $highlight->price = null;
+            $highlight->available = false;
+            $highlight->description = null;
+
+            // Proses dan simpan gambar
+            $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+            $currentDate = now()->format('YmdHis');
+            $imageName = $originalName . '_' . $currentDate;
+
+            $imagePath = public_path('storage/images/product/highlight/');
+            if (!file_exists($imagePath)) {
+                mkdir($imagePath, 0755, true);
+            }
+
+            $manager = new ImageManager(new Driver());
+            $imageOptimized = $manager->read($image->getPathname());
+            $imageFullPath = $imagePath . $imageName . '.webp';
+            $imageOptimized->save($imageFullPath);
+
+            $highlight->image = $imageName . '.webp';
+            $highlight->save();
+
+            $savedHighlights[] = $highlight;
+        }
+        
+        return response()->json($savedHighlights);
+    }
     /**
      * Display the specified resource.
      */
@@ -100,8 +137,8 @@ class HighlightController extends Controller
         // dd($request);
         if ($highlight) {
             $highlight->title = $request->title;
-            $highlight->price = $request->price;
-            $highlight->description = $request->description;
+            $highlight->price = $request->price === 'null' ? null : $request->price;
+            $highlight->description = $request->description === 'null' ? null : $request->description;
     
             if ($request->hasFile('highlightimage')) {
                 if ($highlight->image) {

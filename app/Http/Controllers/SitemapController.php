@@ -16,13 +16,14 @@ class SitemapController extends Controller
             ->add(Url::create('/product')->setLastModificationDate(now()));
 
         // Dynamically add more URLs if needed, such as from a database
-        foreach (Product::all() as $model) {
+        foreach (Product::where('status', 'active')->get() as $model) {
             $slug = Str::slug($model->name, '-');
             $sitemap->add(Url::create("/{$slug}")->setLastModificationDate($model->updated_at));
         }
 
         $sitemap->writeToFile(public_path('sitemap.xml'));
         // return response()->download(public_path('sitemap.xml'));
+        return redirect('/sitemap.xml');
     }
 }
 

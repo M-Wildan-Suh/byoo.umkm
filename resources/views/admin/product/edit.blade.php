@@ -138,12 +138,55 @@
                                 </div>
                             </div>
                         @endif
-                        <p class=" text-sm sm:text-base font-semibold">Produk / Layanan {{ in_array(Auth::user()->role, ['admin', 'premium']) || $product->productHighlight->count() < 3 ? 'Unlimited' : '( Max 3 )' }}
-                        </p>
-                        <div class=" space-y-2">
-                            @include('admin.product.component.product')
-                            <div class="">
-                                <button @click="document.getElementById('bussiness').submit()" class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
+                        <div x-data="highlightManager({{ json_encode($product->productHighlight) }}, '{{ Auth::user()->role }}')" class=" space-y-4">
+                            <div class=" flex items-center gap-2">
+                                <p class=" text-sm sm:text-base font-semibold">Produk / Layanan {{ in_array(Auth::user()->role, ['admin', 'premium']) || $product->productHighlight->count() < 3 ? 'Unlimited' : '( Max 3 )' }}
+                                </p>
+                                @if (Auth::user()->role === 'admin' || (Auth::user()->role === 'premium' && Auth::user()->premium_type === 'lifetime') || (Auth::user()->role === 'premium' && Carbon\Carbon::now()->lessThanOrEqualTo(Carbon\Carbon::parse(Auth::user()->expired))))
+                                    <button type="button" @click="multiple = true"
+                                        class=" w-4 h-4 text-[#ff7100] hover:scale-110 duration-300">
+                                        <svg viewBox="0 0 24 24" xml:space="preserve"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            enable-background="new 0 0 24 24">
+                                            <path
+                                                d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1zm5 13h-3v3c0 1.1-.9 2-2 2s-2-.9-2-2v-3H7c-1.1 0-2-.9-2-2s.9-2 2-2h3V7c0-1.1.9-2 2-2s2 .9 2 2v3h3c1.1 0 2 .9 2 2s-.9 2-2 2z"
+                                                fill="currentColor" class="fill-000000"></path>
+                                        </svg>
+                                    </button>
+                                    <div x-show="multiple" class=" fixed inset-0 flex items-center justify-center bg-black/20 z-50 px-4">
+                                        <div class="w-full max-w-[720px] bg-white pb-6 rounded-md flex flex-col gap-4 relative overflow-hidden border-2 border-[#ff7100]">
+                                            <button @click="multiple = false"
+                                                class=" absolute top-6 right-6 w-6 h-6 text-white hover:text-red-500 duration-300">
+                                                <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                                                    enable-background="new 0 0 512 512">
+                                                    <path
+                                                        d="M437.5 386.6 306.9 256l130.6-130.6c14.1-14.1 14.1-36.8 0-50.9-14.1-14.1-36.8-14.1-50.9 0L256 205.1 125.4 74.5c-14.1-14.1-36.8-14.1-50.9 0-14.1 14.1-14.1 36.8 0 50.9L205.1 256 74.5 386.6c-14.1 14.1-14.1 36.8 0 50.9 14.1 14.1 36.8 14.1 50.9 0L256 306.9l130.6 130.6c14.1 14.1 36.8 14.1 50.9 0 14-14.1 14-36.9 0-50.9z"
+                                                        fill="currentColor" class="fill-000000"></path>
+                                                </svg>
+                                            </button>
+                                            <div class=" pt-6 pb-3 bg-[#ff7100] text-white">
+                                                <h2 class=" px-6 text-2xl font-bold">Tambah Berulang Menggunakan Gambar</h2>
+                                            </div>
+                                            <form @submit.prevent="submitMultipleDummyForm" method="post" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class=" w-full space-y-4">
+                                                    <div class=" w-full px-6 py-4 flex items-center justify-center">
+                                                        <input class=" w-full" type="file" name="image[]" id="highlightimages-input" multiple accept="image/*" x-ref="highlightInput">
+                                                    </div>
+                                                    <div class="flex justify-end space-x-4 px-6">
+                                                        <x-admin.component.submitbutton title="Tambah" />
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class=" space-y-4">
+                                @include('admin.product.component.product')
+                                <div class="">
+                                    <button @click="document.getElementById('bussiness').submit()" class=" font-bold w-full py-2 bg-[#ff7100] hover:bg-[#b95300] duration-300 text-white rounded-md text-center">Simpan</button>
+                                </div>
                             </div>
                         </div>
                     </div>

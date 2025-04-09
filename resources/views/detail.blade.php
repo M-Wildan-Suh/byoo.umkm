@@ -1,4 +1,4 @@
-<x-layout.guest>
+<x-layout.guest :title="$data->name" :desc="$data->subtitle" :tags="$data->productTags">
     <div class=" mx-auto rounded-md bg-white min-h-screen relative">
         <div class=" space-y-6">
             <div class=" background min-h-screen pt-6 relative space-y-4 bg-gradient-to-b">

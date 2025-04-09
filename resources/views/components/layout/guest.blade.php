@@ -1,10 +1,15 @@
 <!DOCTYPE html>
+@props(['title' => null, 'desc' => null, 'tags' => null])
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Byoo.link</title>
+        <title>Byoo.link{{$title ? ' - '.$title : ''}}</title>
+
+        <meta name="description" content="{{ $desc ?? '' }}">
+        <meta name="keywords" content="{{ collect($tags)->pluck('productTag.tag')->implode(', ') }}">
+        <link rel="canonical" href="{{ url()->current() }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
